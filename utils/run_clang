@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+shopt -s nullglob
+
+git diff --name-only --diff-filter=AM HEAD | grep -e '^..*\.h' -e '^..*\.hpp' -e '^..*\.cc' -e '^..*\.cpp' | xargs -I {} utils/clang-format -i -style=file "{}"

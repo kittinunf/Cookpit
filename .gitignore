@@ -1,0 +1,6 @@
+#build
+build/
+
+#android build
+GypAndroid.mk
+lib*.mk
