@@ -16,10 +16,6 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     controller.subscribe(self)
-    
-    Alamofire.request(.GET, "https://httpbin.org/get").responseString { response in
-      print(response)
-    }
   }
 
 }

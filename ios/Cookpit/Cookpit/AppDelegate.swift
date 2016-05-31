@@ -15,10 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
+    
     let paths = NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true)
-    if let path = paths.first {
-      CPApi.setPath(path)
-    }
+    CPApi.setPath(paths.first!)
+    CPApi.setHttp(HttpClient())
+    
     return true
   }
 

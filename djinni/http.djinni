@@ -1,0 +1,8 @@
+http_observer = interface +c {
+    on_failure();
+    on_success(data: string);
+}
+
+http = interface +o +j {
+    get(url: string, observer: http_observer);
+}

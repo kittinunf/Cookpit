@@ -16,6 +16,7 @@
 		3C8915781CFD8A3A009BC69E /* libcookpit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915751CFD8A3A009BC69E /* libcookpit.a */; };
 		3C8915791CFD8A3A009BC69E /* libdjinni_objc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */; };
 		3C8915891CFD9D4D009BC69E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915881CFD9D4D009BC69E /* Alamofire.framework */; };
+		3C89159D1CFDC9B3009BC69E /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C89159C1CFDC9B3009BC69E /* HttpClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdjinni_objc.a; path = "../../vendors/djinni/support-lib/build/Debug-iphoneos/libdjinni_objc.a"; sourceTree = "<group>"; };
 		3C89157B1CFD8B5B009BC69E /* Cookpit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cookpit-Bridging-Header.h"; sourceTree = "<group>"; };
 		3C8915881CFD9D4D009BC69E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		3C89159C1CFDC9B3009BC69E /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				3C7F20121CFD83B900937E4F /* Assets.xcassets */,
 				3C7F20141CFD83B900937E4F /* LaunchScreen.storyboard */,
 				3C8915871CFD9853009BC69E /* Support */,
+				3C89159C1CFDC9B3009BC69E /* HttpClient.swift */,
 			);
 			path = Cookpit;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C89159D1CFDC9B3009BC69E /* HttpClient.swift in Sources */,
 				3C7F200E1CFD83B900937E4F /* ViewController.swift in Sources */,
 				3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */,
 			);
@@ -318,7 +322,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cookpit/Cookpit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				USER_HEADER_SEARCH_PATHS = "$PROJECT_DIR/../../vendors/djinni/support-lib/objc";
+				USER_HEADER_SEARCH_PATHS = "$PROJECT_DIR/../../vendors/djinni/support-lib/objc $PROJECT_DIR/../objc_gen";
 			};
 			name = Debug;
 		};
@@ -336,7 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.kittinunf.Cookpit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Cookpit/Cookpit-Bridging-Header.h";
-				USER_HEADER_SEARCH_PATHS = "$PROJECT_DIR/../../vendors/djinni/support-lib/objc";
+				USER_HEADER_SEARCH_PATHS = "$PROJECT_DIR/../../vendors/djinni/support-lib/objc $PROJECT_DIR/../objc_gen";
 			};
 			name = Release;
 		};
