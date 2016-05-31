@@ -18,6 +18,11 @@
 		3C8915891CFD9D4D009BC69E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915881CFD9D4D009BC69E /* Alamofire.framework */; };
 		3C89159D1CFDC9B3009BC69E /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C89159C1CFDC9B3009BC69E /* HttpClient.swift */; };
 		3C8915A51CFDD7DA009BC69E /* libjson11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915A41CFDD7DA009BC69E /* libjson11.a */; };
+		3C8915B91CFDEC76009BC69E /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8915B81CFDEC76009BC69E /* ExploreViewController.swift */; };
+		3C8915C21CFE1510009BC69E /* ExploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8915C11CFE1510009BC69E /* ExploreCollectionViewCell.swift */; };
+		3C8915C41CFE1B4C009BC69E /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915C31CFE1B4C009BC69E /* Kingfisher.framework */; };
+		3C8915C61CFE1B56009BC69E /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915C51CFE1B56009BC69E /* RxSwift.framework */; };
+		3C8915C81CFE1B5A009BC69E /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +40,11 @@
 		3C8915881CFD9D4D009BC69E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		3C89159C1CFDC9B3009BC69E /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		3C8915A41CFDD7DA009BC69E /* libjson11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjson11.a; path = "../../vendors/build/Debug-iphoneos/libjson11.a"; sourceTree = "<group>"; };
+		3C8915B81CFDEC76009BC69E /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		3C8915C11CFE1510009BC69E /* ExploreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreCollectionViewCell.swift; sourceTree = "<group>"; };
+		3C8915C31CFE1B4C009BC69E /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = ../Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		3C8915C51CFE1B56009BC69E /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = ../Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = ../Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +57,9 @@
 				3C8915781CFD8A3A009BC69E /* libcookpit.a in Frameworks */,
 				3C8915791CFD8A3A009BC69E /* libdjinni_objc.a in Frameworks */,
 				3C8915891CFD9D4D009BC69E /* Alamofire.framework in Frameworks */,
+				3C8915C41CFE1B4C009BC69E /* Kingfisher.framework in Frameworks */,
+				3C8915C61CFE1B56009BC69E /* RxSwift.framework in Frameworks */,
+				3C8915C81CFE1B5A009BC69E /* RxCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,14 +85,15 @@
 		3C7F200A1CFD83B900937E4F /* Cookpit */ = {
 			isa = PBXGroup;
 			children = (
-				3C89157A1CFD8A41009BC69E /* Libraries */,
 				3C7F200B1CFD83B900937E4F /* AppDelegate.swift */,
-				3C7F200D1CFD83B900937E4F /* ViewController.swift */,
-				3C7F200F1CFD83B900937E4F /* Main.storyboard */,
 				3C7F20121CFD83B900937E4F /* Assets.xcassets */,
+				3C8915BA1CFDEC7E009BC69E /* Explore */,
 				3C7F20141CFD83B900937E4F /* LaunchScreen.storyboard */,
+				3C89157A1CFD8A41009BC69E /* Libraries */,
+				3C7F200F1CFD83B900937E4F /* Main.storyboard */,
 				3C8915871CFD9853009BC69E /* Support */,
-				3C89159C1CFDC9B3009BC69E /* HttpClient.swift */,
+				3C8915A71CFDDF85009BC69E /* Utils */,
+				3C7F200D1CFD83B900937E4F /* ViewController.swift */,
 			);
 			path = Cookpit;
 			sourceTree = "<group>";
@@ -87,11 +101,14 @@
 		3C89157A1CFD8A41009BC69E /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				3C8915A41CFDD7DA009BC69E /* libjson11.a */,
 				3C8915881CFD9D4D009BC69E /* Alamofire.framework */,
+				3C8915C31CFE1B4C009BC69E /* Kingfisher.framework */,
 				3C8915741CFD8A3A009BC69E /* libcookpit_ios.a */,
 				3C8915751CFD8A3A009BC69E /* libcookpit.a */,
 				3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */,
+				3C8915A41CFDD7DA009BC69E /* libjson11.a */,
+				3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */,
+				3C8915C51CFE1B56009BC69E /* RxSwift.framework */,
 			);
 			name = Libraries;
 			path = ..;
@@ -104,6 +121,23 @@
 				3C89157B1CFD8B5B009BC69E /* Cookpit-Bridging-Header.h */,
 			);
 			name = Support;
+			sourceTree = "<group>";
+		};
+		3C8915A71CFDDF85009BC69E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3C89159C1CFDC9B3009BC69E /* HttpClient.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		3C8915BA1CFDEC7E009BC69E /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				3C8915C11CFE1510009BC69E /* ExploreCollectionViewCell.swift */,
+				3C8915B81CFDEC76009BC69E /* ExploreViewController.swift */,
+			);
+			name = Explore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +217,8 @@
 			inputPaths = (
 				"$(SRCROOT)/../Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/../Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/RxCocoa.framework",
 			);
 			name = "Carthage Copy Framework";
 			outputPaths = (
@@ -198,6 +234,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C8915C21CFE1510009BC69E /* ExploreCollectionViewCell.swift in Sources */,
+				3C8915B91CFDEC76009BC69E /* ExploreViewController.swift in Sources */,
 				3C89159D1CFDC9B3009BC69E /* HttpClient.swift in Sources */,
 				3C7F200E1CFD83B900937E4F /* ViewController.swift in Sources */,
 				3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */,

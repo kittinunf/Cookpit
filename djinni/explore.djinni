@@ -1,0 +1,22 @@
+explore_detail_view_data = record {
+  id: string;
+  image_url: string;
+  title: string;
+}
+
+explore_view_data = record {
+  explores: list<explore_detail_view_data>;
+}
+
+explore_controller_observer = interface +o +j {
+  on_update(view_data: explore_view_data);
+}
+
+explore_controller = interface +c {
+  static create(): explore_controller;
+
+  subscribe(observer: explore_controller_observer);
+  unsubscribe();
+
+  request(page: i8);
+}

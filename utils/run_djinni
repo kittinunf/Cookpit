@@ -25,6 +25,7 @@ do
     \
     --cpp-out $cpp_out \
     --cpp-namespace $namespace \
+    --ident-cpp-type foo_bar \
     --ident-cpp-enum-type foo_bar \
     --cpp-optional-header "<experimental/optional>" \
     --cpp-optional-template "std::experimental::optional"\

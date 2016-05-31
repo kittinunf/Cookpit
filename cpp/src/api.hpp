@@ -1,22 +1,24 @@
+#pragma once
+
 #include "gen/api.hpp"
 
 using namespace std;
 
 namespace cookpit
 {
-class api : public cookpit::Api {
+class api_impl : public api {
  public:
-  static api& instance();
+  static api_impl& instance();
 
   string path() const;
   void path(const string& path);
 
-  shared_ptr<Http> client() const;
-  void client(const shared_ptr<Http>& http_client);
+  shared_ptr<http> client() const;
+  void client(const shared_ptr<http>& http_client);
 
  private:
   string path_;
 
-  shared_ptr<Http> http_client_;
+  shared_ptr<http> http_client_;
 };
 }

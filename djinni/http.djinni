@@ -4,5 +4,5 @@ http_observer = interface +c {
 }
 
 http = interface +o +j {
-    get(url: string, observer: http_observer);
+    get(url: string, params: optional<map<string, string>>, observer: http_observer);
 }
