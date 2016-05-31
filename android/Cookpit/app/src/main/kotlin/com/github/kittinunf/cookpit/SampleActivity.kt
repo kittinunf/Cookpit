@@ -16,7 +16,9 @@ class SampleActivity : AppCompatActivity() {
         controller.subscribe(object : SampleControllerObserver() {
             override fun onUpdate(viewData: SampleViewData?) {
                 viewData?.let {
-                    tvTitle.text = viewData.title
+                    runOnUiThread {
+                        tvTitle.text = viewData.title
+                    }
                 }
             }
         })
