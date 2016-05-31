@@ -1,0 +1,890 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		1995237F32A4BAF2EE7A7E58 /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = AB1E225E577208EFDC0A59B1 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				CEE4062DF6FAD1AB2915EA2C /* PBXTargetDependency */,
+				1321E3B751316682FEBF1A05 /* PBXTargetDependency */,
+				A271BEB6004C6599CF5591BB /* PBXTargetDependency */,
+				A432DFE45A1727C3B48AA4DB /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		044F4566F51AB2FFA8CD4223 /* NativeSampleController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 955FADE888A587A607266D54 /* NativeSampleController.cpp */; };
+		122C359A1B89862683F14726 /* api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 728249D85A05FB00D70B497C /* api.cpp */; };
+		1EA1C9A493C3715B69A025EB /* CPSampleViewData+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = 44134DA2BF1BC1378316D1E3 /* CPSampleViewData+Private.mm */; };
+		27CA064006DC51DEE843932C /* CPApi+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AB01BCC4D6DB6C27C8517B7 /* CPApi+Private.mm */; };
+		34D898EFFAFB2689293BB548 /* CPSampleController+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80D52CF2CCF717E32C41A6C0 /* CPSampleController+Private.mm */; };
+		3F8FAC08AA0ABE7EB4AEFC71 /* libcookpit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86F098CE3F2E10E29311FD27 /* libcookpit.a */; };
+		631C5485F87FD05FCC4ABFC9 /* sample_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBAE0BB9437947550F7C74EE /* sample_controller.cpp */; };
+		8189EA58144ACF5876F1F8AC /* libdjinni_jni.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CDF07C005B3D708679F4FA /* libdjinni_jni.a */; };
+		8F7F92FE88CF1E1B955EE4D2 /* CPSampleControllerObserver+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3002716C318EF55FE3E69459 /* CPSampleControllerObserver+Private.mm */; };
+		998309AF612345F76AA7CA97 /* CPSampleViewData.mm in Sources */ = {isa = PBXBuildFile; fileRef = C19A096D5DD41419AF7DC845 /* CPSampleViewData.mm */; };
+		A634305B14E7F8CAD88F649D /* libcookpit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86F098CE3F2E10E29311FD27 /* libcookpit.a */; };
+		A6FA5FBB776A362DB61148B1 /* NativeSampleViewData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D62FD9F911207A4988513AD /* NativeSampleViewData.cpp */; };
+		AC625B5FE2112A24C414BE09 /* libgoogletest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3950ACC64BF09D530C4A21 /* libgoogletest.a */; };
+		D6C94E418CB10525E31B4CF6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C98E04165298B8DFA750D712 /* main.cpp */; };
+		E31B51C04041FFCF2B033AAA /* NativeApi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE1B8CD4839F04CABB5ED018 /* NativeApi.cpp */; };
+		F7AEB78D51242E5B47CE8A2F /* NativeSampleControllerObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05EB507E7A8BA19C01B20E03 /* NativeSampleControllerObserver.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		05DA109B6B1415C27AED4A7C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C65AEAEB4EDB6831CEA75C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 68875862DFAE4B165708FB68;
+			remoteInfo = libcookpit;
+		};
+		0D238AE37A400DF4EFEE2FE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C65AEAEB4EDB6831CEA75C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 68875862DFAE4B165708FB68;
+			remoteInfo = libcookpit;
+		};
+		1B7F1D75512B24F3EBC2ABB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1CDCA24E04265BB971DE35CB /* googletest.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A8C1120BEDDCE6959F80A1B5;
+			remoteInfo = googletest;
+		};
+		2745C2994E0BF953CD34DF98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 010822FBB412EA88C6367AE8 /* support_lib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AD97C5F2356EF26110758A40;
+			remoteInfo = djinni_jni;
+		};
+		4E1771E8DAAB6D9F8FFE277F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C65AEAEB4EDB6831CEA75C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B704331DA915FCB49AAA4765;
+			remoteInfo = test;
+		};
+		6D13694822AE356F3063B3C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C65AEAEB4EDB6831CEA75C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12CCD46B4B13FAE7C4FC988F;
+			remoteInfo = libcookpit_android;
+		};
+		746266258553A0FE977E5BDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C65AEAEB4EDB6831CEA75C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61D16D392B4D096B0FAF4199;
+			remoteInfo = libcookpit_ios;
+		};
+		834A63FC7C3077156C7AB54E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 010822FBB412EA88C6367AE8 /* support_lib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0C99AA4F95316AA552A79C55;
+			remoteInfo = djinni_objc;
+		};
+		97F9175AB30A1964713914F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 010822FBB412EA88C6367AE8 /* support_lib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DC658C749F521B13A5BDCBBC;
+			remoteInfo = djinni_jni;
+		};
+		9A89CE32735E2C6A8F2E25ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C65AEAEB4EDB6831CEA75C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 68875862DFAE4B165708FB68;
+			remoteInfo = libcookpit;
+		};
+		B35CDCC94ECE87582A959506 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1CDCA24E04265BB971DE35CB /* googletest.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB335ED021D2326995F4CC34;
+			remoteInfo = googletest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		010822FBB412EA88C6367AE8 /* support_lib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = support_lib.xcodeproj; path = "ios/vendors/djinni/support-lib/support_lib.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		03D22C858E7384E24F86044A /* CPSampleController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPSampleController+Private.h"; sourceTree = "<group>"; };
+		05EB507E7A8BA19C01B20E03 /* NativeSampleControllerObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NativeSampleControllerObserver.cpp; sourceTree = "<group>"; };
+		1206BCF647723ECF3FF5BB77 /* CPSampleControllerObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPSampleControllerObserver.h; sourceTree = "<group>"; };
+		1357FC156A1581ECE99A0618 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CDCA24E04265BB971DE35CB /* googletest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = googletest.xcodeproj; path = ios/vendors/googletest.xcodeproj; sourceTree = SOURCE_ROOT; };
+		1F61FB6C6C50B92E127A38D4 /* NativeApi.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = NativeApi.hpp; sourceTree = "<group>"; };
+		272934F4E850FBAF1C9A5C90 /* cookpit.gyp */ = {isa = PBXFileReference; explicitFileType = sourcecode; path = cookpit.gyp; sourceTree = "<group>"; };
+		2A80800CD769AE418575A9B9 /* NativeSampleController.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = NativeSampleController.hpp; sourceTree = "<group>"; };
+		2AB01BCC4D6DB6C27C8517B7 /* CPApi+Private.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "CPApi+Private.mm"; sourceTree = "<group>"; };
+		2CC4545A886A10E98ACA1315 /* sample_controller.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = sample_controller.hpp; sourceTree = "<group>"; };
+		3002716C318EF55FE3E69459 /* CPSampleControllerObserver+Private.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "CPSampleControllerObserver+Private.mm"; sourceTree = "<group>"; };
+		30AF0B64D9F67067FDD4FEBA /* CPSampleControllerObserver+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPSampleControllerObserver+Private.h"; sourceTree = "<group>"; };
+		32E5176690B53173D9F9DF8A /* CPApi+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPApi+Private.h"; sourceTree = "<group>"; };
+		3C241DF286AB257EE1FB03A2 /* CPApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPApi.h; sourceTree = "<group>"; };
+		412CA1F7ACCCF2CCA7989D7B /* sample_view_data.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = sample_view_data.hpp; sourceTree = "<group>"; };
+		44134DA2BF1BC1378316D1E3 /* CPSampleViewData+Private.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "CPSampleViewData+Private.mm"; sourceTree = "<group>"; };
+		51653B4C8EFCF9C45FD97AFA /* CPSampleViewData+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPSampleViewData+Private.h"; sourceTree = "<group>"; };
+		68ACD0E25BB1A166985E9024 /* common.gypi */ = {isa = PBXFileReference; explicitFileType = sourcecode; path = common.gypi; sourceTree = "<group>"; };
+		72248A8E34F51EE2D7886236 /* NativeSampleViewData.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = NativeSampleViewData.hpp; sourceTree = "<group>"; };
+		728249D85A05FB00D70B497C /* api.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = api.cpp; sourceTree = "<group>"; };
+		7D62FD9F911207A4988513AD /* NativeSampleViewData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NativeSampleViewData.cpp; sourceTree = "<group>"; };
+		80D52CF2CCF717E32C41A6C0 /* CPSampleController+Private.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "CPSampleController+Private.mm"; sourceTree = "<group>"; };
+		86F098CE3F2E10E29311FD27 /* libcookpit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcookpit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		955FADE888A587A607266D54 /* NativeSampleController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NativeSampleController.cpp; sourceTree = "<group>"; };
+		A95FD81BA527833B591F79AB /* api.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = api.hpp; sourceTree = "<group>"; };
+		AA745AFDC4F0217DA4A2C239 /* sample_controller_observer.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = sample_controller_observer.hpp; sourceTree = "<group>"; };
+		ABFD170F4E1CD6D7221DB828 /* libcookpit_android.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libcookpit_android.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD44837B2CB030089BEBFC51 /* CPSampleViewData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPSampleViewData.h; sourceTree = "<group>"; };
+		C19A096D5DD41419AF7DC845 /* CPSampleViewData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CPSampleViewData.mm; sourceTree = "<group>"; };
+		C7BFAF5422210D990B9C12AD /* CPSampleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPSampleController.h; sourceTree = "<group>"; };
+		C98E04165298B8DFA750D712 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		CCEEBDA0005C37959BB4C11C /* NativeSampleControllerObserver.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = NativeSampleControllerObserver.hpp; sourceTree = "<group>"; };
+		D9992A4CFD47F1858E000B9C /* sample_controller.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = sample_controller.hpp; sourceTree = "<group>"; };
+		DAEFE20181C7B03F3B92BF75 /* api.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = api.hpp; sourceTree = "<group>"; };
+		DBAE0BB9437947550F7C74EE /* sample_controller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sample_controller.cpp; sourceTree = "<group>"; };
+		EE1B8CD4839F04CABB5ED018 /* NativeApi.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NativeApi.cpp; sourceTree = "<group>"; };
+		FFC2F92CFF716C102AF49FF7 /* libcookpit_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcookpit_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		649038D0E086F9161ED8E55B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		674FA901FEE101E6C64277E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73DE71F6BEBC72174466C3AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A634305B14E7F8CAD88F649D /* libcookpit.a in Frameworks */,
+				8189EA58144ACF5876F1F8AC /* libdjinni_jni.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F54076BAA33C0DFFAFD61CEC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F8FAC08AA0ABE7EB4AEFC71 /* libcookpit.a in Frameworks */,
+				AC625B5FE2112A24C414BE09 /* libgoogletest.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		085CEB08072303211F2A9D5B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE3950ACC64BF09D530C4A21 /* libgoogletest.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		66172939A40D59F2A31B4465 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				E07BD9E050F49CE986F6140D /* android/jni_gen */,
+				6DFA505FF9723ED376CBF4EE /* cpp/src */,
+				901818D3173B25EA0B882D6A /* ios/objc_gen */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		6DFA505FF9723ED376CBF4EE /* cpp/src */ = {
+			isa = PBXGroup;
+			children = (
+				BF340014F8023E1620B18BCE /* gen */,
+				728249D85A05FB00D70B497C /* api.cpp */,
+				A95FD81BA527833B591F79AB /* api.hpp */,
+				DBAE0BB9437947550F7C74EE /* sample_controller.cpp */,
+				2CC4545A886A10E98ACA1315 /* sample_controller.hpp */,
+			);
+			path = cpp/src;
+			sourceTree = "<group>";
+		};
+		7A1FC8C8FBE5C89F13F7553B /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				1CDCA24E04265BB971DE35CB /* googletest.xcodeproj */,
+				010822FBB412EA88C6367AE8 /* support_lib.xcodeproj */,
+			);
+			name = Projects;
+			sourceTree = "<group>";
+		};
+		901818D3173B25EA0B882D6A /* ios/objc_gen */ = {
+			isa = PBXGroup;
+			children = (
+				32E5176690B53173D9F9DF8A /* CPApi+Private.h */,
+				2AB01BCC4D6DB6C27C8517B7 /* CPApi+Private.mm */,
+				3C241DF286AB257EE1FB03A2 /* CPApi.h */,
+				03D22C858E7384E24F86044A /* CPSampleController+Private.h */,
+				80D52CF2CCF717E32C41A6C0 /* CPSampleController+Private.mm */,
+				C7BFAF5422210D990B9C12AD /* CPSampleController.h */,
+				30AF0B64D9F67067FDD4FEBA /* CPSampleControllerObserver+Private.h */,
+				3002716C318EF55FE3E69459 /* CPSampleControllerObserver+Private.mm */,
+				1206BCF647723ECF3FF5BB77 /* CPSampleControllerObserver.h */,
+				51653B4C8EFCF9C45FD97AFA /* CPSampleViewData+Private.h */,
+				44134DA2BF1BC1378316D1E3 /* CPSampleViewData+Private.mm */,
+				BD44837B2CB030089BEBFC51 /* CPSampleViewData.h */,
+				C19A096D5DD41419AF7DC845 /* CPSampleViewData.mm */,
+			);
+			path = ios/objc_gen;
+			sourceTree = "<group>";
+		};
+		96FD7EDB43E2651D6DED98F2 = {
+			isa = PBXGroup;
+			children = (
+				66172939A40D59F2A31B4465 /* Source */,
+				7A1FC8C8FBE5C89F13F7553B /* Projects */,
+				AF90C6C04D51DD1516BADC7C /* Products */,
+				A1E1383981C54765144B2FBB /* Build */,
+			);
+			sourceTree = "<group>";
+		};
+		A1E1383981C54765144B2FBB /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				68ACD0E25BB1A166985E9024 /* common.gypi */,
+				272934F4E850FBAF1C9A5C90 /* cookpit.gyp */,
+			);
+			name = Build;
+			sourceTree = "<group>";
+		};
+		AF90C6C04D51DD1516BADC7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				86F098CE3F2E10E29311FD27 /* libcookpit.a */,
+				FFC2F92CFF716C102AF49FF7 /* libcookpit_ios.a */,
+				ABFD170F4E1CD6D7221DB828 /* libcookpit_android.dylib */,
+				1357FC156A1581ECE99A0618 /* test */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BF340014F8023E1620B18BCE /* gen */ = {
+			isa = PBXGroup;
+			children = (
+				DAEFE20181C7B03F3B92BF75 /* api.hpp */,
+				D9992A4CFD47F1858E000B9C /* sample_controller.hpp */,
+				AA745AFDC4F0217DA4A2C239 /* sample_controller_observer.hpp */,
+				412CA1F7ACCCF2CCA7989D7B /* sample_view_data.hpp */,
+			);
+			path = gen;
+			sourceTree = "<group>";
+		};
+		E07BD9E050F49CE986F6140D /* android/jni_gen */ = {
+			isa = PBXGroup;
+			children = (
+				EE1B8CD4839F04CABB5ED018 /* NativeApi.cpp */,
+				1F61FB6C6C50B92E127A38D4 /* NativeApi.hpp */,
+				955FADE888A587A607266D54 /* NativeSampleController.cpp */,
+				2A80800CD769AE418575A9B9 /* NativeSampleController.hpp */,
+				05EB507E7A8BA19C01B20E03 /* NativeSampleControllerObserver.cpp */,
+				CCEEBDA0005C37959BB4C11C /* NativeSampleControllerObserver.hpp */,
+				7D62FD9F911207A4988513AD /* NativeSampleViewData.cpp */,
+				72248A8E34F51EE2D7886236 /* NativeSampleViewData.hpp */,
+				C98E04165298B8DFA750D712 /* main.cpp */,
+			);
+			path = android/jni_gen;
+			sourceTree = "<group>";
+		};
+		E4B8953ADA4F498EA3881F59 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55CDF07C005B3D708679F4FA /* libdjinni_jni.a */,
+				4910E39A906CFF8F0FAD9C44 /* libdjinni_objc.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		12CCD46B4B13FAE7C4FC988F /* libcookpit_android */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAC55FE5500A97771EEF602D /* Build configuration list for PBXNativeTarget "libcookpit_android" */;
+			buildPhases = (
+				7B3FCBA78ED5486934B02B7A /* Sources */,
+				73DE71F6BEBC72174466C3AA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				72EB08868D0700421E1C5CA3 /* PBXTargetDependency */,
+				7E003B2E058945E82BA5BB07 /* PBXTargetDependency */,
+			);
+			name = libcookpit_android;
+			productName = cookpit_android;
+			productReference = ABFD170F4E1CD6D7221DB828 /* libcookpit_android.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		61D16D392B4D096B0FAF4199 /* libcookpit_ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CFDF49CA9D3E3E8C80AFE32 /* Build configuration list for PBXNativeTarget "libcookpit_ios" */;
+			buildPhases = (
+				64ACE15AEFD715805F01EF9C /* Sources */,
+				649038D0E086F9161ED8E55B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libcookpit_ios;
+			productName = cookpit_ios;
+			productReference = FFC2F92CFF716C102AF49FF7 /* libcookpit_ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		68875862DFAE4B165708FB68 /* libcookpit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 97E409A0684E754D206F673B /* Build configuration list for PBXNativeTarget "libcookpit" */;
+			buildPhases = (
+				69E6272EEA1604833D700D93 /* Sources */,
+				674FA901FEE101E6C64277E4 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libcookpit;
+			productName = cookpit;
+			productReference = 86F098CE3F2E10E29311FD27 /* libcookpit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B704331DA915FCB49AAA4765 /* test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A95B510FBE904F4BF0E5F962 /* Build configuration list for PBXNativeTarget "test" */;
+			buildPhases = (
+				AD8B88987477151F1DD00C1E /* Sources */,
+				F54076BAA33C0DFFAFD61CEC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A4AAA5B7F0F7113FF39CB5A7 /* PBXTargetDependency */,
+				7EE296C6B541FEF41D6F5A93 /* PBXTargetDependency */,
+			);
+			name = test;
+			productName = test;
+			productReference = 1357FC156A1581ECE99A0618 /* test */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9C65AEAEB4EDB6831CEA75C0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+			};
+			buildConfigurationList = FAF8BBB59B39926F2064B257 /* Build configuration list for PBXProject "cookpit" */;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 1;
+			mainGroup = 96FD7EDB43E2651D6DED98F2;
+			projectDirPath = ..;
+			projectReferences = (
+				{
+					ProductGroup = 085CEB08072303211F2A9D5B /* Products */;
+					ProjectRef = 1CDCA24E04265BB971DE35CB /* googletest.xcodeproj */;
+				},
+				{
+					ProductGroup = E4B8953ADA4F498EA3881F59 /* Products */;
+					ProjectRef = 010822FBB412EA88C6367AE8 /* support_lib.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1995237F32A4BAF2EE7A7E58 /* All */,
+				68875862DFAE4B165708FB68 /* libcookpit */,
+				61D16D392B4D096B0FAF4199 /* libcookpit_ios */,
+				12CCD46B4B13FAE7C4FC988F /* libcookpit_android */,
+				B704331DA915FCB49AAA4765 /* test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4910E39A906CFF8F0FAD9C44 /* libdjinni_objc.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libdjinni_objc.a;
+			remoteRef = 834A63FC7C3077156C7AB54E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55CDF07C005B3D708679F4FA /* libdjinni_jni.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libdjinni_jni.a;
+			remoteRef = 97F9175AB30A1964713914F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BE3950ACC64BF09D530C4A21 /* libgoogletest.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgoogletest.a;
+			remoteRef = B35CDCC94ECE87582A959506 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		64ACE15AEFD715805F01EF9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27CA064006DC51DEE843932C /* CPApi+Private.mm in Sources */,
+				34D898EFFAFB2689293BB548 /* CPSampleController+Private.mm in Sources */,
+				8F7F92FE88CF1E1B955EE4D2 /* CPSampleControllerObserver+Private.mm in Sources */,
+				1EA1C9A493C3715B69A025EB /* CPSampleViewData+Private.mm in Sources */,
+				998309AF612345F76AA7CA97 /* CPSampleViewData.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69E6272EEA1604833D700D93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				122C359A1B89862683F14726 /* api.cpp in Sources */,
+				631C5485F87FD05FCC4ABFC9 /* sample_controller.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B3FCBA78ED5486934B02B7A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6C94E418CB10525E31B4CF6 /* main.cpp in Sources */,
+				E31B51C04041FFCF2B033AAA /* NativeApi.cpp in Sources */,
+				044F4566F51AB2FFA8CD4223 /* NativeSampleController.cpp in Sources */,
+				F7AEB78D51242E5B47CE8A2F /* NativeSampleControllerObserver.cpp in Sources */,
+				A6FA5FBB776A362DB61148B1 /* NativeSampleViewData.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD8B88987477151F1DD00C1E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1321E3B751316682FEBF1A05 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61D16D392B4D096B0FAF4199 /* libcookpit_ios */;
+			targetProxy = 746266258553A0FE977E5BDB /* PBXContainerItemProxy */;
+		};
+		72EB08868D0700421E1C5CA3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 68875862DFAE4B165708FB68 /* libcookpit */;
+			targetProxy = 0D238AE37A400DF4EFEE2FE1 /* PBXContainerItemProxy */;
+		};
+		7E003B2E058945E82BA5BB07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = djinni_jni;
+			targetProxy = 2745C2994E0BF953CD34DF98 /* PBXContainerItemProxy */;
+		};
+		7EE296C6B541FEF41D6F5A93 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = googletest;
+			targetProxy = 1B7F1D75512B24F3EBC2ABB4 /* PBXContainerItemProxy */;
+		};
+		A271BEB6004C6599CF5591BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 12CCD46B4B13FAE7C4FC988F /* libcookpit_android */;
+			targetProxy = 6D13694822AE356F3063B3C5 /* PBXContainerItemProxy */;
+		};
+		A432DFE45A1727C3B48AA4DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B704331DA915FCB49AAA4765 /* test */;
+			targetProxy = 4E1771E8DAAB6D9F8FFE277F /* PBXContainerItemProxy */;
+		};
+		A4AAA5B7F0F7113FF39CB5A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 68875862DFAE4B165708FB68 /* libcookpit */;
+			targetProxy = 05DA109B6B1415C27AED4A7C /* PBXContainerItemProxy */;
+		};
+		CEE4062DF6FAD1AB2915EA2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 68875862DFAE4B165708FB68 /* libcookpit */;
+			targetProxy = 9A89CE32735E2C6A8F2E25ED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		00D2F0854F9C1595AF1B617E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				HEADER_SEARCH_PATHS = "vendors/djinni/support-lib/objc";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-gdwarf-2",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++14",
+					"-frtti",
+					"-fexceptions",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				PRODUCT_NAME = cookpit_ios;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Debug;
+		};
+		05DFD8522C1C24EB63A911A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = "";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				HEADER_SEARCH_PATHS = (
+					vendors/googletest/googletest/include,
+					vendors/googletest/googlemock/include,
+					vendors/flowcpp/include,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-gdwarf-2",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++14",
+					"-frtti",
+					"-fexceptions",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				PRODUCT_NAME = test;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Release;
+		};
+		0928EAC50DE6BDE3A1434023 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = "";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				HEADER_SEARCH_PATHS = (
+					vendors/googletest/googletest/include,
+					vendors/googletest/googlemock/include,
+					vendors/flowcpp/include,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-gdwarf-2",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++14",
+					"-frtti",
+					"-fexceptions",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				PRODUCT_NAME = test;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Debug;
+		};
+		0A0A1B69EF713D6C034EE277 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = All;
+			};
+			name = Debug;
+		};
+		0AB0D0D6B2741C073228E5BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				HEADER_SEARCH_PATHS = "vendors/djinni/support-lib/objc";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_CFLAGS = (
+					"-gdwarf-2",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++14",
+					"-frtti",
+					"-fexceptions",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				PRODUCT_NAME = cookpit_ios;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Release;
+		};
+		2A3F2825E6F45609F2933E5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INTERMEDIATE_DIR = "$(PROJECT_DERIVED_FILE_DIR)/$(CONFIGURATION)";
+				SHARED_INTERMEDIATE_DIR = "$(SYMROOT)/DerivedSources/$(CONFIGURATION)";
+			};
+			name = Debug;
+		};
+		33FE707A830C1233ABB0406D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INTERMEDIATE_DIR = "$(PROJECT_DERIVED_FILE_DIR)/$(CONFIGURATION)";
+				SHARED_INTERMEDIATE_DIR = "$(SYMROOT)/DerivedSources/$(CONFIGURATION)";
+			};
+			name = Release;
+		};
+		5B51EF05AE287470DD71C0CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				HEADER_SEARCH_PATHS = (
+					cpp/src/gen,
+					"vendors/djinni/support-lib/jni",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_CFLAGS = (
+					"-gdwarf-2",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++14",
+					"-frtti",
+					"-fexceptions",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				PRODUCT_NAME = cookpit_android;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Release;
+		};
+		7093CB7388DD89C7AA8F9CC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				HEADER_SEARCH_PATHS = vendors/flowcpp/include;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_CFLAGS = (
+					"-gdwarf-2",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++14",
+					"-frtti",
+					"-fexceptions",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				PRODUCT_NAME = cookpit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Release;
+		};
+		72CE69C2F398EAB263CE504F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = All;
+			};
+			name = Release;
+		};
+		9F1B41017B704DEE6340FB6F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				HEADER_SEARCH_PATHS = (
+					cpp/src/gen,
+					"vendors/djinni/support-lib/jni",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-gdwarf-2",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++14",
+					"-frtti",
+					"-fexceptions",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				PRODUCT_NAME = cookpit_android;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Debug;
+		};
+		D5E049B3D333C30E6D80E954 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				HEADER_SEARCH_PATHS = vendors/flowcpp/include;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-gdwarf-2",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++14",
+					"-frtti",
+					"-fexceptions",
+					"-Wall -Werror -Wextra -Wno-extern-c-compat -Wno-missing-field-initializers -Wno-shorten-64-to-32",
+				);
+				PRODUCT_NAME = cookpit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5CFDF49CA9D3E3E8C80AFE32 /* Build configuration list for PBXNativeTarget "libcookpit_ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00D2F0854F9C1595AF1B617E /* Debug */,
+				0AB0D0D6B2741C073228E5BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+		97E409A0684E754D206F673B /* Build configuration list for PBXNativeTarget "libcookpit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5E049B3D333C30E6D80E954 /* Debug */,
+				7093CB7388DD89C7AA8F9CC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+		A95B510FBE904F4BF0E5F962 /* Build configuration list for PBXNativeTarget "test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0928EAC50DE6BDE3A1434023 /* Debug */,
+				05DFD8522C1C24EB63A911A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+		AB1E225E577208EFDC0A59B1 /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A0A1B69EF713D6C034EE277 /* Debug */,
+				72CE69C2F398EAB263CE504F /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+		FAC55FE5500A97771EEF602D /* Build configuration list for PBXNativeTarget "libcookpit_android" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F1B41017B704DEE6340FB6F /* Debug */,
+				5B51EF05AE287470DD71C0CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+		FAF8BBB59B39926F2064B257 /* Build configuration list for PBXProject "cookpit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A3F2825E6F45609F2933E5E /* Debug */,
+				33FE707A830C1233ABB0406D /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9C65AEAEB4EDB6831CEA75C0 /* Project object */;
+}

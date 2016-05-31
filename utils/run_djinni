@@ -8,10 +8,10 @@ jni_out="$base_dir/build/generated-src/jni"
 objc_out="$base_dir/build/generated-src/objc"
 java_out="$base_dir/build/generated-src/java"
 
-java_package="com.taskworld.android"
+java_package="com.github.kittinunf.cookpit"
 
-namespace="tw"
-objc_prefix="TW"
+namespace="cookpit"
+objc_prefix="CP"
 djinni_path="djinni"
 
 for file in $(find $djinni_path -type f)
@@ -106,10 +106,8 @@ mirror() {
 
 echo "Copying generated code to final directories..."
 mirror "cpp" "$cpp_out" "cpp/src/gen"
-mirror "java" "$java_out" "android/java_gen/com/taskworld/android"
+mirror "java" "$java_out" "android/java_gen/com/github/kittinunf/cookpit"
 mirror "jni" "$jni_out" "android/jni_gen"
 mirror "objc" "$objc_out" "ios/objc_gen"
-mirror "objc" "$objc_out" "mac/objc_gen"
-mirror "objc" "$objc_out" "chatkit/objc_gen"
 
 echo "run_djinni completed"

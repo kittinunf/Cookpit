@@ -1,0 +1,3 @@
+api = interface +c {
+	static set_path(path: string);
+}

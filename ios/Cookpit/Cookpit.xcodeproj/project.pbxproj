@@ -1,0 +1,367 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7F200B1CFD83B900937E4F /* AppDelegate.swift */; };
+		3C7F200E1CFD83B900937E4F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7F200D1CFD83B900937E4F /* ViewController.swift */; };
+		3C7F20111CFD83B900937E4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C7F200F1CFD83B900937E4F /* Main.storyboard */; };
+		3C7F20131CFD83B900937E4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C7F20121CFD83B900937E4F /* Assets.xcassets */; };
+		3C7F20161CFD83B900937E4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C7F20141CFD83B900937E4F /* LaunchScreen.storyboard */; };
+		3C8915771CFD8A3A009BC69E /* libcookpit_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915741CFD8A3A009BC69E /* libcookpit_ios.a */; };
+		3C8915781CFD8A3A009BC69E /* libcookpit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915751CFD8A3A009BC69E /* libcookpit.a */; };
+		3C8915791CFD8A3A009BC69E /* libdjinni_objc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */; };
+		3C8915891CFD9D4D009BC69E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915881CFD9D4D009BC69E /* Alamofire.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3C7F20081CFD83B900937E4F /* Cookpit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookpit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C7F200B1CFD83B900937E4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3C7F200D1CFD83B900937E4F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3C7F20101CFD83B900937E4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3C7F20121CFD83B900937E4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3C7F20151CFD83B900937E4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3C7F20171CFD83B900937E4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C8915741CFD8A3A009BC69E /* libcookpit_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcookpit_ios.a; path = "../../build/Debug-iphoneos/libcookpit_ios.a"; sourceTree = "<group>"; };
+		3C8915751CFD8A3A009BC69E /* libcookpit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcookpit.a; path = "../../build/Debug-iphoneos/libcookpit.a"; sourceTree = "<group>"; };
+		3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdjinni_objc.a; path = "../../vendors/djinni/support-lib/build/Debug-iphoneos/libdjinni_objc.a"; sourceTree = "<group>"; };
+		3C89157B1CFD8B5B009BC69E /* Cookpit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cookpit-Bridging-Header.h"; sourceTree = "<group>"; };
+		3C8915881CFD9D4D009BC69E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3C7F20051CFD83B900937E4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C8915771CFD8A3A009BC69E /* libcookpit_ios.a in Frameworks */,
+				3C8915781CFD8A3A009BC69E /* libcookpit.a in Frameworks */,
+				3C8915791CFD8A3A009BC69E /* libdjinni_objc.a in Frameworks */,
+				3C8915891CFD9D4D009BC69E /* Alamofire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3C7F1FFF1CFD83B900937E4F = {
+			isa = PBXGroup;
+			children = (
+				3C7F200A1CFD83B900937E4F /* Cookpit */,
+				3C7F20091CFD83B900937E4F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3C7F20091CFD83B900937E4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3C7F20081CFD83B900937E4F /* Cookpit.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3C7F200A1CFD83B900937E4F /* Cookpit */ = {
+			isa = PBXGroup;
+			children = (
+				3C89157A1CFD8A41009BC69E /* Libraries */,
+				3C7F200B1CFD83B900937E4F /* AppDelegate.swift */,
+				3C7F200D1CFD83B900937E4F /* ViewController.swift */,
+				3C7F200F1CFD83B900937E4F /* Main.storyboard */,
+				3C7F20121CFD83B900937E4F /* Assets.xcassets */,
+				3C7F20141CFD83B900937E4F /* LaunchScreen.storyboard */,
+				3C8915871CFD9853009BC69E /* Support */,
+			);
+			path = Cookpit;
+			sourceTree = "<group>";
+		};
+		3C89157A1CFD8A41009BC69E /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				3C8915881CFD9D4D009BC69E /* Alamofire.framework */,
+				3C8915741CFD8A3A009BC69E /* libcookpit_ios.a */,
+				3C8915751CFD8A3A009BC69E /* libcookpit.a */,
+				3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */,
+			);
+			name = Libraries;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		3C8915871CFD9853009BC69E /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				3C7F20171CFD83B900937E4F /* Info.plist */,
+				3C89157B1CFD8B5B009BC69E /* Cookpit-Bridging-Header.h */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3C7F20071CFD83B900937E4F /* Cookpit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C7F201A1CFD83B900937E4F /* Build configuration list for PBXNativeTarget "Cookpit" */;
+			buildPhases = (
+				3C7F20041CFD83B900937E4F /* Sources */,
+				3C7F20051CFD83B900937E4F /* Frameworks */,
+				3C7F20061CFD83B900937E4F /* Resources */,
+				3C89158F1CFD9E2E009BC69E /* Carthage Copy Framework */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Cookpit;
+			productName = Cookpit;
+			productReference = 3C7F20081CFD83B900937E4F /* Cookpit.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3C7F20001CFD83B900937E4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Cookpit;
+				TargetAttributes = {
+					3C7F20071CFD83B900937E4F = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = R8KVB2D2GF;
+					};
+				};
+			};
+			buildConfigurationList = 3C7F20031CFD83B900937E4F /* Build configuration list for PBXProject "Cookpit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3C7F1FFF1CFD83B900937E4F;
+			productRefGroup = 3C7F20091CFD83B900937E4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3C7F20071CFD83B900937E4F /* Cookpit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3C7F20061CFD83B900937E4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C7F20161CFD83B900937E4F /* LaunchScreen.storyboard in Resources */,
+				3C7F20131CFD83B900937E4F /* Assets.xcassets in Resources */,
+				3C7F20111CFD83B900937E4F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3C89158F1CFD9E2E009BC69E /* Carthage Copy Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/Kingfisher.framework",
+			);
+			name = "Carthage Copy Framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3C7F20041CFD83B900937E4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C7F200E1CFD83B900937E4F /* ViewController.swift in Sources */,
+				3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3C7F200F1CFD83B900937E4F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3C7F20101CFD83B900937E4F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3C7F20141CFD83B900937E4F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3C7F20151CFD83B900937E4F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3C7F20181CFD83B900937E4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3C7F20191CFD83B900937E4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3C7F201B1CFD83B900937E4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = Cookpit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.kittinunf.Cookpit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Cookpit/Cookpit-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "$PROJECT_DIR/../../vendors/djinni/support-lib/objc";
+			};
+			name = Debug;
+		};
+		3C7F201C1CFD83B900937E4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = Cookpit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.kittinunf.Cookpit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Cookpit/Cookpit-Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "$PROJECT_DIR/../../vendors/djinni/support-lib/objc";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3C7F20031CFD83B900937E4F /* Build configuration list for PBXProject "Cookpit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C7F20181CFD83B900937E4F /* Debug */,
+				3C7F20191CFD83B900937E4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3C7F201A1CFD83B900937E4F /* Build configuration list for PBXNativeTarget "Cookpit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C7F201B1CFD83B900937E4F /* Debug */,
+				3C7F201C1CFD83B900937E4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3C7F20001CFD83B900937E4F /* Project object */;
+}

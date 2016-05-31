@@ -1,0 +1,2 @@
+github "Alamofire/Alamofire" ~> 3.4
+github "onevcat/Kingfisher" ~> 2.4
