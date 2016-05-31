@@ -1,7 +1,7 @@
 package com.github.kittinunf.cookpit
 
 import android.util.Log
-import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.cookpit.networking.HttpClient
 
 class Application : android.app.Application() {
 
@@ -14,14 +14,7 @@ class Application : android.app.Application() {
         super.onCreate()
 
         Api.setPath(filesDir.absolutePath)
-
-        Api.setHttp(object : Http() {
-            override fun get(url: String, observer: HttpObserver?) {
-                Fuel.get(url).responseString { request, response, result ->
-                    result.fold({ observer?.onSuccess(it) }, { observer?.onFailure() })
-                }
-            }
-        })
+        Api.setHttp(HttpClient())
     }
 
 }

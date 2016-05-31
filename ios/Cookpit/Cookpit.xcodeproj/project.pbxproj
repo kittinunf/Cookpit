@@ -17,6 +17,7 @@
 		3C8915791CFD8A3A009BC69E /* libdjinni_objc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */; };
 		3C8915891CFD9D4D009BC69E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915881CFD9D4D009BC69E /* Alamofire.framework */; };
 		3C89159D1CFDC9B3009BC69E /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C89159C1CFDC9B3009BC69E /* HttpClient.swift */; };
+		3C8915A51CFDD7DA009BC69E /* libjson11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915A41CFDD7DA009BC69E /* libjson11.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		3C89157B1CFD8B5B009BC69E /* Cookpit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cookpit-Bridging-Header.h"; sourceTree = "<group>"; };
 		3C8915881CFD9D4D009BC69E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		3C89159C1CFDC9B3009BC69E /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
+		3C8915A41CFDD7DA009BC69E /* libjson11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjson11.a; path = "../../vendors/build/Debug-iphoneos/libjson11.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C8915A51CFDD7DA009BC69E /* libjson11.a in Frameworks */,
 				3C8915771CFD8A3A009BC69E /* libcookpit_ios.a in Frameworks */,
 				3C8915781CFD8A3A009BC69E /* libcookpit.a in Frameworks */,
 				3C8915791CFD8A3A009BC69E /* libdjinni_objc.a in Frameworks */,
@@ -84,6 +87,7 @@
 		3C89157A1CFD8A41009BC69E /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				3C8915A41CFDD7DA009BC69E /* libjson11.a */,
 				3C8915881CFD9D4D009BC69E /* Alamofire.framework */,
 				3C8915741CFD8A3A009BC69E /* libcookpit_ios.a */,
 				3C8915751CFD8A3A009BC69E /* libcookpit.a */,

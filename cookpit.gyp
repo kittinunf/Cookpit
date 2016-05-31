@@ -23,6 +23,7 @@
         }],
       ],
       'dependencies': [
+        'vendors/json11.gyp:json11',
       ],
       'libraries': [
       ],
@@ -41,6 +42,7 @@
       ],
       'include_dirs': [
         'vendors/flowcpp/include',
+        'vendors/json11',
       ],
     },
     {
@@ -94,6 +96,7 @@
         'vendors/googletest/googletest/include',
         'vendors/googletest/googlemock/include',
         'vendors/flowcpp/include',
+        'vendors/json11',
       ],
     }
   ],

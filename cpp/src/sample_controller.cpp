@@ -1,3 +1,4 @@
+#include <json11.hpp>
 #include "sample_controller.hpp"
 #include "api.hpp"
 #include "gen/http.hpp"
@@ -21,7 +22,12 @@ void sample_controller::subscribe(const std::shared_ptr<SampleControllerObserver
 
 void sample_controller::unsubscribe() { observer_ = nullptr; }
 
-void sample_controller::on_success(const std::string& data) { observer_->on_update(SampleViewData{data}); }
+void sample_controller::on_success(const std::string& data) {
+  string err;
+  auto json = json11::Json::parse(data, err);
+  auto origin = json["origin"].string_value();
+  observer_->on_update(SampleViewData{origin});
+}
 
 void sample_controller::on_failure() { observer_->on_update(SampleViewData{"Connection failed"}); }
 }
