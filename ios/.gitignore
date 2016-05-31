@@ -7,7 +7,7 @@ DerivedData
 
 ## Djnni generated
 objc_gen/
-tw-chat.xcodeproj/
+*.xcodeproj/
 vendors/
 
 ## Various settings

@@ -1,0 +1,112 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.github.kittinunf.cookpit"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/kotlin', '../java_gen/', '../kotlin']
+            jni.srcDirs = []
+            jniLibs.srcDirs = ['../libs']
+        }
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile(kotlinStdLib,
+            supportV7,
+            supportDesign,
+            supportCardView,
+            supportRecyclerView,
+            reactiveAndroid,
+            reactiveAndroidSupportV7,
+            reactiveAndroidSupportV4,
+            reactiveAndroidSupportDesign,
+            glide,
+    )
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath kotlinAndroidExtension
+        classpath kotlinGradlePlugin
+    }
+}
+
+task ndkBuild(type: Exec) {
+    String mainDirectory = System.getProperty("user.dir")
+    File ndkDir = project.getPlugins().getPlugin('android').sdkHandler.getNdkFolder()
+    if (ndkDir == null) {
+        ndkDir = file(System.env.ANDROID_NDK)
+    }
+
+    if (ndkDir == null) {
+        def gradle_project_root = project.rootProject.rootDir
+        throw new GradleException("NDK is not configured. Make sure there is a local.properties " +
+                "file with an ndk.dir entry in the directory ${gradle_project_root}, or set the " +
+                "ANDROID_NDK envrionment variable")
+    }
+
+    def ndkBuildExecutable = new File(ndkDir, 'ndk-build')
+    if (!ndkBuildExecutable.exists()) {
+        throw new GradleException("Could not find ndk-build. The configured NDK directory ${ndkDir} may not be correct.")
+    }
+    // Since this project actually follows the standard jni project layout, we don't need to set
+    // the project path.  There would be no problem setting it, except I can't figure out how to
+    // properly escape paths as env variables :(
+    environment("NDK_PROJECT_PATH", mainDirectory)
+    environment("GYP_CONFIGURATION", "Release")
+    commandLine(ndkBuildExecutable, "-j8")
+}
+
+task generateApplicationMk << {
+    def jniDir = System.getProperty("user.dir") + "/jni"
+    def applicationMkFile = new File(jniDir + "/Application.mk")
+
+    // By default, we build only 2 architectures to speed up ndkBuild.
+    def archList = System.getProperty("arch", "armeabi-v7a,x86")
+
+    if (archList == "all") {
+        archList = "armeabi-v7a,arm64-v8a,x86,x86_64,mips,mips64"
+    }
+
+    def appProperties = [
+            "NDK_TOOLCHAIN_VERSION": "clang",
+            "APP_PLATFORM"         : "android-16",
+            "APP_ABI"              : archList,
+            "APP_STL"              : "c++_static",
+            "APP_MODULES"          : "cookpit_android",
+    ]
+
+    def mkText = "## DO NOT EDIT. This file is generated from gradle task. ##\r\n\r\n"
+    appProperties.each { key, val ->
+        mkText += key + " := " + val + "\r\n"
+    }
+    applicationMkFile.text = mkText
+}
+
+ndkBuild.dependsOn generateApplicationMk
+

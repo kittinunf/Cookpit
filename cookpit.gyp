@@ -67,7 +67,7 @@
         '-llog'
       ],
       'sources': [
-        '<!@(python utils/glob.py -d android/jni_gen -i *.cpp *.hpp)',
+        '<!@(python utils/glob.py -d android/<(name)/jni_gen -i *.cpp *.hpp)',
       ],
       'include_dirs': [
         'cpp/src/gen'
