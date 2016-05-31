@@ -1,7 +1,7 @@
 NAME = cookpit
 LIB_ANDROID = lib$(NAME)_android
 LIB_IOS = lib$(NAME)_ios
-ANDROID_ARCH = armeabi-v7a,x86
+ARCH = armeabi-v7a,x86
 
 all: lib ios android
 
@@ -30,7 +30,7 @@ _build_ios: _djinni
 	PYTHONPATH=vendors/gyp/pylib vendors/gyp/gyp -DOS=ios --depth=. -f xcode --generator-output ./ios -Icommon.gypi $(NAME).gyp
 
 android: _build_android
-	cd android/$(NAME) && ./gradlew app:ndkBuild -Darch=$(ANDROID_ARCH) && cd ../..
+	cd android/$(NAME) && ./gradlew app:ndkBuild -Darch=$(ARCH) && cd ../..
 
 _build_android: _djinni
 	ANDROID_BUILD_TOP=dirname PYTHONPATH=vendors/gyp/pylib $(which ndk-build) vendors/gyp/gyp --depth=. -f android -DOS=android --root-target $(LIB_ANDROID) -Icommon.gypi $(NAME).gyp
