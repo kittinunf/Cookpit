@@ -79,7 +79,7 @@ class SearchViewController : UIViewController {
     }.addDisposableTo(disposeBag)
     
     // search
-    searchBar.rx_text
+    searchBarTexts
               .filter { !$0.isEmpty }
               .throttle(0.5, scheduler: MainScheduler.instance)
               .distinctUntilChanged()

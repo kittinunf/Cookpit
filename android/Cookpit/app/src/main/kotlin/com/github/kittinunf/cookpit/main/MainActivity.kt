@@ -7,11 +7,15 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.content.ContextCompat
 import com.github.kittinunf.cookpit.BaseActivity
 import com.github.kittinunf.cookpit.R
+import com.github.kittinunf.reactiveandroid.rx.addTo
+import com.github.kittinunf.reactiveandroid.widget.rx_tabSelected
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
     override val resourceId: Int = R.layout.activity_main
+
+    val defaultTabIndex = 0
 
     lateinit var mainPagerAdapter: MainPagerAdapter
 
@@ -22,34 +26,45 @@ class MainActivity : BaseActivity() {
     }
 
     private fun configureViews() {
-        mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
         mainViewPager.apply {
-            adapter = mainPagerAdapter
+            adapter = MainPagerAdapter(supportFragmentManager)
             offscreenPageLimit = 2
         }
 
         mainTab.setupWithViewPager(mainViewPager)
-        (0..(viewModel.itemCount() - 1)).forEach { index ->
+        viewModel.tabIndices.forEach { index ->
             mainTab.getTabAt(index)?.let {
                 it.setIcon(viewModel.iconForIndex(index))
-                it.icon?.setColorFilter(ContextCompat.getColor(this@MainActivity, android.R.color.white), PorterDuff.Mode.SRC_IN)
+                it.icon?.setColorFilter(ContextCompat.getColor(this@MainActivity, if (it.position == defaultTabIndex) R.color.teal400 else android.R.color.white), PorterDuff.Mode.SRC_IN)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mainTab.rx_tabSelected().map { it.position }.subscribe { selectedIndex ->
+            //manually set
+            mainViewPager.currentItem = selectedIndex
+            mainTab.getTabAt(selectedIndex)?.icon?.setColorFilter(ContextCompat.getColor(this@MainActivity, R.color.teal400), PorterDuff.Mode.SRC_IN)
+            viewModel.tabIndices.forEach {
+                if (it != selectedIndex) {
+                    mainTab.getTabAt(it)?.icon?.setColorFilter(ContextCompat.getColor(this@MainActivity, android.R.color.white), PorterDuff.Mode.SRC_IN)
+                }
+            }
+        }.addTo(subscriptions)
     }
 
     inner class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment {
-            return viewModel.fragmentForIndex(position)()
+            return viewModel.fragmentForIndex(position)
         }
 
         override fun getCount(): Int {
             return viewModel.itemCount()
         }
 
-        override fun getPageTitle(position: Int): CharSequence? {
-            return ""
-        }
+        override fun getPageTitle(position: Int): CharSequence? = null
 
     }
 }

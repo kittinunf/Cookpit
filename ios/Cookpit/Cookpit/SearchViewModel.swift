@@ -35,6 +35,7 @@ class SearchViewModel {
   }
   
   func searchForKey(key: String) {
+    controller.reset()
     searchForKey(key, page: 1)
   }
   
@@ -50,7 +51,6 @@ class SearchViewModel {
   }
   
   private func searchForKey(key: String, page: Int) {
-    controller.reset()
     controller.search(key, page: Int8(page))
   }
   

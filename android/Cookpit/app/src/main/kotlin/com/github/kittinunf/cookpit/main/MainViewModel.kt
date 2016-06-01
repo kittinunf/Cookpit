@@ -3,27 +3,31 @@ package com.github.kittinunf.cookpit.main
 import android.support.v4.app.Fragment
 import com.github.kittinunf.cookpit.R
 import com.github.kittinunf.cookpit.explore.ExploreFragment
+import com.github.kittinunf.cookpit.search.SearchFragment
 
 class MainViewModel {
 
-    private val titleAndIcon = listOf(R.string.tab_explore to R.mipmap.ic_landscape_black_36dp, R.string.tab_explore to R.mipmap.ic_landscape_black_36dp)
+    private val values = listOf(
+            Triple(R.string.tab_explore, R.mipmap.ic_landscape_black_36dp, ::ExploreFragment),
+            Triple(R.string.tab_search, R.mipmap.ic_search_black_36dp, ::SearchFragment)
+    )
+
+    val tabIndices = 0..(values.size - 1)
 
     fun titleForIndex(index: Int): Int {
-        return titleAndIcon[index].first
+        return values[index].first
     }
 
     fun iconForIndex(index: Int): Int {
-        return titleAndIcon[index].second
+        return values[index].second
     }
 
-    fun fragmentForIndex(index: Int): () -> Fragment {
-        return {
-            ExploreFragment()
-        }
+    fun fragmentForIndex(index: Int): Fragment {
+        return values[index].third.invoke()
     }
 
     fun itemCount(): Int {
-        return titleAndIcon.size
+        return values.size
     }
 
 }

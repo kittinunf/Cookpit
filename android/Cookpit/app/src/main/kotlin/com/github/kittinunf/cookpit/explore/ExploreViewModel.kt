@@ -46,7 +46,6 @@ class ExploreViewModel : ExploreControllerObserver() {
     }
 
     override fun onUpdate(data: ExploreViewData?) {
-        loading.value = false
         viewData.value = data
     }
 
