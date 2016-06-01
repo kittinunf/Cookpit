@@ -102,17 +102,18 @@
                     </tabBar>
                     <connections>
                         <segue destination="A8e-wf-YWm" kind="relationship" relationship="viewControllers" id="cTn-aw-qoi"/>
+                        <segue destination="uAd-ga-kZf" kind="relationship" relationship="viewControllers" id="oLb-JM-VOV"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q2B-gQ-0sB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="703" y="323"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Explore-->
         <scene sceneID="Xac-tE-iYR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="A8e-wf-YWm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="ic_landscape_36pt" id="Xhy-OP-sAi"/>
+                    <tabBarItem key="tabBarItem" title="Explore" image="ic_landscape_36pt" id="Xhy-OP-sAi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kYh-KT-xdr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -131,8 +132,139 @@
             </objects>
             <point key="canvasLocation" x="1451" y="-325"/>
         </scene>
+        <!--Search View Controller-->
+        <scene sceneID="U06-IS-BCD">
+            <objects>
+                <viewController id="ua7-o0-Mvs" customClass="SearchViewController" customModule="Cookpit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VW2-uL-RpW"/>
+                        <viewControllerLayoutGuide type="bottom" id="L9p-Ke-1Lr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nBh-Nc-l63">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem title="Search" id="E1S-JV-cKL">
+                            <color key="tintColor" red="0.41176474089999998" green="0.43529415129999999" blue="0.47450983520000001" alpha="1" colorSpace="deviceRGB"/>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="FOV-i0-I85"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="cancelBarButtonItem" destination="A92-cv-cSY" id="pgo-Ub-TNf"/>
+                        <outlet property="recentSearchTableView" destination="AVg-D3-QIn" id="Z5V-aC-Z1y"/>
+                        <outlet property="searchBar" destination="j9T-ae-SgG" id="90T-O6-dtE"/>
+                        <outlet property="searchBarButtonItem" destination="ghO-fn-zm0" id="sg9-QS-4Hi"/>
+                        <outlet property="searchResultTableView" destination="wFg-N6-6tk" id="QaB-Cu-tJK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sB0-kY-zOb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Search" id="ghO-fn-zm0">
+                    <color key="tintColor" red="0.41176474089999998" green="0.43529415129999999" blue="0.47450983520000001" alpha="1" colorSpace="deviceRGB"/>
+                </barButtonItem>
+                <barButtonItem title="Cancel" id="A92-cv-cSY">
+                    <color key="tintColor" red="0.41176474089999998" green="0.43529415129999999" blue="0.47450983520000001" alpha="1" colorSpace="deviceRGB"/>
+                </barButtonItem>
+                <searchBar contentMode="redraw" searchBarStyle="minimal" id="j9T-ae-SgG">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="barTintColor" red="0.55294120309999995" green="0.56862747670000002" blue="0.60392159219999997" alpha="1" colorSpace="deviceRGB"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="AVg-D3-QIn" userLabel="RecentSearchTableView">
+                    <rect key="frame" x="0.0" y="0.0" width="562" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <view key="tableHeaderView" contentMode="scaleToFill" id="4yQ-x3-V7G">
+                        <rect key="frame" x="0.0" y="0.0" width="562" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LcW-X4-fYX">
+                                <rect key="frame" x="12" y="7" width="102" height="17"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LcW-X4-fYX" firstAttribute="leading" secondItem="4yQ-x3-V7G" secondAttribute="leading" constant="12" id="6Fa-iy-Zo6"/>
+                            <constraint firstItem="LcW-X4-fYX" firstAttribute="centerY" secondItem="4yQ-x3-V7G" secondAttribute="centerY" id="xmI-Zq-J70"/>
+                        </constraints>
+                    </view>
+                    <prototypes>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentSearchCell" id="rQW-A1-FVi">
+                            <rect key="frame" x="0.0" y="58" width="562" height="44"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rQW-A1-FVi" id="yvx-z4-RdJ">
+                                <rect key="frame" x="0.0" y="0.0" width="562" height="43"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </tableViewCellContentView>
+                        </tableViewCell>
+                    </prototypes>
+                </tableView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="wFg-N6-6tk" userLabel="SearchResultTableView">
+                    <rect key="frame" x="0.0" y="0.0" width="562" height="239"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <prototypes>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" id="w2c-26-tHb" customClass="SearchTableViewCell" customModule="Cookpit" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="28" width="562" height="150"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w2c-26-tHb" id="jAN-08-MnD">
+                                <rect key="frame" x="0.0" y="0.0" width="562" height="149"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vrA-st-0Mh">
+                                        <rect key="frame" x="0.0" y="0.0" width="562" height="149"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="vrA-st-0Mh" firstAttribute="width" secondItem="jAN-08-MnD" secondAttribute="width" id="Uyt-8J-1fK"/>
+                                    <constraint firstItem="vrA-st-0Mh" firstAttribute="centerX" secondItem="jAN-08-MnD" secondAttribute="centerX" id="bK8-pU-WqA"/>
+                                    <constraint firstItem="vrA-st-0Mh" firstAttribute="centerY" secondItem="jAN-08-MnD" secondAttribute="centerY" id="dMA-QX-9y1"/>
+                                    <constraint firstItem="vrA-st-0Mh" firstAttribute="height" secondItem="jAN-08-MnD" secondAttribute="height" id="zBt-Xj-nEe"/>
+                                </constraints>
+                            </tableViewCellContentView>
+                            <connections>
+                                <outlet property="backgroundImageView" destination="vrA-st-0Mh" id="qKf-rK-tNu"/>
+                            </connections>
+                        </tableViewCell>
+                    </prototypes>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="rect" keyPath="contentInset">
+                            <rect key="value" x="64" y="0.0" width="0.0" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </tableView>
+            </objects>
+            <point key="canvasLocation" x="2263" y="323"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="qW3-mK-dCM">
+            <objects>
+                <navigationController id="uAd-ga-kZf" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" image="ic_search_36pt" id="ajG-IR-OVJ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Qe-MS-2s6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.41176474094390869" green="0.43529415130615234" blue="0.4745098352432251" alpha="1" colorSpace="deviceRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ua7-o0-Mvs" kind="relationship" relationship="rootViewController" id="XgI-Qf-6Vf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BSF-An-wYc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1451" y="345"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ic_landscape_36pt" width="36" height="36"/>
+        <image name="ic_search_36pt" width="36" height="36"/>
     </resources>
 </document>

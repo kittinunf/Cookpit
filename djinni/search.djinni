@@ -1,0 +1,29 @@
+search_detail_view_data = record {
+  id: string;
+  image_url: string;
+  title: string;
+}
+
+search_view_data = record {
+  error: bool;
+  message: string;
+  results: list<search_detail_view_data>;
+}
+
+search_controller_observer = interface +o +j {
+  on_begin_update();
+  on_update(view_data: search_view_data);
+  on_end_update();
+}
+
+search_controller = interface +c {
+  static create(): search_controller;
+
+  subscribe(observer: search_controller_observer);
+  unsubscribe();
+
+  reset();
+  search(key: string, page: i8);
+
+  fetch_recents(): list<string>;
+}

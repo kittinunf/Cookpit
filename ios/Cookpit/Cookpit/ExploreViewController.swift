@@ -9,15 +9,15 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Kingfisher
 
 class ExploreViewController: UICollectionViewController {
 
   let viewModel = ExploreViewModel()
-  var disposeBag = DisposeBag()
   
   // views
   let refreshControl = UIRefreshControl()
+  
+  let disposeBag = DisposeBag()
   
   override func viewDidLoad() {
     super.viewDidLoad()

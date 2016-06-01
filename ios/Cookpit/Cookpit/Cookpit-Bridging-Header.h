@@ -14,3 +14,8 @@
 #import "CPExploreControllerObserver.h"
 #import "CPExploreDetailViewData.h"
 #import "CPExploreViewData.h"
+// search
+#import "CPSearchController.h"
+#import "CPSearchControllerObserver.h"
+#import "CPSearchDetailViewData.h"
+#import "CPSearchViewData.h"

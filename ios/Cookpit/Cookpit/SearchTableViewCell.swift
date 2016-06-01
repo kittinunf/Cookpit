@@ -1,5 +1,5 @@
 //
-//  ExploreCollectionViewCell.swift
+//  SearchTableViewCell.swift
 //  Cookpit
 //
 //  Created by Kittinun Vantasin on 6/1/16.
@@ -10,12 +10,11 @@ import UIKit
 import RxSwift
 import Kingfisher
 
-class ExploreCollectionViewCell: UICollectionViewCell {
-
-  @IBOutlet weak var backgroundImageView: UIImageView!
-  @IBOutlet weak var titleLabel: UILabel!
+class SearchTableViewCell : UITableViewCell {
   
-  let viewData = Variable<CPExploreDetailViewData?>(nil)
+  @IBOutlet weak var backgroundImageView: UIImageView!
+  
+  let viewData = Variable<CPSearchDetailViewData?>(nil)
   
   let disposeBag = DisposeBag()
   
@@ -23,7 +22,6 @@ class ExploreCollectionViewCell: UICollectionViewCell {
     super.init(coder: aDecoder)
     
     viewData.asObservable().filter { $0 != nil }.map { $0! }.subscribeNext { [unowned self] in
-      self.titleLabel.text = $0.title
       self.backgroundImageView.kf_setImageWithURL(NSURL(string: $0.imageUrl)!)
     }.addDisposableTo(disposeBag)
   }

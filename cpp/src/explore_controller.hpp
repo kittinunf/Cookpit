@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "gen/explore_controller.hpp"
 #include "gen/explore_detail_view_data.hpp"
 #include "gen/http_observer.hpp"

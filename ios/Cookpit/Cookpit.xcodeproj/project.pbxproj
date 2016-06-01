@@ -25,6 +25,9 @@
 		3C8915C81CFE1B5A009BC69E /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */; };
 		3CA6D8361CFE94FD001BE50C /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6D8351CFE94FD001BE50C /* ExploreViewModel.swift */; };
 		3CA6D83B1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6D83A1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift */; };
+		3CA6D8471CFF03BE001BE50C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6D8461CFF03BE001BE50C /* SearchViewController.swift */; };
+		3CA6D8491CFF03C8001BE50C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6D8481CFF03C8001BE50C /* SearchViewModel.swift */; };
+		3CA6D8541CFF2667001BE50C /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6D8531CFF2667001BE50C /* SearchTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,9 @@
 		3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = ../Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		3CA6D8351CFE94FD001BE50C /* ExploreViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		3CA6D83A1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+RxLoadMore.swift"; sourceTree = "<group>"; };
+		3CA6D8461CFF03BE001BE50C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		3CA6D8481CFF03C8001BE50C /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		3CA6D8531CFF2667001BE50C /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,7 @@
 				3C7F20141CFD83B900937E4F /* LaunchScreen.storyboard */,
 				3C89157A1CFD8A41009BC69E /* Libraries */,
 				3C7F200F1CFD83B900937E4F /* Main.storyboard */,
+				3CA6D8451CFF03AA001BE50C /* Search */,
 				3C8915871CFD9853009BC69E /* Support */,
 				3C8915A71CFDDF85009BC69E /* Utils */,
 				3C7F200D1CFD83B900937E4F /* ViewController.swift */,
@@ -144,6 +151,16 @@
 				3CA6D8351CFE94FD001BE50C /* ExploreViewModel.swift */,
 			);
 			name = Explore;
+			sourceTree = "<group>";
+		};
+		3CA6D8451CFF03AA001BE50C /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				3CA6D8531CFF2667001BE50C /* SearchTableViewCell.swift */,
+				3CA6D8461CFF03BE001BE50C /* SearchViewController.swift */,
+				3CA6D8481CFF03C8001BE50C /* SearchViewModel.swift */,
+			);
+			name = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,11 +259,14 @@
 			files = (
 				3CA6D8361CFE94FD001BE50C /* ExploreViewModel.swift in Sources */,
 				3C8915C21CFE1510009BC69E /* ExploreCollectionViewCell.swift in Sources */,
+				3CA6D8471CFF03BE001BE50C /* SearchViewController.swift in Sources */,
 				3C8915B91CFDEC76009BC69E /* ExploreViewController.swift in Sources */,
 				3C89159D1CFDC9B3009BC69E /* HttpClient.swift in Sources */,
 				3C7F200E1CFD83B900937E4F /* ViewController.swift in Sources */,
+				3CA6D8491CFF03C8001BE50C /* SearchViewModel.swift in Sources */,
 				3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */,
 				3CA6D83B1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift in Sources */,
+				3CA6D8541CFF2667001BE50C /* SearchTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

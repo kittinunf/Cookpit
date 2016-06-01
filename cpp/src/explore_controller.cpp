@@ -1,8 +1,10 @@
+#include "explore_controller.hpp"
+
 #include <json11.hpp>
 #include <sstream>
+
 #include "api.hpp"
 #include "constants.hpp"
-#include "explore_controller.hpp"
 #include "gen/explore_controller_observer.hpp"
 #include "gen/explore_view_data.hpp"
 #include "gen/http.hpp"
@@ -35,7 +37,7 @@ void explore_controller_impl::request(int8_t page) {
 void explore_controller_impl::on_failure(const string& reason) {
   string error;
   auto json = json11::Json::parse(reason, error);
-  auto message = error.empty()? json["message"].string_value() : "";
+  auto message = error.empty() ? json["message"].string_value() : "";
   observer_->on_update(explore_view_data{true, message, items_});
   observer_->on_end_update();
 }
