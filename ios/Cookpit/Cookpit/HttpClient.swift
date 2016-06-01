@@ -24,9 +24,13 @@ extension HttpClient : CPHttp {
       Alamofire.request(.GET, url, parameters: modifiedParams).validate().responseString { response in
         switch response.result {
           case .Success(let data) :
-            observer?.onSuccess(data)
+            if data.containsString("ok") {
+              observer?.onSuccess(data)
+            } else {
+              observer?.onFailure(data)
+            }
           case .Failure :
-            observer?.onFailure()
+            observer?.onFailure("")
         }
       }
   }

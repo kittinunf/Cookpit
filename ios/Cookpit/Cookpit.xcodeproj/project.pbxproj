@@ -23,6 +23,8 @@
 		3C8915C41CFE1B4C009BC69E /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915C31CFE1B4C009BC69E /* Kingfisher.framework */; };
 		3C8915C61CFE1B56009BC69E /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915C51CFE1B56009BC69E /* RxSwift.framework */; };
 		3C8915C81CFE1B5A009BC69E /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */; };
+		3CA6D8361CFE94FD001BE50C /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6D8351CFE94FD001BE50C /* ExploreViewModel.swift */; };
+		3CA6D83B1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6D83A1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		3C8915C31CFE1B4C009BC69E /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = ../Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		3C8915C51CFE1B56009BC69E /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = ../Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = ../Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
+		3CA6D8351CFE94FD001BE50C /* ExploreViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
+		3CA6D83A1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+RxLoadMore.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				3C89159C1CFDC9B3009BC69E /* HttpClient.swift */,
+				3CA6D83A1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 			children = (
 				3C8915C11CFE1510009BC69E /* ExploreCollectionViewCell.swift */,
 				3C8915B81CFDEC76009BC69E /* ExploreViewController.swift */,
+				3CA6D8351CFE94FD001BE50C /* ExploreViewModel.swift */,
 			);
 			name = Explore;
 			sourceTree = "<group>";
@@ -234,11 +240,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CA6D8361CFE94FD001BE50C /* ExploreViewModel.swift in Sources */,
 				3C8915C21CFE1510009BC69E /* ExploreCollectionViewCell.swift in Sources */,
 				3C8915B91CFDEC76009BC69E /* ExploreViewController.swift in Sources */,
 				3C89159D1CFDC9B3009BC69E /* HttpClient.swift in Sources */,
 				3C7F200E1CFD83B900937E4F /* ViewController.swift in Sources */,
 				3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */,
+				3CA6D83B1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

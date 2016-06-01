@@ -8,4 +8,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="Base.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/blue700</item>
+        <item name="colorPrimaryDark">@color/blue800</item>
+        <item name="colorAccent">@color/teal400</item>
+        <item name="colorControlNormal">@color/blue300</item>
+        <item name="colorControlActivated">@color/teal400</item>
+        <item name="colorSwitchThumbNormal">@android:color/white</item>
+        <item name="android:windowBackground">@color/gray50</item>
+    </style>
+
+    <style name="Base.Theme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

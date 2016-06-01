@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Cookpit</string>
+
+    <string name="title_activity_main">Main</string>
+
+    <string name="tab_explore">Explore</string>
+    <string name="tab_search">Search</string>
+
 </resources>

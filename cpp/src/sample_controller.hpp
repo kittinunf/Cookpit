@@ -17,7 +17,7 @@ class sample_controller_impl : public sample_controller,
  private:
   shared_ptr<sample_controller_observer> observer_;
 
-  void on_failure() override;
-  void on_success(const std::string& data) override;
+  void on_failure(const string& reason) override;
+  void on_success(const string& data) override;
 };
 }

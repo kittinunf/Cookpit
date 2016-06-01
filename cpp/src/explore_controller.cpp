@@ -14,11 +14,13 @@ namespace cookpit
 {
 shared_ptr<explore_controller> explore_controller::create() { return make_shared<explore_controller_impl>(); }
 
-void explore_controller_impl::subscribe(const std::shared_ptr<explore_controller_observer>& observer) {
+void explore_controller_impl::subscribe(const shared_ptr<explore_controller_observer>& observer) {
   observer_ = observer;
 }
 
 void explore_controller_impl::unsubscribe() { observer_ = nullptr; }
+
+void explore_controller_impl::reset() { items_.clear(); }
 
 void explore_controller_impl::request(int8_t page) {
   const auto self = shared_from_this();
@@ -26,12 +28,19 @@ void explore_controller_impl::request(int8_t page) {
   unordered_map<string, string> params = {
       {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {PER_PAGE, "10"s}, {PAGE, to_string(page)}};
 
+  observer_->on_begin_update();
   api_impl::instance().client()->get(BASE_URL, params, self);
 }
 
-void explore_controller_impl::on_failure() {}
+void explore_controller_impl::on_failure(const string& reason) {
+  string error;
+  auto json = json11::Json::parse(reason, error);
+  auto message = error.empty()? json["message"].string_value() : "";
+  observer_->on_update(explore_view_data{true, message, items_});
+  observer_->on_end_update();
+}
 
-void explore_controller_impl::on_success(const std::string& data) {
+void explore_controller_impl::on_success(const string& data) {
   string error;
   auto json = json11::Json::parse(data, error);
 
@@ -52,8 +61,9 @@ void explore_controller_impl::on_success(const std::string& data) {
 
     return explore_detail_view_data{id, image_url, title};
   });
-  
+
   items_.insert(items_.end(), details.begin(), details.end());
-  observer_->on_update(explore_view_data{items_});
+  observer_->on_update(explore_view_data{false, json["stat"].string_value(), items_});
+  observer_->on_end_update();
 }
 }

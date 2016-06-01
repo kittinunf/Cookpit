@@ -5,11 +5,15 @@ explore_detail_view_data = record {
 }
 
 explore_view_data = record {
+  error: bool;
+  message: string;
   explores: list<explore_detail_view_data>;
 }
 
 explore_controller_observer = interface +o +j {
+  on_begin_update();
   on_update(view_data: explore_view_data);
+  on_end_update();
 }
 
 explore_controller = interface +c {
@@ -18,5 +22,6 @@ explore_controller = interface +c {
   subscribe(observer: explore_controller_observer);
   unsubscribe();
 
+  reset();
   request(page: i8);
 }

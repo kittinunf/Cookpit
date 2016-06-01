@@ -1,5 +1,5 @@
 http_observer = interface +c {
-    on_failure();
+    on_failure(reason: string);
     on_success(data: string);
 }
 

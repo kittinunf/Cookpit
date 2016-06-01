@@ -16,8 +16,15 @@ class HttpClient : Http() {
     override fun get(url: String, params: HashMap<String, String>?, observer: HttpObserver?) {
         Fuel.get(url, params?.toList()).responseString { request, response, result ->
             when (result) {
-                is Result.Success -> observer?.onSuccess(result.value)
-                is Result.Failure -> observer?.onFailure()
+                is Result.Success -> {
+                    val data = result.value
+                    if (data.contains("ok")) {
+                        observer?.onSuccess(data)
+                    } else {
+                        observer?.onFailure(data)
+                    }
+                }
+                is Result.Failure -> observer?.onFailure("")
             }
         }
     }
