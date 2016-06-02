@@ -3,9 +3,17 @@ Flickr API implementation for Android with C++ core
 
 ## Requirement
 * android ndk and `ndk-build` on your PATH to build for android
+* setup your ndk path in `local.properties` file at root of folder `Cookpit/local.properties`
+
+For example:
+```bash
+ndk.dir=<your_ndk_path>
+sdk.dir=<your_sdk_path>
+```
 
 ## Installation
 * Run `make android` at root folder
+* Optionally, run `make android ARCH=all` for all available Android architecture
 
 ## Building
 * Import `Cookpit/` into Android Studio
