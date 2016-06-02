@@ -28,4 +28,6 @@ xcuserdata
 *.xcscmblueprint
 
 # Carthage
+Carthage/Build
+Carthage/Checkouts
 Cartfile.resolved
