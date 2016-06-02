@@ -42,6 +42,7 @@ class ExploreFragment : BaseFragment() {
 
     override fun setUp(view: View) {
         exploreRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        exploreRecyclerView.addItemDecoration(SpaceItemDecoration(resources.getDimensionPixelSize(R.dimen.explore_item_offset)))
 
         viewModel.loadings.bindTo(exploreSwipeRefreshLayout.rx_refreshing).addTo(subscriptions)
 
@@ -72,6 +73,17 @@ class ExploreFragment : BaseFragment() {
         }.filter { it }.subscribe {
             viewModel.requestForNextPage()
         }
+    }
+
+    class SpaceItemDecoration(val space: Int) : RecyclerView.ItemDecoration() {
+      override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+        outRect?.let {
+            it.left = space
+            it.right = space
+            it.bottom = space
+            it.top = if (parent?.getChildLayoutPosition(view) == 0) space else 0
+        }
+      }
     }
 
     class ExploreViewHolder(view: View) : RecyclerView.ViewHolder(view) {
