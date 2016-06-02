@@ -44,16 +44,15 @@ class ExploreViewController: UICollectionViewController {
       self.viewModel.requestForNextPage()
     }.addDisposableTo(disposeBag)
     
-    //error
-    viewModel.errors.subscribeNext { [unowned self] message in
-      let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
-      let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-      alert.addAction(okAction)
-      if self.presentedViewController == nil {
-        self.presentViewController(alert, animated: true, completion: nil)
-      }
+    //selected item
+    collectionView.rx_itemSelected.subscribeNext { [unowned self] indexPath in
+      let data = self.viewModel[indexPath.row]
+      guard let photoViewController = self.storyboard?.instantiateViewControllerWithIdentifier("Photo") as? PhotoViewController, let viewData = data else { return }
+      
+      photoViewController.id = viewData.id
+      
+      self.navigationController?.pushViewController(photoViewController, animated: true)
     }.addDisposableTo(disposeBag)
-    
   }
   
   func bindings() {
@@ -63,6 +62,16 @@ class ExploreViewController: UICollectionViewController {
     //items
     viewModel.items.bindTo(collectionView!.rx_itemsWithCellIdentifier("ExploreCell", cellType: ExploreCollectionViewCell.self)) { row, element, cell in
       cell.viewData.value = element
+    }.addDisposableTo(disposeBag)
+    
+    //error
+    viewModel.errors.subscribeNext { [unowned self] message in
+      let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
+      let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+      alert.addAction(okAction)
+      if self.presentedViewController == nil {
+        self.presentViewController(alert, animated: true, completion: nil)
+      }
     }.addDisposableTo(disposeBag)
   }
   

@@ -5,10 +5,6 @@
 #import "CPApi.h"
 #import "CPHttp.h"
 #import "CPHttpObserver.h"
-// sample
-#import "CPSampleController.h"
-#import "CPSampleControllerObserver.h"
-#import "CPSampleViewData.h"
 // explore
 #import "CPExploreController.h"
 #import "CPExploreControllerObserver.h"
@@ -19,3 +15,7 @@
 #import "CPSearchControllerObserver.h"
 #import "CPSearchDetailViewData.h"
 #import "CPSearchViewData.h"
+// photo
+#import "CPPhotoDetailController.h"
+#import "CPPhotoDetailControllerObserver.h"
+#import "CPPhotoDetailViewData.h"

@@ -18,10 +18,6 @@ class ExploreViewModel {
   
   var pageNumber = 0
   
-  init() {
-    controller.subscribe(self)
-  }
-  
   // item stream
   lazy var loadings: Observable<Bool> = {
     self.loading.asObservable()
@@ -37,6 +33,16 @@ class ExploreViewModel {
   lazy var items: Observable<[CPExploreDetailViewData]> = {
     self.viewData.asObservable().filter { $0 != nil }.map { $0!.explores }
   }()
+  
+  subscript(index: Int) -> CPExploreDetailViewData? {
+    get {
+      return viewData.value?.explores[index]
+    }
+  }
+  
+  init() {
+    controller.subscribe(self)
+  }
   
   func spacingForSection(section: Int) -> Float {
     return 5

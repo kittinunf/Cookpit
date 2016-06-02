@@ -30,6 +30,12 @@ class SearchViewModel {
     self.loading.asObservable()
   }()
   
+  subscript(index: Int) -> CPSearchDetailViewData? {
+    get {
+      return searchResultViewData.value?.results[index]
+    }
+  }
+  
   init() {
     controller.subscribe(self)
   }

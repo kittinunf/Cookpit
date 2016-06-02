@@ -1,0 +1,54 @@
+photo_comment_detail_view_data = record {
+  id: string;
+  avatar_url: string;
+  name: string;
+  comment: string;
+}
+
+photo_comment_view_data = record {
+  error: bool;
+  message: string;
+  comments: list<photo_comment_detail_view_data>;
+}
+
+photo_comment_controller_observer = interface +o +j {
+  on_begin_update();
+  on_update(view_data: photo_comment_view_data);
+  on_end_update();
+}
+
+photo_comment_controller = interface +c {
+  static create(photo_id: string): photo_comment_controller;
+
+  subscribe(observer: photo_comment_controller_observer);
+  unsubscribe();
+
+  request_comment(page: i8);
+}
+
+photo_detail_view_data = record {
+  error: bool;
+  message: string;
+  id: string;
+  title: string;
+  image_url: string;
+  owner_name: string;
+  owner_avatar_url: string;
+  number_of_view: string;
+  number_of_comment: string;
+}
+
+photo_detail_controller_observer = interface +o +j {
+  on_begin_update();
+  on_update(view_data: photo_detail_view_data);
+  on_end_update();
+}
+
+photo_detail_controller = interface +c {
+  static create(photo_id: string): photo_detail_controller;
+
+  subscribe(observer: photo_detail_controller_observer);
+  unsubscribe();
+
+  request_detail();
+}

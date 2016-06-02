@@ -28,6 +28,7 @@ class SearchViewController : UIViewController {
     super.viewDidLoad()
     
     configureViews()
+    bindings()
   }
   
   func configureViews() {
@@ -35,10 +36,6 @@ class SearchViewController : UIViewController {
     configureSearchBar()
     configureRecentSearchTableView()
     configureSearchResultTableView()
-    
-    viewModel.loadings.subscribeNext {
-      UIApplication.sharedApplication().networkActivityIndicatorVisible = $0
-    }.addDisposableTo(disposeBag)
   }
   
   func configureBarButtonItems() {
@@ -93,11 +90,6 @@ class SearchViewController : UIViewController {
     recentSearchTableView.frame = self.view.bounds
     view.addSubview(recentSearchTableView)
     
-    viewModel.recents.bindTo(recentSearchTableView.rx_itemsWithCellIdentifier("RecentSearchCell", cellType: UITableViewCell.self)) { row, element, cell in
-      cell.textLabel?.text = element
-      cell.textLabel?.font = UIFont(name: "Menlo", size: 12.0)
-    }.addDisposableTo(disposeBag)
-    
     let selectedIndexPaths = recentSearchTableView.rx_itemSelected
     
     selectedIndexPaths.map { _ in true }.bindTo(recentSearchTableView.rx_hidden).addDisposableTo(disposeBag)
@@ -113,12 +105,32 @@ class SearchViewController : UIViewController {
   func configureSearchResultTableView() {
     searchResultTableView.frame = self.view.bounds
     view.addSubview(searchResultTableView)
-    viewModel.results.bindTo(searchResultTableView.rx_itemsWithCellIdentifier("SearchResultCell", cellType: SearchTableViewCell.self)) { row, element, cell in
-      cell.viewData.value = element
-    }.addDisposableTo(disposeBag)
     
     searchResultTableView.rx_itemSelected.subscribeNext { [unowned self] indexPath in
-      print(indexPath.row)
+      let data = self.viewModel[indexPath.row]
+      guard let photoViewController = self.storyboard?.instantiateViewControllerWithIdentifier("Photo") as? PhotoViewController, let viewData = data else { return }
+      
+      photoViewController.id = viewData.id
+      
+      self.navigationController?.pushViewController(photoViewController, animated: true)
+    }.addDisposableTo(disposeBag)
+  }
+  
+  func bindings() {
+    //loading
+    viewModel.loadings.subscribeNext {
+      UIApplication.sharedApplication().networkActivityIndicatorVisible = $0
+    }.addDisposableTo(disposeBag)
+    
+    //recent search
+    viewModel.recents.bindTo(recentSearchTableView.rx_itemsWithCellIdentifier("RecentSearchCell", cellType: UITableViewCell.self)) { row, element, cell in
+      cell.textLabel?.text = element
+      cell.textLabel?.font = UIFont(name: "Menlo", size: 12.0)
+    }.addDisposableTo(disposeBag)
+    
+    //search results
+    viewModel.results.bindTo(searchResultTableView.rx_itemsWithCellIdentifier("SearchResultCell", cellType: SearchTableViewCell.self)) { row, element, cell in
+      cell.viewData.value = element
     }.addDisposableTo(disposeBag)
   }
   

@@ -10,6 +10,7 @@
 #include "gen/recent_search_view_data.hpp"
 #include "gen/search_controller_observer.hpp"
 #include "gen/search_view_data.hpp"
+#include "utility.hpp"
 
 using namespace experimental;
 
@@ -65,12 +66,9 @@ void search_controller_impl::on_success(const string& data) {
 
   std::vector<search_detail_view_data> details;
   transform(photos.cbegin(), photos.cend(), back_inserter(details), [](const auto& j) {
-    ostringstream oss;
-    oss << "https://farm"s << j["farm"].int_value() << ".static.flickr.com/"s << j["server"].string_value() << "/"s
-        << j["id"].string_value() << "_" << j["secret"].string_value() << "_z.jpg"s;
-
     auto id = j["id"].string_value();
-    auto image_url = oss.str();
+    auto image_url =
+        construct_flickr_image_url(j["farm"].int_value(), j["server"].string_value(), id, j["secret"].string_value());
     auto title = j["title"].string_value();
 
     return search_detail_view_data{id, image_url, title};
