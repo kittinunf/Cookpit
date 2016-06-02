@@ -1,6 +1,7 @@
 package com.github.kittinunf.cookpit.explore
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.WindowManager
 import com.github.kittinunf.cookpit.BaseFragment
 import com.github.kittinunf.cookpit.R
+import com.github.kittinunf.cookpit.photo.PhotoViewActivity
 import com.github.kittinunf.cookpit.util.rx_staggeredLoadMore
 import com.github.kittinunf.cookpit.util.setImage
 import com.github.kittinunf.reactiveandroid.rx.addTo
@@ -40,10 +42,6 @@ class ExploreFragment : BaseFragment() {
 
     override fun setUp(view: View) {
         exploreRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         viewModel.loadings.bindTo(exploreSwipeRefreshLayout.rx_refreshing).addTo(subscriptions)
 
@@ -54,7 +52,15 @@ class ExploreFragment : BaseFragment() {
 
         exploreRecyclerView.rx_itemsWith(viewModel.items, { viewGroup, index ->
             val itemView = LayoutInflater.from(viewGroup?.context).inflate(R.layout.recycler_item_explore, viewGroup, false)
-            ExploreViewHolder(itemView)
+            val viewHolder = ExploreViewHolder(itemView)
+            viewHolder.onClick = { selectedIndex ->
+                viewModel[selectedIndex]?.let {
+                    val intent = Intent(activity, PhotoViewActivity::class.java)
+                    intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
+                    this@ExploreFragment.startActivity(intent)
+                }
+            }
+            viewHolder
         }, { viewHolder, index, item ->
             viewHolder.cardView.preventCornerOverlap = false
             viewHolder.backgroundImageView.setImage(item.imageUrl, screenSize.x / 2, 600)
@@ -72,6 +78,12 @@ class ExploreFragment : BaseFragment() {
         val cardView by lazy { view.exploreCardView }
         val backgroundImageView by lazy { view.exploreBackgroundImageView }
         val titleTextView by lazy { view.exploreTitleTextView }
+
+        var onClick: ((Int) -> Unit)? = null
+
+        init {
+           view.setOnClickListener { onClick?.invoke(layoutPosition) }
+        }
     }
 
 }

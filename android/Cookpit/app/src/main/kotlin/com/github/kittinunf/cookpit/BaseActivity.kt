@@ -15,6 +15,8 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(resourceId)
 
+        subscriptions = CompositeSubscription()
+
         savedInstanceState?.let {
             handleSavedInstanceState(it)
         }
@@ -32,14 +34,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open fun setUp() { }
 
-    override fun onResume() {
-        super.onResume()
-        subscriptions = CompositeSubscription()
-    }
-
-    override fun onPause() {
+    override fun onDestroy() {
         subscriptions.unsubscribe()
-        super.onPause()
+        super.onDestroy()
     }
 
 }

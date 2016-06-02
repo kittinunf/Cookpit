@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/photoImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            />
+
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/gray50">
+
+        <ImageView
+            android:id="@+id/ownerAvatarImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/ownerNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/ownerAvatarImageView"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            />
+
+
+        <ImageView
+            android:id="@+id/viewCountImageView"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@mipmap/ic_eye_black_24dp"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/ownerNameTextView"
+            />
+
+        <TextView
+            android:id="@+id/viewCountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/viewCountImageView"
+            />
+
+        <ImageView
+            android:id="@+id/commentCountImageView"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@mipmap/ic_comment_black_24dp"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/viewCountTextView"
+            />
+
+        <TextView
+            android:id="@+id/commentCountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/commentCountImageView"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

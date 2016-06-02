@@ -2,6 +2,7 @@ package com.github.kittinunf.cookpit.explore
 
 import com.github.kittinunf.cookpit.ExploreController
 import com.github.kittinunf.cookpit.ExploreControllerObserver
+import com.github.kittinunf.cookpit.ExploreDetailViewData
 import com.github.kittinunf.cookpit.ExploreViewData
 import com.github.kittinunf.cookpit.util.filterNotNull
 import com.github.kittinunf.reactiveandroid.MutableProperty
@@ -39,6 +40,10 @@ class ExploreViewModel : ExploreControllerObserver() {
 
     fun requestForNextPage() {
         requestForPage(pageNumber + 1)
+    }
+
+    operator fun get(index: Int): ExploreDetailViewData? {
+        return viewData.value!!.explores[index]
     }
 
     override fun onBeginUpdate() {

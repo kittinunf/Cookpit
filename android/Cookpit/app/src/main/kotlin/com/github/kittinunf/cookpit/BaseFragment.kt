@@ -16,6 +16,8 @@ abstract class BaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        subscriptions = CompositeSubscription()
+
         savedInstanceState?.let {
             handleSavedInstanceState(it)
         }
@@ -27,16 +29,6 @@ abstract class BaseFragment : Fragment() {
         setUp()
     }
 
-    override fun onResume() {
-        super.onResume()
-        subscriptions = CompositeSubscription()
-    }
-
-    override fun onPause() {
-        subscriptions.unsubscribe()
-        super.onPause()
-    }
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(resourceId, container, false)
     }
@@ -44,6 +36,11 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUp(view!!)
+    }
+
+    override fun onDestroy() {
+        subscriptions.unsubscribe()
+        super.onDestroy()
     }
 
     open fun handleSavedInstanceState(savedInstanceState: Bundle) {

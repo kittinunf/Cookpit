@@ -7,7 +7,6 @@
 #include "api.hpp"
 #include "constants.hpp"
 #include "gen/http.hpp"
-#include "gen/recent_search_view_data.hpp"
 #include "gen/search_controller_observer.hpp"
 #include "gen/search_view_data.hpp"
 #include "utility.hpp"

@@ -1,5 +1,6 @@
 package com.github.kittinunf.cookpit.search
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import com.github.kittinunf.cookpit.BaseFragment
 import com.github.kittinunf.cookpit.R
+import com.github.kittinunf.cookpit.photo.PhotoViewActivity
 import com.github.kittinunf.cookpit.util.not
 import com.github.kittinunf.cookpit.util.setImage
 import com.github.kittinunf.reactiveandroid.rx.addTo
@@ -29,10 +31,6 @@ class SearchFragment : BaseFragment() {
 
         searchResultRecyclerView.layoutManager = LinearLayoutManager(activity)
         recentSearchRecyclerView.layoutManager = LinearLayoutManager(activity)
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         val searchTexts = searchView.rx_queryTextChange(true).share()
 
@@ -62,7 +60,15 @@ class SearchFragment : BaseFragment() {
 
         searchResultRecyclerView.rx_itemsWith(viewModel.results, { viewGroup, index ->
             val itemView = LayoutInflater.from(viewGroup?.context).inflate(R.layout.recycler_item_search, viewGroup, false)
-            SearchResultViewHolder(itemView)
+            val viewHolder = SearchResultViewHolder(itemView)
+            viewHolder.onClick = { selectedIndex ->
+                viewModel[selectedIndex]?.let {
+                    val intent = Intent(activity, PhotoViewActivity::class.java)
+                    intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
+                    this@SearchFragment.startActivity(intent)
+                }
+            }
+            viewHolder
         }, { viewHolder, index, item ->
             viewHolder.backgroundImageView.setImage(item.imageUrl)
         })
@@ -80,5 +86,11 @@ class SearchFragment : BaseFragment() {
 
     class SearchResultViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val backgroundImageView by lazy { view.searchBackgroundImageView }
+
+        var onClick: ((Int) -> Unit)? = null
+
+        init {
+           view.setOnClickListener { onClick?.invoke(layoutPosition) }
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.github.kittinunf.cookpit.search
 
 import com.github.kittinunf.cookpit.SearchController
 import com.github.kittinunf.cookpit.SearchControllerObserver
+import com.github.kittinunf.cookpit.SearchDetailViewData
 import com.github.kittinunf.cookpit.SearchViewData
 import com.github.kittinunf.cookpit.util.filterNotNull
 import com.github.kittinunf.reactiveandroid.MutableProperty
@@ -44,6 +45,10 @@ class SearchViewModel : SearchControllerObserver() {
 
     fun searchForKey(key: String, page: Int) {
         controller.search(key, page.toByte())
+    }
+
+    operator fun get(index: Int): SearchDetailViewData? {
+        return viewData.value!!.results[index]
     }
 
     override fun onBeginUpdate() {
