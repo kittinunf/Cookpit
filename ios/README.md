@@ -21,8 +21,12 @@ Flickr API implementation for iOS with C++ core
 ## Architecture
 * MVVM - Model(M) is sharing between iOS and Android with C++ code. VM(View Model) is a class on Swift provide necessary data for application to render. V (View) is purely on iOS with Swift. V and VM are glued together with reactive paradigm in this project we use [RxSwift](https://github.com/ReactiveX/RxSwift/).
 
+## Output
+* `<>_controller` which contains all necessary data (`<>_view_data`) for mobile app to render. Application layer (typically View Model class on iOS/Android needs to implement `<>_controller_observer` contracts to be able to receive data produced by C++ layer. `<>_controller` communicates with application layer by subscribing to method `void subscribe(const shared_ptr< <>_controller_observer >& observer)`.
+
 ## Folder structure
 ```bash
+ios
 ├── carthage/ # Carthage folder for iOS app dependencies
 ├── Cookpit/ # traditional xcode project folder
 ├── cookpit.xcodeproj/ # xcodeproj file (untrack)
