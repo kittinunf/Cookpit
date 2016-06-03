@@ -3,6 +3,7 @@ package com.github.kittinunf.cookpit.explore
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
+import android.graphics.Rect
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
