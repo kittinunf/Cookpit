@@ -16,6 +16,7 @@ Flickr API implementation for Android/iOS with C++ core
 ## Building
 * Running any `make` command will automatically download [gyp](https://code.google.com/p/gyp/) and create
 `.xcodeproj` files suitable for developing on each platform.
+* Please consult [iOS](https://github.com/kittinunf/Cookpit/blob/master/ios/README.md) and [Android](https://github.com/kittinunf/Cookpit/blob/master/android/README.md) folder for more detail on the application layer.
 
 Make targets:
 * `clean` - clean all generated files
@@ -23,8 +24,8 @@ Make targets:
 * `android` - build library name `libcookpit_android.so` suitable for Android
 
 ## Tools
-* gyp - generates xcode project to develop iOS and C++ (nobody likes adding files and configure project manually)
-* djinni - generates all bridging code for C++, Java, Objective-C/C++
+* [gyp](https://code.google.com/p/gyp/) - generates xcode project to develop iOS and C++ (nobody likes adding files and configure project manually)
+* [djinni](https://github.com/dropbox/djinni) - generates all bridging code for C++, Java, Objective-C/C++
 
 ## Folder structure
 ```bash
