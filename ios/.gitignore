@@ -30,4 +30,5 @@ xcuserdata
 # Carthage
 Carthage/Build
 Carthage/Checkouts
-Cartfile.resolved
+# track this file so that user can use carthage bootstrap
+# Cartfile.resolved

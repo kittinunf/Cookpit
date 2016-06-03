@@ -22,11 +22,16 @@ Make targets:
 * `ios` - build library name `libcookpit.a`, `libcookpit_ios.a` suitable for iOS
 * `android` - build library name `libcookpit_android.so` suitable for Android
 
+## Tools
+* gyp - generates xcode project to develop iOS and C++ (nobody likes adding files and configure project manually)
+* djinni - generates all bridging code for C++, Java, Objective-C/C++
+
 ## Folder structure
 ```bash
+Cookpit
 ├── android/ # Android app (Android studio project)
 ├── cpp/ # Core cpp code
-├── djinni/ # [Djinni](https://github.com/dropbox/djinni) interface files
+├── djinni/ # Djinni's interface files
 ├── ios/ # iOS app (open .xcworkspace)
 ├── lib/ # xcodeproj for develop C++
 ├── utils/ # tools for tedious works, glob, clang-format etc.
