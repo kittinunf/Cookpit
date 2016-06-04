@@ -23,7 +23,7 @@ class MainViewModel {
     }
 
     fun fragmentForIndex(index: Int): Fragment {
-        return values[index].third.invoke()
+        return values[index].third()
     }
 
     fun itemCount(): Int {

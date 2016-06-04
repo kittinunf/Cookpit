@@ -4,7 +4,6 @@ import com.github.kittinunf.cookpit.SearchController
 import com.github.kittinunf.cookpit.SearchControllerObserver
 import com.github.kittinunf.cookpit.SearchDetailViewData
 import com.github.kittinunf.cookpit.SearchViewData
-import com.github.kittinunf.cookpit.util.filterNotNull
 import com.github.kittinunf.reactiveandroid.MutableProperty
 
 class SearchViewModel : SearchControllerObserver() {
@@ -12,7 +11,7 @@ class SearchViewModel : SearchControllerObserver() {
     private val controller = SearchController.create()
 
     private val recentSearch = MutableProperty(listOf<String>())
-    private val viewData = MutableProperty<SearchViewData?>(null)
+    private val viewData = MutableProperty<SearchViewData>()
 
     private val loading = MutableProperty(false)
 
@@ -21,7 +20,7 @@ class SearchViewModel : SearchControllerObserver() {
     }
 
     val results by lazy {
-        viewData.observable.filterNotNull().map { it.results.toList() }
+        viewData.observable.map { it.results.toList() }
     }
 
     val loadings by lazy {
@@ -61,6 +60,10 @@ class SearchViewModel : SearchControllerObserver() {
 
     override fun onEndUpdate() {
         loading.value = false
+    }
+
+    fun unsubscribe() {
+        controller.unsubscribe()
     }
 
 }

@@ -4,21 +4,20 @@ import com.github.kittinunf.cookpit.ExploreController
 import com.github.kittinunf.cookpit.ExploreControllerObserver
 import com.github.kittinunf.cookpit.ExploreDetailViewData
 import com.github.kittinunf.cookpit.ExploreViewData
-import com.github.kittinunf.cookpit.util.filterNotNull
 import com.github.kittinunf.reactiveandroid.MutableProperty
 
 class ExploreViewModel : ExploreControllerObserver() {
 
     private val controller = ExploreController.create()
 
-    private val viewData = MutableProperty<ExploreViewData?>(null)
+    private val viewData = MutableProperty<ExploreViewData>()
 
     private val loading = MutableProperty(false)
 
     var pageNumber = 0
 
     val items by lazy {
-        viewData.observable.filterNotNull().map { it.explores.toList() }
+        viewData.observable.map { it.explores.toList() }
     }
 
     val loadings by lazy {
@@ -56,6 +55,10 @@ class ExploreViewModel : ExploreControllerObserver() {
 
     override fun onEndUpdate() {
         loading.value = false
+    }
+
+    fun unsubscribe() {
+        controller.unsubscribe()
     }
 
 }
