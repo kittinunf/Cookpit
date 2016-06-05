@@ -1,60 +1,77 @@
 package com.github.kittinunf.cookpit.photo
 
-import com.github.kittinunf.cookpit.PhotoDetailController
-import com.github.kittinunf.cookpit.PhotoDetailControllerObserver
-import com.github.kittinunf.cookpit.PhotoDetailViewData
+import com.github.kittinunf.cookpit.*
 import com.github.kittinunf.reactiveandroid.MutableProperty
 
 
-class PhotoViewModel(val id: String) : PhotoDetailControllerObserver() {
+class PhotoViewModel(val id: String) {
 
-    private val controller: PhotoDetailController
+    private val detailController: PhotoDetailController
+    private val commentController: PhotoCommentController
 
-    private val viewData = MutableProperty<PhotoDetailViewData>()
+    private val detailViewData = MutableProperty<PhotoDetailViewData>()
+    private val commentViewData = MutableProperty<PhotoCommentViewData>()
 
     val imageUrls by lazy {
-        viewData.observable.map { it.imageUrl }
+        detailViewData.observable.map { it.imageUrl }
     }
 
     val ownerNames by lazy {
-        viewData.observable.map { it.ownerName }
+        detailViewData.observable.map { it.ownerName }
     }
 
     val ownerAvatarUrls by lazy {
-        viewData.observable.map { it.ownerAvatarUrl }
+        detailViewData.observable.map { it.ownerAvatarUrl }
     }
 
     val viewCounts by lazy {
-        viewData.observable.map { it.numberOfView }
+        detailViewData.observable.map { it.numberOfView }
     }
 
     val commentCounts by lazy {
-        viewData.observable.map { it.numberOfComment }
+        detailViewData.observable.map { it.numberOfComment }
+    }
+
+    val comments by lazy {
+        commentViewData.observable.map { it.comments }
     }
 
     init {
-        controller = PhotoDetailController.create(id)
+        detailController = PhotoDetailController.create(id).apply {
+            subscribe(object : PhotoDetailControllerObserver() {
+                override fun onBeginUpdate() {
+                }
 
-        controller.subscribe(this)
-        controller.requestDetail()
-    }
+                override fun onUpdate(data: PhotoDetailViewData?) {
+                    detailViewData.value = data
+                }
 
-    fun requestDetail() {
-        controller.requestDetail()
-    }
+                override fun onEndUpdate() {
+                }
+            })
+            requestDetail()
+        }
 
-    override fun onBeginUpdate() {
-    }
+        commentController = PhotoCommentController.create(id).apply {
+            subscribe(object : PhotoCommentControllerObserver() {
+                override fun onBeginUpdate() {
+                }
 
-    override fun onUpdate(data: PhotoDetailViewData?) {
-        viewData.value = data
-    }
+                override fun onUpdate(data: PhotoCommentViewData?) {
+                    commentViewData.value = data
+                }
 
-    override fun onEndUpdate() {
+                override fun onEndUpdate() {
+                }
+
+            })
+            requestComments()
+        }
     }
 
     fun unsubscribe() {
-        controller.unsubscribe()
+        detailController.unsubscribe()
+        commentController.unsubscribe()
     }
 
 }

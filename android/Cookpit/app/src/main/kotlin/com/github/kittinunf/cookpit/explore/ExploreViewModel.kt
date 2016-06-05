@@ -13,7 +13,7 @@ class ExploreViewModel : ExploreControllerObserver() {
     private val viewData = MutableProperty<ExploreViewData>()
 
     private val loading = MutableProperty(false)
-    private val loadingMores = MutableProperty(false)
+    private val loadingMore = MutableProperty(false)
 
     var pageNumber = 0
 
@@ -23,6 +23,10 @@ class ExploreViewModel : ExploreControllerObserver() {
 
     val loadings by lazy {
         loading.observable
+    }
+
+    val loadingMores by lazy {
+        loadingMore.observable
     }
 
     init {
@@ -49,7 +53,7 @@ class ExploreViewModel : ExploreControllerObserver() {
 
     override fun onBeginUpdate() {
         if (pageNumber != 1) {
-            loadingMores.value = true
+            loadingMore.value = true
         } else {
             loading.value = true
         }
@@ -61,7 +65,7 @@ class ExploreViewModel : ExploreControllerObserver() {
 
     override fun onEndUpdate() {
         loading.value = false
-        loadingMores.value = false
+        loadingMore.value = false
     }
 
     fun unsubscribe() {

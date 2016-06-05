@@ -67,6 +67,7 @@ class SearchFragment : BaseFragment() {
                 viewModel[selectedIndex]?.let {
                     val intent = Intent(activity, PhotoViewActivity::class.java)
                     intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
+                    intent.putExtra(PhotoViewActivity.PHOTO_TITLE_EXTRA, it.title)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.backgroundImageView, getString(R.string.to_photo_image_transition))
                         this@SearchFragment.startActivity(intent, options.toBundle())

@@ -3,7 +3,6 @@ package com.github.kittinunf.cookpit.explore
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
-import android.graphics.Rect
 import android.os.Build
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.RecyclerView
@@ -14,6 +13,7 @@ import android.view.WindowManager
 import com.github.kittinunf.cookpit.BaseFragment
 import com.github.kittinunf.cookpit.R
 import com.github.kittinunf.cookpit.photo.PhotoViewActivity
+import com.github.kittinunf.cookpit.util.addSpaceItemDecoration
 import com.github.kittinunf.cookpit.util.rx_staggeredLoadMore
 import com.github.kittinunf.cookpit.util.setImage
 import com.github.kittinunf.reactiveandroid.rx.addTo
@@ -21,6 +21,7 @@ import com.github.kittinunf.reactiveandroid.rx.bindTo
 import com.github.kittinunf.reactiveandroid.support.v4.widget.rx_refresh
 import com.github.kittinunf.reactiveandroid.support.v4.widget.rx_refreshing
 import com.github.kittinunf.reactiveandroid.support.v7.widget.rx_itemsWith
+import com.github.kittinunf.reactiveandroid.view.rx_visibility
 import kotlinx.android.synthetic.main.fragment_explore.*
 import kotlinx.android.synthetic.main.recycler_item_explore.view.*
 import rx.Observable
@@ -41,9 +42,7 @@ class ExploreFragment : BaseFragment() {
 
     override fun setUp(view: View) {
         exploreRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        exploreRecyclerView.addItemDecoration(SpaceItemDecoration(resources.getDimensionPixelSize(R.dimen.explore_item_offset)))
-
-        viewModel.loadings.bindTo(exploreSwipeRefreshLayout.rx_refreshing).addTo(subscriptions)
+        exploreRecyclerView.addSpaceItemDecoration(resources.getDimensionPixelSize(R.dimen.explore_item_offset))
 
         exploreSwipeRefreshLayout.rx_refresh().subscribe {
             viewModel.reset()
@@ -57,6 +56,7 @@ class ExploreFragment : BaseFragment() {
                 viewModel[selectedIndex]?.let {
                     val intent = Intent(activity, PhotoViewActivity::class.java)
                     intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
+                    intent.putExtra(PhotoViewActivity.PHOTO_TITLE_EXTRA, it.title)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.backgroundImageView, getString(R.string.to_photo_image_transition))
                         this@ExploreFragment.startActivity(intent, options.toBundle())
@@ -77,6 +77,10 @@ class ExploreFragment : BaseFragment() {
         }.filter { it }.subscribe {
             viewModel.requestForNextPage()
         }.addTo(subscriptions)
+
+
+        viewModel.loadings.bindTo(exploreSwipeRefreshLayout.rx_refreshing).addTo(subscriptions)
+        viewModel.loadingMores.map { if (it) View.VISIBLE else View.GONE }.bindTo(exploreProgressLoadMore.rx_visibility).addTo(subscriptions)
     }
 
     override fun onDestroy() {
@@ -84,16 +88,6 @@ class ExploreFragment : BaseFragment() {
         viewModel.unsubscribe()
     }
 
-    class SpaceItemDecoration(val space: Int) : RecyclerView.ItemDecoration() {
-      override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
-        outRect?.let {
-            it.left = space
-            it.right = space
-            it.bottom = space
-            it.top = space
-        }
-      }
-    }
 
     class ExploreViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardView by lazy { view.exploreCardView }
@@ -103,7 +97,7 @@ class ExploreFragment : BaseFragment() {
         var onClick: ((ExploreViewHolder, Int) -> Unit)? = null
 
         init {
-           view.setOnClickListener { onClick?.invoke(this, layoutPosition) }
+            view.setOnClickListener { onClick?.invoke(this, layoutPosition) }
         }
     }
 

@@ -29,7 +29,7 @@ void photo_detail_controller_impl::id(const string& id) { id_ = id; }
 void photo_detail_controller_impl::request_detail() {
   const auto self = shared_from_this();
 
-  unordered_map<string, string> params = {{METHOD, PHOTO_INFO}, {API_KEY, API_KEY_VALUE}, {PHOTO_ID, id_}};
+  unordered_map<string, string> params = {{METHOD, PHOTOS_INFO}, {API_KEY, API_KEY_VALUE}, {PHOTO_ID, id_}};
 
   observer_->on_begin_update();
   api_impl::instance().client()->get(BASE_URL, params, self);
@@ -56,10 +56,10 @@ void photo_detail_controller_impl::on_success(const string& data) {
   auto avatar_url = construct_flickr_avatar_url(owner["iconfarm"].int_value(), owner["iconserver"].string_value(),
                                                 owner["nsid"].string_value());
 
-  observer_->on_update(photo_detail_view_data(false, json["stat"].string_value(), photo["id"].string_value(),
-                                              title["_content"].string_value(), image_url,
-                                              owner["username"].string_value(), avatar_url, photo["views"].string_value(),
-                                              photo["comments"]["_content"].string_value()));
+  observer_->on_update(
+      photo_detail_view_data(false, json["stat"].string_value(), photo["id"].string_value(),
+                             title["_content"].string_value(), image_url, owner["username"].string_value(), avatar_url,
+                             photo["views"].string_value(), photo["comments"]["_content"].string_value()));
   observer_->on_end_update();
 }
 }
