@@ -17,31 +17,22 @@ class MainActivity : BaseActivity() {
 
     val defaultTabIndex = 0
 
-    lateinit var mainPagerAdapter: MainPagerAdapter
-
     private val viewModel = MainViewModel()
 
     override fun setUp() {
-        configureViews()
-    }
-
-    private fun configureViews() {
         mainViewPager.apply {
-            adapter = MainPagerAdapter(supportFragmentManager)
+            adapter = MainPagerAdapter(viewModel, supportFragmentManager)
             offscreenPageLimit = 2
         }
-
         mainTab.setupWithViewPager(mainViewPager)
+
         viewModel.tabIndices.forEach { index ->
             mainTab.getTabAt(index)?.let {
                 it.setIcon(viewModel.iconForIndex(index))
                 it.icon?.setColorFilter(ContextCompat.getColor(this@MainActivity, if (it.position == defaultTabIndex) R.color.teal400 else android.R.color.white), PorterDuff.Mode.SRC_IN)
             }
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
         mainTab.rx_tabSelected().map { it.position }.subscribe { selectedIndex ->
             //manually set
             mainViewPager.currentItem = selectedIndex
@@ -54,7 +45,7 @@ class MainActivity : BaseActivity() {
         }.addTo(subscriptions)
     }
 
-    inner class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    class MainPagerAdapter(val viewModel: MainViewModel, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment {
             return viewModel.fragmentForIndex(position)
@@ -67,4 +58,5 @@ class MainActivity : BaseActivity() {
         override fun getPageTitle(position: Int): CharSequence? = null
 
     }
+
 }

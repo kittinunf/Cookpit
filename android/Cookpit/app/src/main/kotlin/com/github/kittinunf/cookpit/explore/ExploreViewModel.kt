@@ -13,6 +13,7 @@ class ExploreViewModel : ExploreControllerObserver() {
     private val viewData = MutableProperty<ExploreViewData>()
 
     private val loading = MutableProperty(false)
+    private val loadingMores = MutableProperty(false)
 
     var pageNumber = 0
 
@@ -26,6 +27,7 @@ class ExploreViewModel : ExploreControllerObserver() {
 
     init {
         controller.subscribe(this)
+        requestForPage(1)
     }
 
     fun reset() {
@@ -46,7 +48,11 @@ class ExploreViewModel : ExploreControllerObserver() {
     }
 
     override fun onBeginUpdate() {
-        loading.value = true
+        if (pageNumber != 1) {
+            loadingMores.value = true
+        } else {
+            loading.value = true
+        }
     }
 
     override fun onUpdate(data: ExploreViewData?) {
@@ -55,6 +61,7 @@ class ExploreViewModel : ExploreControllerObserver() {
 
     override fun onEndUpdate() {
         loading.value = false
+        loadingMores.value = false
     }
 
     fun unsubscribe() {

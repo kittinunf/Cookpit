@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Point
 import android.graphics.Rect
+import android.os.Build
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
@@ -37,10 +39,6 @@ class ExploreFragment : BaseFragment() {
 
     private val viewModel = ExploreViewModel()
 
-    override fun setUp() {
-        viewModel.requestForPage(1)
-    }
-
     override fun setUp(view: View) {
         exploreRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         exploreRecyclerView.addItemDecoration(SpaceItemDecoration(resources.getDimensionPixelSize(R.dimen.explore_item_offset)))
@@ -55,11 +53,16 @@ class ExploreFragment : BaseFragment() {
         exploreRecyclerView.rx_itemsWith(viewModel.items, { viewGroup, index ->
             val itemView = LayoutInflater.from(viewGroup?.context).inflate(R.layout.recycler_item_explore, viewGroup, false)
             val viewHolder = ExploreViewHolder(itemView)
-            viewHolder.onClick = { selectedIndex ->
+            viewHolder.onClick = { viewHolder, selectedIndex ->
                 viewModel[selectedIndex]?.let {
                     val intent = Intent(activity, PhotoViewActivity::class.java)
                     intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
-                    this@ExploreFragment.startActivity(intent)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.backgroundImageView, getString(R.string.to_photo_image_transition))
+                        this@ExploreFragment.startActivity(intent, options.toBundle())
+                    } else {
+                        this@ExploreFragment.startActivity(intent)
+                    }
                 }
             }
             viewHolder
@@ -73,7 +76,12 @@ class ExploreFragment : BaseFragment() {
             more and !loading
         }.filter { it }.subscribe {
             viewModel.requestForNextPage()
-        }
+        }.addTo(subscriptions)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.unsubscribe()
     }
 
     class SpaceItemDecoration(val space: Int) : RecyclerView.ItemDecoration() {
@@ -82,7 +90,7 @@ class ExploreFragment : BaseFragment() {
             it.left = space
             it.right = space
             it.bottom = space
-            it.top = if (parent?.getChildLayoutPosition(view) == 0) space else 0
+            it.top = space
         }
       }
     }
@@ -92,10 +100,10 @@ class ExploreFragment : BaseFragment() {
         val backgroundImageView by lazy { view.exploreBackgroundImageView }
         val titleTextView by lazy { view.exploreTitleTextView }
 
-        var onClick: ((Int) -> Unit)? = null
+        var onClick: ((ExploreViewHolder, Int) -> Unit)? = null
 
         init {
-           view.setOnClickListener { onClick?.invoke(layoutPosition) }
+           view.setOnClickListener { onClick?.invoke(this, layoutPosition) }
         }
     }
 

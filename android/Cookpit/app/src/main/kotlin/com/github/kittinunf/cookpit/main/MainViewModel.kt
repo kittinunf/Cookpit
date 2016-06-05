@@ -7,27 +7,23 @@ import com.github.kittinunf.cookpit.search.SearchFragment
 
 class MainViewModel {
 
-    private val values = listOf(
+    private val tabData = listOf(
             Triple(R.string.tab_explore, R.mipmap.ic_landscape_black_36dp, ::ExploreFragment),
             Triple(R.string.tab_search, R.mipmap.ic_search_black_36dp, ::SearchFragment)
     )
 
-    val tabIndices = 0..(values.size - 1)
+    val tabIndices = 0..(tabData.size - 1)
 
-    fun titleForIndex(index: Int): Int {
-        return values[index].first
+    fun fragmentForIndex(index: Int): Fragment {
+        return tabData[index].third()
     }
 
     fun iconForIndex(index: Int): Int {
-        return values[index].second
-    }
-
-    fun fragmentForIndex(index: Int): Fragment {
-        return values[index].third()
+        return tabData[index].second
     }
 
     fun itemCount(): Int {
-        return values.size
+        return tabData.size
     }
 
 }

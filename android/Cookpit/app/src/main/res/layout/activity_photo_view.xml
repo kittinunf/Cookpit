@@ -4,20 +4,14 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
+    <ImageView
+        android:id="@+id/photoImageView"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_gravity="center">
-
-        <ImageView
-            android:id="@+id/photoImageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            />
-
-    </android.support.v7.widget.CardView>
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:transitionName="@string/to_photo_image_transition"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -46,46 +40,48 @@
             android:textSize="14sp"
             />
 
-
-        <ImageView
-            android:id="@+id/viewCountImageView"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@mipmap/ic_eye_black_24dp"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/ownerNameTextView"
-            />
-
-        <TextView
-            android:id="@+id/viewCountTextView"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/viewCountImageView"
-            />
+            >
 
-        <ImageView
-            android:id="@+id/commentCountImageView"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@mipmap/ic_comment_black_24dp"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/viewCountTextView"
-            />
+            <ImageView
+                android:id="@+id/viewCountImageView"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@mipmap/ic_eye_black_24dp"
+                />
 
-        <TextView
-            android:id="@+id/commentCountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/commentCountImageView"
-            />
+            <TextView
+                android:id="@+id/viewCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                />
+
+            <ImageView
+                android:id="@+id/commentCountImageView"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@mipmap/ic_comment_black_24dp"
+                />
+
+            <TextView
+                android:id="@+id/commentCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
 
     </RelativeLayout>
 

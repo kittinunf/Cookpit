@@ -43,4 +43,9 @@ class PhotoViewActivity : BaseActivity() {
         viewModel.commentCounts.bindTo(commentCountTextView.rx_text).addTo(subscriptions)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.unsubscribe()
+    }
+
 }
