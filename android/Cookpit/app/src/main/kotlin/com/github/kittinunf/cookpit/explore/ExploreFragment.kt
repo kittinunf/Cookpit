@@ -25,6 +25,7 @@ import com.github.kittinunf.reactiveandroid.view.rx_visibility
 import kotlinx.android.synthetic.main.fragment_explore.*
 import kotlinx.android.synthetic.main.recycler_item_explore.view.*
 import rx.Observable
+import android.support.v4.util.Pair as AndroidPair
 
 class ExploreFragment : BaseFragment() {
 
@@ -58,7 +59,9 @@ class ExploreFragment : BaseFragment() {
                     intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
                     intent.putExtra(PhotoViewActivity.PHOTO_TITLE_EXTRA, it.title)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.backgroundImageView, getString(R.string.to_photo_image_transition))
+                        val image = AndroidPair(viewHolder.backgroundImageView as View, viewHolder.backgroundImageView.transitionName)
+                        val title = AndroidPair(viewHolder.titleTextView as View, viewHolder.titleTextView.transitionName)
+                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, image, title)
                         this@ExploreFragment.startActivity(intent, options.toBundle())
                     } else {
                         this@ExploreFragment.startActivity(intent)

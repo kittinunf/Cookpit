@@ -25,6 +25,7 @@
         <item name="colorControlActivated">@color/teal400</item>
         <item name="colorSwitchThumbNormal">@android:color/white</item>
         <item name="android:windowBackground">@color/gray50</item>
+
     </style>
 
     <style name="Base.Theme.NoActionBar">
