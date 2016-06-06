@@ -6,4 +6,7 @@
     <string name="tab_explore">Explore</string>
     <string name="tab_search">Search</string>
 
+    <string name="to_photo_image_transition">to_photo_image</string>
+    <string name="to_photo_title_transition">to_photo_title</string>
+
 </resources>

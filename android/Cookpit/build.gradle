@@ -8,7 +8,7 @@ buildscript {
     ext {
         //version
         supportVersion = '23.3.0'
-        reactiveAndroidVersion = '0.2.18'
+        reactiveAndroidVersion = '0.2.19'
         kotlinVersion = '1.0.2'
 
         kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"

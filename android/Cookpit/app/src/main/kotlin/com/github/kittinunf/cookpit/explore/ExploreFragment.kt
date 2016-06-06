@@ -3,7 +3,8 @@ package com.github.kittinunf.cookpit.explore
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
-import android.graphics.Rect
+import android.os.Build
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.view.WindowManager
 import com.github.kittinunf.cookpit.BaseFragment
 import com.github.kittinunf.cookpit.R
 import com.github.kittinunf.cookpit.photo.PhotoViewActivity
+import com.github.kittinunf.cookpit.util.addSpaceItemDecoration
 import com.github.kittinunf.cookpit.util.rx_staggeredLoadMore
 import com.github.kittinunf.cookpit.util.setImage
 import com.github.kittinunf.reactiveandroid.rx.addTo
@@ -19,9 +21,11 @@ import com.github.kittinunf.reactiveandroid.rx.bindTo
 import com.github.kittinunf.reactiveandroid.support.v4.widget.rx_refresh
 import com.github.kittinunf.reactiveandroid.support.v4.widget.rx_refreshing
 import com.github.kittinunf.reactiveandroid.support.v7.widget.rx_itemsWith
+import com.github.kittinunf.reactiveandroid.view.rx_visibility
 import kotlinx.android.synthetic.main.fragment_explore.*
 import kotlinx.android.synthetic.main.recycler_item_explore.view.*
 import rx.Observable
+import android.support.v4.util.Pair as AndroidPair
 
 class ExploreFragment : BaseFragment() {
 
@@ -37,15 +41,9 @@ class ExploreFragment : BaseFragment() {
 
     private val viewModel = ExploreViewModel()
 
-    override fun setUp() {
-        viewModel.requestForPage(1)
-    }
-
     override fun setUp(view: View) {
         exploreRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        exploreRecyclerView.addItemDecoration(SpaceItemDecoration(resources.getDimensionPixelSize(R.dimen.explore_item_offset)))
-
-        viewModel.loadings.bindTo(exploreSwipeRefreshLayout.rx_refreshing).addTo(subscriptions)
+        exploreRecyclerView.addSpaceItemDecoration(resources.getDimensionPixelSize(R.dimen.explore_item_offset))
 
         exploreSwipeRefreshLayout.rx_refresh().subscribe {
             viewModel.reset()
@@ -55,11 +53,19 @@ class ExploreFragment : BaseFragment() {
         exploreRecyclerView.rx_itemsWith(viewModel.items, { viewGroup, index ->
             val itemView = LayoutInflater.from(viewGroup?.context).inflate(R.layout.recycler_item_explore, viewGroup, false)
             val viewHolder = ExploreViewHolder(itemView)
-            viewHolder.onClick = { selectedIndex ->
+            viewHolder.onClick = { viewHolder, selectedIndex ->
                 viewModel[selectedIndex]?.let {
                     val intent = Intent(activity, PhotoViewActivity::class.java)
                     intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
-                    this@ExploreFragment.startActivity(intent)
+                    intent.putExtra(PhotoViewActivity.PHOTO_TITLE_EXTRA, it.title)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        val image = AndroidPair(viewHolder.backgroundImageView as View, viewHolder.backgroundImageView.transitionName)
+                        val title = AndroidPair(viewHolder.titleTextView as View, viewHolder.titleTextView.transitionName)
+                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, image, title)
+                        this@ExploreFragment.startActivity(intent, options.toBundle())
+                    } else {
+                        this@ExploreFragment.startActivity(intent)
+                    }
                 }
             }
             viewHolder
@@ -73,29 +79,28 @@ class ExploreFragment : BaseFragment() {
             more and !loading
         }.filter { it }.subscribe {
             viewModel.requestForNextPage()
-        }
+        }.addTo(subscriptions)
+
+
+        viewModel.loadings.bindTo(exploreSwipeRefreshLayout.rx_refreshing).addTo(subscriptions)
+        viewModel.loadingMores.map { if (it) View.VISIBLE else View.GONE }.bindTo(exploreProgressLoadMore.rx_visibility).addTo(subscriptions)
     }
 
-    class SpaceItemDecoration(val space: Int) : RecyclerView.ItemDecoration() {
-      override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
-        outRect?.let {
-            it.left = space
-            it.right = space
-            it.bottom = space
-            it.top = if (parent?.getChildLayoutPosition(view) == 0) space else 0
-        }
-      }
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.unsubscribe()
     }
+
 
     class ExploreViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardView by lazy { view.exploreCardView }
         val backgroundImageView by lazy { view.exploreBackgroundImageView }
         val titleTextView by lazy { view.exploreTitleTextView }
 
-        var onClick: ((Int) -> Unit)? = null
+        var onClick: ((ExploreViewHolder, Int) -> Unit)? = null
 
         init {
-           view.setOnClickListener { onClick?.invoke(layoutPosition) }
+            view.setOnClickListener { onClick?.invoke(this, layoutPosition) }
         }
     }
 

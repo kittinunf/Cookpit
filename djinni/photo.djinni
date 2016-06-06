@@ -1,3 +1,31 @@
+photo_comment_detail_view_data = record {
+  id: string;
+  owner_name: string;
+  owner_avatar_url: string;
+  text: string;
+}
+
+photo_comment_view_data = record {
+  error: bool;
+  message: string;
+  comments: list<photo_comment_detail_view_data>;
+}
+
+photo_comment_controller_observer = interface +o +j {
+  on_begin_update();
+  on_update(view_data: photo_comment_view_data);
+  on_end_update();
+}
+
+photo_comment_controller = interface +c {
+  static create(photo_id: string): photo_comment_controller;
+
+  subscribe(observer: photo_comment_controller_observer);
+  unsubscribe();
+
+  request_comments();
+}
+
 photo_detail_view_data = record {
   error: bool;
   message: string;

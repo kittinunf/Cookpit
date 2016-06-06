@@ -1,6 +1,8 @@
 package com.github.kittinunf.cookpit.search
 
 import android.content.Intent
+import android.os.Build
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -56,7 +58,7 @@ class SearchFragment : BaseFragment() {
             viewHolder
         }, { viewHolder, index, item ->
             viewHolder.titleTextView.text = item
-        })
+        }).addTo(subscriptions)
 
         searchResultRecyclerView.rx_itemsWith(viewModel.results, { viewGroup, index ->
             val itemView = LayoutInflater.from(viewGroup?.context).inflate(R.layout.recycler_item_search, viewGroup, false)
@@ -65,13 +67,24 @@ class SearchFragment : BaseFragment() {
                 viewModel[selectedIndex]?.let {
                     val intent = Intent(activity, PhotoViewActivity::class.java)
                     intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
-                    this@SearchFragment.startActivity(intent)
+                    intent.putExtra(PhotoViewActivity.PHOTO_TITLE_EXTRA, it.title)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.backgroundImageView, getString(R.string.to_photo_image_transition))
+                        this@SearchFragment.startActivity(intent, options.toBundle())
+                    } else {
+                        this@SearchFragment.startActivity(intent)
+                    }
                 }
             }
             viewHolder
         }, { viewHolder, index, item ->
             viewHolder.backgroundImageView.setImage(item.imageUrl)
-        })
+        }).addTo(subscriptions)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.unsubscribe()
     }
 
     class RecentSearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {

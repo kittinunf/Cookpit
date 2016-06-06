@@ -52,7 +52,7 @@ void explore_controller_impl::on_success(const string& data) {
 
   auto photos = photoArray.array_items();
 
-  std::vector<explore_detail_view_data> details;
+  vector<explore_detail_view_data> details;
   transform(photos.cbegin(), photos.cend(), back_inserter(details), [](const auto& j) {
     auto id = j["id"].string_value();
     auto image_url =
