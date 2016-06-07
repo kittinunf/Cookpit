@@ -50,30 +50,33 @@ class ExploreFragment : BaseFragment() {
             viewModel.requestForPage(1)
         }.addTo(subscriptions)
 
-        exploreRecyclerView.rx_itemsWith(viewModel.items, { viewGroup, index ->
-            val itemView = LayoutInflater.from(viewGroup?.context).inflate(R.layout.recycler_item_explore, viewGroup, false)
-            val viewHolder = ExploreViewHolder(itemView)
-            viewHolder.onClick = { viewHolder, selectedIndex ->
-                viewModel[selectedIndex]?.let {
-                    val intent = Intent(activity, PhotoViewActivity::class.java)
-                    intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
-                    intent.putExtra(PhotoViewActivity.PHOTO_TITLE_EXTRA, it.title)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        val image = AndroidPair(viewHolder.backgroundImageView as View, viewHolder.backgroundImageView.transitionName)
-                        val title = AndroidPair(viewHolder.titleTextView as View, viewHolder.titleTextView.transitionName)
-                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, image, title)
-                        this@ExploreFragment.startActivity(intent, options.toBundle())
-                    } else {
-                        this@ExploreFragment.startActivity(intent)
+        exploreRecyclerView.rx_itemsWith(observable = viewModel.items,
+                onCreateViewHolder = { viewGroup, index ->
+                    val itemView = LayoutInflater.from(viewGroup?.context).inflate(R.layout.recycler_item_explore, viewGroup, false)
+                    val viewHolder = ExploreViewHolder(itemView)
+                    viewHolder.onClick = { viewHolder, selectedIndex ->
+                        viewModel[selectedIndex]?.let {
+                            val intent = Intent(activity, PhotoViewActivity::class.java)
+                            intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
+                            intent.putExtra(PhotoViewActivity.PHOTO_TITLE_EXTRA, it.title)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                val image = AndroidPair(viewHolder.backgroundImageView as View, viewHolder.backgroundImageView.transitionName)
+                                val title = AndroidPair(viewHolder.titleTextView as View, viewHolder.titleTextView.transitionName)
+                                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, image, title)
+                                this@ExploreFragment.startActivity(intent, options.toBundle())
+                            } else {
+                                this@ExploreFragment.startActivity(intent)
+                            }
+                        }
                     }
+                    viewHolder
+                },
+                onBindViewHolder = { viewHolder, index, item ->
+                    viewHolder.cardView.preventCornerOverlap = false
+                    viewHolder.backgroundImageView.setImage(item.imageUrl, screenSize.x / 2, 600)
+                    viewHolder.titleTextView.text = item.title
                 }
-            }
-            viewHolder
-        }, { viewHolder, index, item ->
-            viewHolder.cardView.preventCornerOverlap = false
-            viewHolder.backgroundImageView.setImage(item.imageUrl, screenSize.x / 2, 600)
-            viewHolder.titleTextView.text = item.title
-        }).addTo(subscriptions)
+        ).addTo(subscriptions)
 
         Observable.combineLatest(exploreRecyclerView.rx_staggeredLoadMore(), viewModel.loadings) { more, loading ->
             more and !loading

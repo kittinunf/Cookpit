@@ -38,6 +38,8 @@ class PhotoViewActivity : BaseActivity() {
     }
 
     override fun setUp() {
+        postponeEnterTransition()
+
         viewModel = PhotoViewModel(photoId)
 
         photoCommentRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -53,7 +55,10 @@ class PhotoViewActivity : BaseActivity() {
 
         photoTitleTextView.text = photoTitle
         viewModel.imageUrls.observeOn(AndroidThreadScheduler.mainThreadScheduler).subscribe {
-            photoImageView.setImage(it)
+            photoImageView.setImage(it, onReady = {
+                startPostponedEnterTransition()
+                false
+            })
         }.addTo(subscriptions)
 
         viewModel.ownerAvatarUrls.observeOn(AndroidThreadScheduler.mainThreadScheduler).subscribe {

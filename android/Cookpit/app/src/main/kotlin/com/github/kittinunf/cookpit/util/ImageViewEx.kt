@@ -6,9 +6,26 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
+import com.bumptech.glide.load.resource.drawable.GlideDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 
 fun ImageView.setImage(url: String) {
     Glide.with(context).load(url).fitCenter().crossFade().into(this)
+}
+
+fun ImageView.setImage(url: String, onError: (() -> Boolean)? = null, onReady: (() -> Boolean)? = null) {
+    Glide.with(context).load(url).listener(object : RequestListener<String, GlideDrawable> {
+
+        override fun onException(e: Exception?, model: String?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
+            return onError?.invoke() ?: false
+        }
+
+        override fun onResourceReady(resource: GlideDrawable?, model: String?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
+            return onReady?.invoke() ?: false
+        }
+
+    }).fitCenter().crossFade().into(this)
 }
 
 fun ImageView.setImage(url: String, width: Int, height: Int) {
