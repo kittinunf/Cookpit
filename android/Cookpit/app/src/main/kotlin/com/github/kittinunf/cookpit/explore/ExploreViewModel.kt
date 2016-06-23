@@ -51,6 +51,11 @@ class ExploreViewModel : ExploreControllerObserver() {
         return viewData.value!!.explores[index]
     }
 
+    fun unsubscribe() {
+        controller.unsubscribe()
+    }
+
+    //region ExploreControllerObserver
     override fun onBeginUpdate() {
         if (pageNumber != 1) {
             loadingMore.value = true
@@ -67,9 +72,6 @@ class ExploreViewModel : ExploreControllerObserver() {
         loading.value = false
         loadingMore.value = false
     }
-
-    fun unsubscribe() {
-        controller.unsubscribe()
-    }
+    //endregion
 
 }

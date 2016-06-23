@@ -31,10 +31,9 @@ Make targets:
 ```bash
 Cookpit
 ├── android/ # Android app (Android studio project)
-├── cpp/ # Core cpp code
+├── cpp/ # Core cpp code and xcodeproj for develop C++
 ├── djinni/ # Djinni's interface files
 ├── ios/ # iOS app (open .xcworkspace)
-├── lib/ # xcodeproj for develop C++
 ├── utils/ # tools for tedious works, glob, clang-format etc.
 ├── vendors/ # 3rd party libraries and 3rd party libraries for C++ (gyp, djinni is also here)
 ├── common.gypi/ # gyp configuration file (common)
