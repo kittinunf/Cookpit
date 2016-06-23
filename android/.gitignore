@@ -18,6 +18,9 @@ jni_gen/
 libs/
 obj/
 
+# AS
+projectFilesBackup/
+
 # Gradle files
 .gradle/
 build/
