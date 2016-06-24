@@ -1,6 +1,7 @@
 package com.github.kittinunf.cookpit.photo
 
 import android.content.Intent
+import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Html
@@ -38,7 +39,7 @@ class PhotoViewActivity : BaseActivity() {
     }
 
     override fun setUp() {
-        postponeEnterTransition()
+        ActivityCompat.postponeEnterTransition(this)
 
         viewModel = PhotoViewModel(photoId)
 
@@ -56,7 +57,7 @@ class PhotoViewActivity : BaseActivity() {
         photoTitleTextView.text = photoTitle
         viewModel.imageUrls.observeOn(AndroidThreadScheduler.mainThreadScheduler).subscribe {
             photoImageView.setImage(it, onReady = {
-                startPostponedEnterTransition()
+                ActivityCompat.startPostponedEnterTransition(this@PhotoViewActivity)
                 false
             })
         }.addTo(subscriptions)
