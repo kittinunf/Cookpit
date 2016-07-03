@@ -19,3 +19,8 @@
 #import "CPPhotoDetailController.h"
 #import "CPPhotoDetailControllerObserver.h"
 #import "CPPhotoDetailViewData.h"
+// photo comment
+#import "CPPhotoCommentController.h"
+#import "CPPhotoCommentControllerObserver.h"
+#import "CPPhotoCommentViewData.h"
+

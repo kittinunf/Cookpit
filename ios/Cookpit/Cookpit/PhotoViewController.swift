@@ -12,7 +12,7 @@ import RxCocoa
 
 class PhotoViewController: UIViewController {
 
-  var viewModel: PhotoDetailViewModel!
+  var viewModel: PhotoViewModel!
   
   @IBOutlet weak var photoImageView: UIImageView!
   @IBOutlet weak var ownerAvatarImageView: UIImageView!
@@ -20,9 +20,12 @@ class PhotoViewController: UIViewController {
   @IBOutlet weak var numberOfViewLabel: UILabel!
   @IBOutlet weak var numberOfCommentLabel: UILabel!
   
+  @IBOutlet weak var tableView: UITableView!
+  
   var id: String = "" {
     didSet {
-      viewModel = PhotoDetailViewModel(id: id)
+      viewModel = PhotoViewModel(id: id)
+      viewModel.request()
     }
   }
   
@@ -41,7 +44,6 @@ class PhotoViewController: UIViewController {
   }
   
   func bindings() {
-    
     viewModel.images.map { NSURL(string: $0)! }.subscribeNext { [unowned self] in
       self.photoImageView.kf_showIndicatorWhenLoading = true
       self.photoImageView.kf_setImageWithURL($0)
@@ -59,9 +61,13 @@ class PhotoViewController: UIViewController {
       self.numberOfViewLabel.text = $0
     }.addDisposableTo(disposeBag)
     
-    viewModel.comments.subscribeNext { [unowned self] in
+    viewModel.commentCounts.subscribeNext { [unowned self] in
       self.numberOfCommentLabel.text = $0
     }.addDisposableTo(disposeBag)
+    
+    viewModel.comments.bindTo(tableView.rx_itemsWithCellIdentifier("CommentCell", cellType: PhotoCommentTableViewCell.self)) { row, element, cell in
+      cell.viewData.value = element
+    }.addDisposableTo(disposeBag)
   }
-
+  
 }

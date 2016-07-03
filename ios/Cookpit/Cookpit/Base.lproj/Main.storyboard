@@ -340,7 +340,7 @@
                                     </constraints>
                                 </stackView>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="k85-8F-ECB">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" id="k85-8F-ECB" customClass="PhotoCommentTableViewCell" customModule="Cookpit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="538" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k85-8F-ECB" id="yY4-Fk-AdK">
@@ -348,24 +348,29 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7QH-zW-Eet" userLabel="Comment Owner Avatar Image">
-                                                    <rect key="frame" x="24" y="5" width="50" height="50"/>
+                                                    <rect key="frame" x="16" y="5" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="9lP-wW-Zj6"/>
                                                         <constraint firstAttribute="width" constant="50" id="bBU-fc-aDQ"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="25"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="vNy-cZ-CaO" userLabel="Comment Info Holder">
-                                                    <rect key="frame" x="82" y="6" width="342" height="48"/>
+                                                    <rect key="frame" x="82" y="10" width="502" height="40"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Appleseed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPM-CD-WFQ" userLabel="Comment Owner Name Label">
-                                                            <rect key="frame" x="0.0" y="0.0" width="342" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="502" height="17"/>
+                                                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The quick brown fox jumps over the lazy dog" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1da-Ad-VvG" userLabel="Comment Text Label">
-                                                            <rect key="frame" x="0.0" y="27" width="342" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="23" width="502" height="17"/>
+                                                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -378,11 +383,17 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="vNy-cZ-CaO" firstAttribute="centerY" secondItem="yY4-Fk-AdK" secondAttribute="centerY" id="8K1-qc-Il0"/>
-                                                <constraint firstItem="vNy-cZ-CaO" firstAttribute="leading" secondItem="7QH-zW-Eet" secondAttribute="trailing" constant="8" symbolic="YES" id="Dal-4c-6fx"/>
-                                                <constraint firstItem="7QH-zW-Eet" firstAttribute="leading" secondItem="yY4-Fk-AdK" secondAttribute="leadingMargin" constant="16" id="RGx-sO-evf"/>
+                                                <constraint firstItem="vNy-cZ-CaO" firstAttribute="leading" secondItem="7QH-zW-Eet" secondAttribute="trailing" constant="16" id="Dal-4c-6fx"/>
+                                                <constraint firstItem="7QH-zW-Eet" firstAttribute="leading" secondItem="yY4-Fk-AdK" secondAttribute="leadingMargin" constant="8" id="RGx-sO-evf"/>
                                                 <constraint firstItem="7QH-zW-Eet" firstAttribute="centerY" secondItem="yY4-Fk-AdK" secondAttribute="centerY" id="pku-do-aBU"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="vNy-cZ-CaO" secondAttribute="trailing" constant="8" id="rsn-hI-Ga9"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="commentOwnerAvatarImageView" destination="7QH-zW-Eet" id="891-51-maa"/>
+                                            <outlet property="commentOwnerNameLabel" destination="tPM-CD-WFQ" id="IeR-Sk-sES"/>
+                                            <outlet property="commentTextLabel" destination="1da-Ad-VvG" id="ua4-VD-i76"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -403,6 +414,7 @@
                         <outlet property="ownerAvatarImageView" destination="NZM-pZ-pfR" id="X9M-x5-ZZl"/>
                         <outlet property="ownerLabel" destination="gmY-Mt-RZI" id="1Qk-fx-PX2"/>
                         <outlet property="photoImageView" destination="pys-xX-h45" id="SnF-We-unK"/>
+                        <outlet property="tableView" destination="umw-S1-mia" id="zzT-x8-O1e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eb9-d5-8D8" userLabel="First Responder" sceneMemberID="firstResponder"/>
