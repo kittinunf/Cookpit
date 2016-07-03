@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C5034721D2916F400F34AA7 /* PhotoCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5034711D2916F400F34AA7 /* PhotoCommentTableViewCell.swift */; };
 		3C61ECBC1CFFE47F009F2A0E /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C61ECBB1CFFE47F009F2A0E /* PhotoViewController.swift */; };
 		3C61ECBE1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C61ECBD1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift */; };
 		3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7F200B1CFD83B900937E4F /* AppDelegate.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C5034711D2916F400F34AA7 /* PhotoCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCommentTableViewCell.swift; sourceTree = "<group>"; };
 		3C61ECBB1CFFE47F009F2A0E /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		3C61ECBD1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
 		3C7F20081CFD83B900937E4F /* Cookpit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookpit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +85,7 @@
 			children = (
 				3C61ECBB1CFFE47F009F2A0E /* PhotoViewController.swift */,
 				3C61ECBD1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift */,
+				3C5034711D2916F400F34AA7 /* PhotoCommentTableViewCell.swift */,
 			);
 			name = Photo;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			files = (
 				3CA6D8361CFE94FD001BE50C /* ExploreViewModel.swift in Sources */,
 				3C8915C21CFE1510009BC69E /* ExploreCollectionViewCell.swift in Sources */,
+				3C5034721D2916F400F34AA7 /* PhotoCommentTableViewCell.swift in Sources */,
 				3CA6D8471CFF03BE001BE50C /* SearchViewController.swift in Sources */,
 				3C8915B91CFDEC76009BC69E /* ExploreViewController.swift in Sources */,
 				3C89159D1CFDC9B3009BC69E /* HttpClient.swift in Sources */,
