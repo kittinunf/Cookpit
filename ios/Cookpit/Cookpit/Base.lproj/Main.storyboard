@@ -403,8 +403,14 @@
                             <constraint firstItem="umw-S1-mia" firstAttribute="height" secondItem="VkB-A1-Ux3" secondAttribute="height" id="KV8-z8-WsU"/>
                             <constraint firstItem="umw-S1-mia" firstAttribute="top" secondItem="aNC-6J-saq" secondAttribute="bottom" id="Sr8-d8-zKg"/>
                             <constraint firstItem="umw-S1-mia" firstAttribute="leading" secondItem="VkB-A1-Ux3" secondAttribute="leadingMargin" constant="-20" id="hNU-e9-fD9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="umw-S1-mia" secondAttribute="trailing" constant="-20" id="oCy-ag-Wwr"/>
                             <constraint firstItem="umw-S1-mia" firstAttribute="width" secondItem="VkB-A1-Ux3" secondAttribute="width" id="wQY-ZR-BbV"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="wQY-ZR-BbV"/>
+                            </mask>
+                        </variation>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="700"/>
