@@ -13,7 +13,7 @@ class PhotoDetailViewModel {
 
   let photoId: String
   
-  let controller: CPPhotoDetailController
+  let detailController: CPPhotoDetailController
   
   private let viewData = Variable<CPPhotoDetailViewData?>(nil)
   
@@ -37,21 +37,23 @@ class PhotoDetailViewModel {
     self.viewData.asObservable().filter { $0 != nil }.map { $0!.numberOfComment }
   }()
 
-  init (id: String) {
-    photoId = id
-    controller = CPPhotoDetailController.create(id)!
+  init(id: String) {
     
-    controller.subscribe(self)
+    photoId = id
+    detailController = CPPhotoDetailController.create(id)!
+    
+    detailController.subscribe(self)
     requestDetail()
   }
   
   func requestDetail() {
-    controller.requestDetail()
+    detailController.requestDetail()
   }
   
 }
 
 extension PhotoDetailViewModel : CPPhotoDetailControllerObserver {
+
   @objc func onBeginUpdate() {
   }
 
@@ -61,4 +63,5 @@ extension PhotoDetailViewModel : CPPhotoDetailControllerObserver {
   
   @objc func onEndUpdate() {
   }
+  
 }

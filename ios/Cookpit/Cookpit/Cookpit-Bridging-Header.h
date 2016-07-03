@@ -15,7 +15,7 @@
 #import "CPSearchControllerObserver.h"
 #import "CPSearchDetailViewData.h"
 #import "CPSearchViewData.h"
-// photo
+// photo detail
 #import "CPPhotoDetailController.h"
 #import "CPPhotoDetailControllerObserver.h"
 #import "CPPhotoDetailViewData.h"
