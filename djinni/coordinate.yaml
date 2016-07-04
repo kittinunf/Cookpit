@@ -1,0 +1,30 @@
+# This is an example YAML file mimicking the builtin "date" type as external type
+---
+name: coordinate
+typedef: 'record deriving(eq)'
+params: []
+prefix: ''
+cpp:
+  typename: '::cookpit::coordinate'
+  header: '"coordinate.hpp"'
+  byValue: true
+objc:
+  typename: 'NSValue'
+  header: '<Foundation/Foundation.h>'
+  boxed: 'NSValue'
+  pointer: true
+  hash: '%s.hash'
+objcpp:
+  translator: '::djinni::Coordinate'
+  header: '"ObjcMarshal+Coordinate.hpp"'
+java:
+  typename: 'com.mapbox.mapboxsdk.geometry.LatLng'
+  boxed: 'com.mapbox.mapboxsdk.geometry.LatLng'
+  reference: true
+  generic: true
+  hash: '%s.hashCode()'
+jni:
+  translator: '::djinni::Coordinate'
+  header: '"JniMarshal+Coordinate.hpp"'
+  typename: jobject
+  typeSignature: 'Lcom/mapbox/mapboxsdk/geometry/LatLng;'

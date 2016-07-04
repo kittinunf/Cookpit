@@ -54,7 +54,7 @@ class ExploreFragment : BaseFragment() {
                 }
                 .subscribeOn(Schedulers.computation())
                 .replay(1)
-                .refCount()
+                .autoConnect()
 
         exploreRecyclerView.apply {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -74,7 +74,7 @@ class ExploreFragment : BaseFragment() {
                         viewHolder.itemView.exploreCardView.preventCornerOverlap = false
                         viewHolder.itemView.exploreBackgroundImageView.setImage(item.imageUrl, screenSize.x / 2, 600)
                         viewHolder.itemView.exploreTitleTextView.text = item.title
-                    })
+                    }).addTo(subscriptions)
         }
 
         exploreSwipeRefreshLayout.rx_refresh().observeOn(Schedulers.computation()).subscribe {

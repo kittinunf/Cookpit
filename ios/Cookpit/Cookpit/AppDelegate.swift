@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mapbox
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let dbPath = (path as NSString).stringByAppendingPathComponent("CookpitDB")
     try! NSFileManager.defaultManager().createDirectoryAtPath(dbPath, withIntermediateDirectories: true, attributes: nil);
     CPApi.setPath(dbPath)
+    
     
     return true
   }

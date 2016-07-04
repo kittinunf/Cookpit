@@ -27,6 +27,7 @@ buildscript {
         reactiveAndroidSupportDesign = "com.github.kittinunf.reactiveandroid:reactiveandroid-design:$reactiveAndroidVersion"
 
         glide = "com.github.bumptech.glide:glide:3.7.0"
+        mapbox = "com.mapbox.mapboxsdk:mapbox-android-sdk:4.1.0@aar"
     }
 
     dependencies {

@@ -21,8 +21,9 @@ class photo_comment_controller_impl : public photo_comment_controller,
   void request_comments() override;
 
  private:
-  std::unique_ptr<CURL, decltype(&curl_easy_cleanup)> curl_;
+  unique_ptr<CURL, decltype(&curl_easy_cleanup)> curl_;
   shared_ptr<photo_comment_controller_observer> observer_;
+  
   vector<photo_comment_detail_view_data> items_;
   string id_;
 

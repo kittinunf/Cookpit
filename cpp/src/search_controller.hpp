@@ -14,7 +14,7 @@ namespace cookpit
 class search_controller_impl : public search_controller, public enable_shared_from_this<search_controller_impl> {
  public:
   search_controller_impl();
-
+  
   void subscribe(const shared_ptr<search_controller_observer>& observer) override;
   void unsubscribe() override;
 
@@ -23,7 +23,7 @@ class search_controller_impl : public search_controller, public enable_shared_fr
   void search(const string& key, int8_t page) override;
 
  private:
-  std::unique_ptr<CURL, decltype(&curl_easy_cleanup)> curl_;
+  unique_ptr<CURL, decltype(&curl_easy_cleanup)> curl_;
   shared_ptr<search_controller_observer> observer_;
 
   vector<search_detail_view_data> items_;

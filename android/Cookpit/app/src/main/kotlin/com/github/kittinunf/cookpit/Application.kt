@@ -15,6 +15,9 @@ class Application : android.app.Application() {
         val db = getDatabasePath("CookpitDB")
         db.mkdirs()
         Api.setPath(db.absolutePath)
+
+        val token = "pk.eyJ1Ijoia2l0dGludW5mIiwiYSI6ImNpcTZyY2MwODAwaDBmcW02N3JweTk3M2wifQ.zM0-aialUeNtcCslIVG1ow"
+        MapboxAccountManager.start(this, token)
     }
 
 }

@@ -15,7 +15,7 @@ namespace="cookpit"
 objc_prefix="CP"
 djinni_path="djinni"
 
-for file in $(find $djinni_path -type f)
+for file in $(find $djinni_path -type f -name "*.djinni")
 do
   echo "Processing $file..."
   vendors/djinni/src/run \

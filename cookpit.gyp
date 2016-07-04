@@ -41,7 +41,8 @@
         ],
       },
       'sources': [
-        '<!@(python utils/glob.py -d cpp/src -i *.cpp *.hpp)'
+        '<!@(python utils/glob.py -d cpp/src -i *.cpp *.hpp)',
+        '<!@(python utils/glob.py -d cpp/translator -i *.cpp *.hpp)',
       ],
       'include_dirs': [
         'vendors/flowcpp/include',
@@ -62,7 +63,8 @@
       'sources': [
         '<!@(python utils/glob.py -d ios/objc_gen -i *.mm *.h *.m)'
       ],
-      'include_dirs': [],
+      'include_dirs': [
+      ],
     },
     {
       'target_name': 'lib<(name)_android',

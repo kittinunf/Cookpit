@@ -73,8 +73,12 @@
 #if defined(__mips) && defined(__linux)
 /* MIPS has cache coherency issues, requires explicit cache control */
 #include <asm/cachectl.h>
+#if defined(ANDROID)
+#define CACHEFLUSH(addr, bytes, cache) __clear_cache(addr, (char *) (addr + bytes))
+#else
 extern int cacheflush(char *addr, int nbytes, int cache);
 #define CACHEFLUSH(addr, bytes, cache)	cacheflush(addr, bytes, cache)
+#endif
 #else
 #define CACHEFLUSH(addr, bytes, cache)
 #endif

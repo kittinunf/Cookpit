@@ -103,6 +103,7 @@
                     <connections>
                         <segue destination="A8e-wf-YWm" kind="relationship" relationship="viewControllers" id="cTn-aw-qoi"/>
                         <segue destination="uAd-ga-kZf" kind="relationship" relationship="viewControllers" id="oLb-JM-VOV"/>
+                        <segue destination="dSD-Yb-PdX" kind="relationship" relationship="viewControllers" id="OZA-f4-wxN"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q2B-gQ-0sB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -196,7 +197,7 @@
                             <rect key="frame" x="0.0" y="58" width="562" height="44"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rQW-A1-FVi" id="yvx-z4-RdJ">
-                                <rect key="frame" x="0.0" y="0.0" width="562" height="43"/>
+                                <rect key="frame" x="0.0" y="0.0" width="562" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </tableViewCellContentView>
                         </tableViewCell>
@@ -211,7 +212,7 @@
                             <rect key="frame" x="0.0" y="28" width="562" height="150"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w2c-26-tHb" id="jAN-08-MnD">
-                                <rect key="frame" x="0.0" y="0.0" width="562" height="149"/>
+                                <rect key="frame" x="0.0" y="0.0" width="562" height="149.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vrA-st-0Mh">
@@ -356,16 +357,16 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="vNy-cZ-CaO" userLabel="Comment Info Holder">
-                                                    <rect key="frame" x="82" y="10" width="502" height="40"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="vNy-cZ-CaO" userLabel="Comment Info Holder">
+                                                    <rect key="frame" x="82" y="10" width="502" height="39"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Appleseed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPM-CD-WFQ" userLabel="Comment Owner Name Label">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="John Appleseed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPM-CD-WFQ" userLabel="Comment Owner Name Label">
                                                             <rect key="frame" x="0.0" y="0.0" width="502" height="17"/>
                                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The quick brown fox jumps over the lazy dog" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1da-Ad-VvG" userLabel="Comment Text Label">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The quick brown fox jumps over the lazy dog" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1da-Ad-VvG" userLabel="Comment Text Label">
                                                             <rect key="frame" x="0.0" y="23" width="502" height="17"/>
                                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -380,11 +381,17 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="vNy-cZ-CaO" firstAttribute="centerY" secondItem="yY4-Fk-AdK" secondAttribute="centerY" id="8K1-qc-Il0"/>
+                                                <constraint firstItem="vNy-cZ-CaO" firstAttribute="centerY" secondItem="7QH-zW-Eet" secondAttribute="centerY" id="ClJ-Hk-DS5"/>
                                                 <constraint firstItem="vNy-cZ-CaO" firstAttribute="leading" secondItem="7QH-zW-Eet" secondAttribute="trailing" constant="16" id="Dal-4c-6fx"/>
                                                 <constraint firstItem="7QH-zW-Eet" firstAttribute="leading" secondItem="yY4-Fk-AdK" secondAttribute="leadingMargin" constant="8" id="RGx-sO-evf"/>
                                                 <constraint firstItem="7QH-zW-Eet" firstAttribute="centerY" secondItem="yY4-Fk-AdK" secondAttribute="centerY" id="pku-do-aBU"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="vNy-cZ-CaO" secondAttribute="trailing" constant="8" id="rsn-hI-Ga9"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="8K1-qc-Il0"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="commentOwnerAvatarImageView" destination="7QH-zW-Eet" id="891-51-maa"/>
@@ -440,11 +447,49 @@
             </objects>
             <point key="canvasLocation" x="1451" y="345"/>
         </scene>
+        <!--Delegate-->
+        <scene sceneID="gbW-aV-GCM">
+            <objects>
+                <viewController id="dSD-Yb-PdX" customClass="MapViewController" customModule="Cookpit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="awQ-dg-LUg"/>
+                        <viewControllerLayoutGuide type="bottom" id="FKf-kM-AQu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L1H-n9-20r">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UbQ-Ic-NLy" customClass="MGLMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dSD-Yb-PdX" id="dZn-3y-qd4"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UbQ-Ic-NLy" firstAttribute="width" secondItem="L1H-n9-20r" secondAttribute="width" id="9NM-hq-ah1"/>
+                            <constraint firstItem="UbQ-Ic-NLy" firstAttribute="centerX" secondItem="L1H-n9-20r" secondAttribute="centerX" id="Bdg-MQ-4ME"/>
+                            <constraint firstItem="UbQ-Ic-NLy" firstAttribute="centerY" secondItem="L1H-n9-20r" secondAttribute="centerY" id="D68-LH-EmF"/>
+                            <constraint firstItem="UbQ-Ic-NLy" firstAttribute="height" secondItem="L1H-n9-20r" secondAttribute="height" id="Eer-ks-tA9"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Map" image="ic_map_36pt" id="znd-UH-STF"/>
+                    <connections>
+                        <outlet property="mapView" destination="UbQ-Ic-NLy" id="R1R-eu-gax"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GhX-Gz-Cyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1451" y="1119"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ic_comment" width="24" height="24"/>
         <image name="ic_eye" width="24" height="24"/>
         <image name="ic_landscape_36pt" width="36" height="36"/>
+        <image name="ic_map_36pt" width="36" height="36"/>
         <image name="ic_search_36pt" width="36" height="36"/>
     </resources>
 </document>

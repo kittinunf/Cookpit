@@ -36,7 +36,6 @@ class PhotoDetailDataController {
   }
   
   deinit {
-    print("detail \(#function)")
   }
   
 }
@@ -84,7 +83,6 @@ class PhotoCommentDataController {
   }
   
   deinit {
-    print("comment \(#function)")
   }
   
 }
