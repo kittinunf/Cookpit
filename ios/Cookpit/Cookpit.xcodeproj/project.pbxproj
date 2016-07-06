@@ -109,13 +109,13 @@
 		3C7F200A1CFD83B900937E4F /* Cookpit */ = {
 			isa = PBXGroup;
 			children = (
-				3C61ECBA1CFFE460009F2A0E /* Photo */,
 				3C7F200B1CFD83B900937E4F /* AppDelegate.swift */,
 				3C7F20121CFD83B900937E4F /* Assets.xcassets */,
 				3C8915BA1CFDEC7E009BC69E /* Explore */,
 				3C7F20141CFD83B900937E4F /* LaunchScreen.storyboard */,
 				3C89157A1CFD8A41009BC69E /* Libraries */,
 				3C7F200F1CFD83B900937E4F /* Main.storyboard */,
+				3C61ECBA1CFFE460009F2A0E /* Photo */,
 				3CA6D8451CFF03AA001BE50C /* Search */,
 				3C8915871CFD9853009BC69E /* Support */,
 				3C8915A71CFDDF85009BC69E /* Utils */,

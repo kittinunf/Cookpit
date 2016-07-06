@@ -9,74 +9,83 @@
 import Foundation
 import RxSwift
 
-class ExploreViewModel {
+enum ExploreViewModelCommand {
+
+  case SetItems(items: [CPExploreDetailViewData])
+  
+}
+
+struct ExploreViewModel {
+
+  let items: [CPExploreDetailViewData]
+  
+  func executeCommand(command: ExploreViewModelCommand) -> ExploreViewModel {
+    switch command {
+    case let .SetItems(items):
+        return ExploreViewModel(items: items)
+    }
+  }
+  
+}
+
+class ExploreController : CPExploreControllerObserver {
 
   private let controller = CPExploreController.create()!
   
-  private let viewData = Variable<CPExploreViewData?>(nil)
-  private let loading = Variable<Bool>(false)
+  private let _viewData = Variable<CPExploreViewData?>(nil)
   
-  var pageNumber = 0
+  lazy var viewData: Observable<CPExploreViewData> = {
+    self._viewData.asObservable()
+      .filter { $0 != nil }
+      .map { $0! as CPExploreViewData }
+      .distinctUntilChanged()
+  }()
   
-  // item stream
+  private let _loadings = Variable(false)
+  
   lazy var loadings: Observable<Bool> = {
-    self.loading.asObservable()
+    self._loadings.asObservable()
   }()
   
   lazy var errors: Observable<String> = {
-    self.viewData.asObservable()
-                  .filter { $0 != nil && $0!.error }
-                  .distinctUntilChanged { $0!.error }
-                  .map { $0!.message }
+    self._viewData.asObservable()
+      .filter { $0 != nil && $0!.error }
+      .distinctUntilChanged { $0!.error }
+      .map { $0!.message }
   }()
   
-  lazy var items: Observable<[CPExploreDetailViewData]> = {
-    self.viewData.asObservable().filter { $0 != nil }.map { $0!.explores }
-  }()
-  
-  subscript(index: Int) -> CPExploreDetailViewData? {
-    get {
-      return viewData.value?.explores[index]
-    }
-  }
+  var currentPage: Int = 1
   
   init() {
     controller.subscribe(self)
   }
   
-  func spacingForSection(section: Int) -> Float {
-    return 5
-  }
-  
-  func requestForPage(page: Int) {
-    pageNumber = page
-    self.controller.request(Int8(page))
-  }
-  
-  func requestForNextPage() {
-    requestForPage(pageNumber + 1)
-  }
-  
   func reset() {
-    self.controller.reset()
+    currentPage = 1
+    controller.reset()
   }
   
-  deinit {
-    controller.unsubscribe()
+  func request(page: Int) {
+    currentPage = page
+    controller.request(Int8(page))
   }
   
-}
-
-extension ExploreViewModel : CPExploreControllerObserver {
+  func requestNextPage() {
+    if !_loadings.value {
+      request(currentPage + 1)
+    }
+  }
+  
   @objc func onBeginUpdate() {
-    loading.value = true
+    _loadings.value = true
   }
-
-  @objc func onUpdate(data: CPExploreViewData) {
-    viewData.value = data
+  
+  @objc func onUpdate(viewData: CPExploreViewData) {
+    _viewData.value = viewData
   }
   
   @objc func onEndUpdate() {
-    loading.value = false
+    _loadings.value = false
   }
+  
 }
