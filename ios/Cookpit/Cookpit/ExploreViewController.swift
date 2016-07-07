@@ -12,9 +12,9 @@ import RxCocoa
 
 class ExploreViewController: UICollectionViewController {
 
-  let controller = ExploreDataController()
+  private let controller = ExploreDataController()
   
-  let disposeBag = DisposeBag()
+  private let disposeBag = DisposeBag()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,7 +33,19 @@ class ExploreViewController: UICollectionViewController {
       self.controller.request(1)
     }.addDisposableTo(disposeBag)
     
+    //loadings
     controller.loadings.bindTo(refreshControl.rx_refreshing).addDisposableTo(disposeBag)
+    controller.loadings.bindTo(UIApplication.sharedApplication().rx_networkActivityIndicatorVisible).addDisposableTo(disposeBag)
+    
+    //errors
+    controller.errors.subscribeNext { [unowned self] message in
+      let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
+      let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+      alert.addAction(okAction)
+      if self.presentedViewController == nil {
+        self.presentViewController(alert, animated: true, completion: nil)
+      }
+    }.addDisposableTo(disposeBag)
   }
   
   func bindings() {
@@ -53,9 +65,11 @@ class ExploreViewController: UICollectionViewController {
     //load first page
     controller.request(1)
     
-    collectionView?.rx_itemSelected.withLatestFrom(viewModel) { indexPath, viewModel in viewModel.items[indexPath.row] }.subscribeNext {
+    collectionView?.rx_itemSelected
+        .withLatestFrom(viewModel) { indexPath, viewModel in viewModel.items[indexPath.row] }
+        .subscribeNext { [unowned self] viewData in
         guard let photoViewController = self.storyboard?.instantiateViewControllerWithIdentifier("Photo") as? PhotoViewController else { return }
-        photoViewController.id = $0.id
+        photoViewController.id = viewData.id
         self.navigationController?.pushViewController(photoViewController, animated: true)
     }.addDisposableTo(disposeBag)
     
@@ -64,16 +78,6 @@ class ExploreViewController: UICollectionViewController {
       return $0 && !$1
     }.filter { $0 }.subscribeNext { [unowned self] _ in
       self.controller.requestNextPage()
-    }.addDisposableTo(disposeBag)
-    
-    //errors
-    controller.errors.subscribeNext { [unowned self] message in
-      let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
-      let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-      alert.addAction(okAction)
-      if self.presentedViewController == nil {
-        self.presentViewController(alert, animated: true, completion: nil)
-      }
     }.addDisposableTo(disposeBag)
   }
   

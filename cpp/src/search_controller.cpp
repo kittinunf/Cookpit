@@ -21,9 +21,6 @@ void search_controller_impl::subscribe(const shared_ptr<search_controller_observ
 
 void search_controller_impl::reset() {
   items_.clear();
-  observer_->on_begin_update();
-  observer_->on_update(search_view_data({true, "", items_}));
-  observer_->on_end_update();
 }
 
 vector<string> search_controller_impl::fetch_recents() {

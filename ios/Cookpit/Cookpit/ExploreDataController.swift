@@ -57,6 +57,10 @@ class ExploreDataController {
     }
   }
   
+  deinit {
+    controller.unsubscribe()
+  }
+  
 }
 
 extension ExploreDataController : CPExploreControllerObserver {
