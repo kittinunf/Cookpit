@@ -199,7 +199,7 @@
                             <rect key="frame" x="0.0" y="58" width="562" height="44"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rQW-A1-FVi" id="yvx-z4-RdJ">
-                                <rect key="frame" x="0.0" y="0.0" width="562" height="43.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="562" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </tableViewCellContentView>
                         </tableViewCell>
@@ -214,7 +214,7 @@
                             <rect key="frame" x="0.0" y="28" width="562" height="150"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w2c-26-tHb" id="jAN-08-MnD">
-                                <rect key="frame" x="0.0" y="0.0" width="562" height="149.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="562" height="149"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vrA-st-0Mh">
@@ -245,7 +245,7 @@
         <!--Photo View Controller-->
         <scene sceneID="nRn-Hm-HRq">
             <objects>
-                <viewController storyboardIdentifier="Photo" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="8hz-2J-SeG" customClass="PhotoViewController" customModule="Cookpit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Photo" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="8hz-2J-SeG" customClass="PhotoViewController" customModule="Cookpit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aNC-6J-saq"/>
                         <viewControllerLayoutGuide type="bottom" id="WHZ-R1-5Vb"/>
@@ -359,16 +359,16 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="vNy-cZ-CaO" userLabel="Comment Info Holder">
-                                                    <rect key="frame" x="82" y="10" width="502" height="39"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="vNy-cZ-CaO" userLabel="Comment Info Holder">
+                                                    <rect key="frame" x="82" y="10" width="502" height="40"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="John Appleseed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPM-CD-WFQ" userLabel="Comment Owner Name Label">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Appleseed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPM-CD-WFQ" userLabel="Comment Owner Name Label">
                                                             <rect key="frame" x="0.0" y="0.0" width="502" height="17"/>
                                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The quick brown fox jumps over the lazy dog" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1da-Ad-VvG" userLabel="Comment Text Label">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The quick brown fox jumps over the lazy dog" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1da-Ad-VvG" userLabel="Comment Text Label">
                                                             <rect key="frame" x="0.0" y="23" width="502" height="17"/>
                                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
