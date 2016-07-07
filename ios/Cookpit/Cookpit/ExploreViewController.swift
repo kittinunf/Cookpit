@@ -12,7 +12,7 @@ import RxCocoa
 
 class ExploreViewController: UICollectionViewController {
 
-  let controller = ExploreController()
+  let controller = ExploreDataController()
   
   let disposeBag = DisposeBag()
   
