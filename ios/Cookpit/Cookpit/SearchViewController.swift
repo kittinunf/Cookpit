@@ -14,13 +14,12 @@ class SearchViewController : UIViewController {
 
   @IBOutlet var searchBarButtonItem: UIBarButtonItem!
   @IBOutlet var cancelBarButtonItem: UIBarButtonItem!
-  
   @IBOutlet var searchBar: UISearchBar!
-  
   @IBOutlet var recentSearchTableView: UITableView!
   @IBOutlet var searchResultTableView: UITableView!
   
   private let controller = SearchDataController()
+  
   private let disposeBag = DisposeBag()
   
   override func viewDidLoad() {
