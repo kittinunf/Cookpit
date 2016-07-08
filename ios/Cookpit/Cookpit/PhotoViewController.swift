@@ -26,21 +26,15 @@ class PhotoViewController: UIViewController {
   
   var id: String = "" {
     didSet {
-        detailDataController = PhotoDetailDataController(id: id)
-        commentDataController = PhotoCommentDataController(id: id)
+      detailDataController = PhotoDetailDataController(id: id)
+      commentDataController = PhotoCommentDataController(id: id)
     }
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    configureViews()
     bindings()
-  }
-  
-  func configureViews() {
-    guard let navigationBar = self.navigationController?.navigationBar else { return }
-    navigationBar.tintColor = UIColor.lightGrayColor()
   }
   
   func bindings() {
@@ -55,6 +49,11 @@ class PhotoViewController: UIViewController {
                               .scan(PhotoViewModel(photo: nil, comments: [])) { viewModel, command in
                                 viewModel.executeCommand(command)
                               }
+    
+    viewModel.filter { $0.photo != nil }
+             .map { $0.photo!.title }
+             .bindTo(self.navigationItem.rx_title)
+             .addDisposableTo(disposeBag)
     
     viewModel.filter { $0.photo != nil }
              .map { NSURL(string: $0.photo!.imageUrl)! }
