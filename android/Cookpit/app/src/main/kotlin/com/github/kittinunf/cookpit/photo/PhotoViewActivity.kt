@@ -55,14 +55,14 @@ class PhotoViewActivity : BaseActivity() {
         }).addTo(subscriptions)
 
         photoTitleTextView.text = photoTitle
-        viewModel.imageUrls.observeOn(AndroidThreadScheduler.mainThreadScheduler).subscribe {
+        viewModel.imageUrls.observeOn(AndroidThreadScheduler.main).subscribe {
             photoImageView.setImage(it, onReady = {
                 ActivityCompat.startPostponedEnterTransition(this@PhotoViewActivity)
                 false
             })
         }.addTo(subscriptions)
 
-        viewModel.ownerAvatarUrls.observeOn(AndroidThreadScheduler.mainThreadScheduler).subscribe {
+        viewModel.ownerAvatarUrls.observeOn(AndroidThreadScheduler.main).subscribe {
             ownerAvatarImageView.setAvatarImage(it)
         }.addTo(subscriptions)
 
