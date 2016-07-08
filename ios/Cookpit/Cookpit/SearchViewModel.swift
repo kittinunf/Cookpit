@@ -9,72 +9,25 @@
 import Foundation
 import RxSwift
 
-class SearchViewModel {
+enum SearchViewModelCommand {
 
-  private let controller = CPSearchController.create()!
+  case SetSearchItems(items: [CPSearchDetailViewData])
+  case SetRecentItems(items: [String])
   
-  private let recentSearch = Variable<[String]>([])
-  private let searchResultViewData = Variable<CPSearchViewData?>(nil)
+}
+
+struct SearchViewModel {
+
+  let searchItems: [CPSearchDetailViewData]
+  let recentItems: [String]
   
-  private let loading = Variable<Bool>(false)
-  
-  lazy var recents: Observable<[String]> = {
-    self.recentSearch.asObservable()
-  }()
-  
-  lazy var results: Observable<[CPSearchDetailViewData]> = {
-    self.searchResultViewData.asObservable().filter { $0 != nil }.map { $0!.results }
-  }()
-  
-  lazy var loadings: Observable<Bool> = {
-    self.loading.asObservable()
-  }()
-  
-  subscript(index: Int) -> CPSearchDetailViewData? {
-    get {
-      return searchResultViewData.value?.results[index]
+  func executeCommand(command: SearchViewModelCommand) -> SearchViewModel {
+    switch command {
+    case let .SetSearchItems(items):
+        return SearchViewModel(searchItems: items, recentItems: recentItems)
+    case let .SetRecentItems(items):
+        return SearchViewModel(searchItems: searchItems, recentItems: items)
     }
   }
   
-  init() {
-    controller.subscribe(self)
-  }
-  
-  func searchForKey(key: String) {
-    controller.reset()
-    searchForKey(key, page: 1)
-  }
-  
-  func searchNextPage() {
-  }
-  
-  func fetchRecents() {
-    recentSearch.value = controller.fetchRecents()
-  }
-  
-  func recentSearchFor(index: Int) -> String {
-    return controller.fetchRecents()[index]
-  }
-  
-  private func searchForKey(key: String, page: Int) {
-    controller.search(key, page: Int8(page))
-  }
-  
-  deinit {
-    controller.unsubscribe()
-  }
-}
-
-extension SearchViewModel : CPSearchControllerObserver {
-  @objc func onBeginUpdate() {
-    loading.value = true
-  }
-  
-  @objc func onUpdate(viewData: CPSearchViewData) {
-    searchResultViewData.value = viewData
-  }
-
-  @objc func onEndUpdate() {
-    loading.value = false
-  }
 }

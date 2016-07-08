@@ -7,76 +7,22 @@
 //
 
 import Foundation
-import RxSwift
 
-class ExploreViewModel {
+enum ExploreViewModelCommand {
 
-  private let controller = CPExploreController.create()!
-  
-  private let viewData = Variable<CPExploreViewData?>(nil)
-  private let loading = Variable<Bool>(false)
-  
-  var pageNumber = 0
-  
-  // item stream
-  lazy var loadings: Observable<Bool> = {
-    self.loading.asObservable()
-  }()
-  
-  lazy var errors: Observable<String> = {
-    self.viewData.asObservable()
-                  .filter { $0 != nil && $0!.error }
-                  .distinctUntilChanged { $0!.error }
-                  .map { $0!.message }
-  }()
-  
-  lazy var items: Observable<[CPExploreDetailViewData]> = {
-    self.viewData.asObservable().filter { $0 != nil }.map { $0!.explores }
-  }()
-  
-  subscript(index: Int) -> CPExploreDetailViewData? {
-    get {
-      return viewData.value?.explores[index]
-    }
-  }
-  
-  init() {
-    controller.subscribe(self)
-  }
-  
-  func spacingForSection(section: Int) -> Float {
-    return 5
-  }
-  
-  func requestForPage(page: Int) {
-    pageNumber = page
-    self.controller.request(Int8(page))
-  }
-  
-  func requestForNextPage() {
-    requestForPage(pageNumber + 1)
-  }
-  
-  func reset() {
-    self.controller.reset()
-  }
-  
-  deinit {
-    controller.unsubscribe()
-  }
+  case SetItems(items: [CPExploreDetailViewData])
   
 }
 
-extension ExploreViewModel : CPExploreControllerObserver {
-  @objc func onBeginUpdate() {
-    loading.value = true
-  }
+struct ExploreViewModel {
 
-  @objc func onUpdate(data: CPExploreViewData) {
-    viewData.value = data
+  let items: [CPExploreDetailViewData]
+  
+  func executeCommand(command: ExploreViewModelCommand) -> ExploreViewModel {
+    switch command {
+    case let .SetItems(items):
+        return ExploreViewModel(items: items)
+    }
   }
   
-  @objc func onEndUpdate() {
-    loading.value = false
-  }
 }

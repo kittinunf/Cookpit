@@ -12,17 +12,15 @@ import RxCocoa
 
 class SearchViewController : UIViewController {
 
-  let viewModel = SearchViewModel()
-  
   @IBOutlet var searchBarButtonItem: UIBarButtonItem!
   @IBOutlet var cancelBarButtonItem: UIBarButtonItem!
-  
   @IBOutlet var searchBar: UISearchBar!
-  
   @IBOutlet var recentSearchTableView: UITableView!
   @IBOutlet var searchResultTableView: UITableView!
   
-  let disposeBag = DisposeBag()
+  private let controller = SearchDataController()
+  
+  private let disposeBag = DisposeBag()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -36,6 +34,19 @@ class SearchViewController : UIViewController {
     configureSearchBar()
     configureRecentSearchTableView()
     configureSearchResultTableView()
+    
+    //loadings
+    controller.loadings.bindTo(UIApplication.sharedApplication().rx_networkActivityIndicatorVisible).addDisposableTo(disposeBag)
+    
+    //errors
+    controller.errors.subscribeNext { [unowned self] message in
+      let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
+      let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+      alert.addAction(okAction)
+      if self.presentedViewController == nil {
+        self.presentViewController(alert, animated: true, completion: nil)
+      }
+    }.addDisposableTo(disposeBag)
   }
   
   func configureBarButtonItems() {
@@ -61,7 +72,7 @@ class SearchViewController : UIViewController {
     
     let searchBarTexts = searchBar.rx_text
     searchBarTexts.filter { $0.isEmpty }.subscribeNext { [unowned self] _ in
-      self.viewModel.fetchRecents()
+      self.controller.fetchRecents()
     }.addDisposableTo(disposeBag)
     
     searchBarTexts.map { !$0.isEmpty }.bindTo(recentSearchTableView.rx_hidden).addDisposableTo(disposeBag)
@@ -78,10 +89,10 @@ class SearchViewController : UIViewController {
     // search
     searchBarTexts
               .filter { !$0.isEmpty }
-              .throttle(0.5, scheduler: MainScheduler.instance)
+              .throttle(0.6, scheduler: MainScheduler.instance)
               .distinctUntilChanged()
               .subscribeNext { [unowned self] text in
-              self.viewModel.searchForKey(text)
+                self.controller.searchWith(text)
     }.addDisposableTo(disposeBag)
     
   }
@@ -94,44 +105,58 @@ class SearchViewController : UIViewController {
     
     selectedIndexPaths.map { _ in true }.bindTo(recentSearchTableView.rx_hidden).addDisposableTo(disposeBag)
     selectedIndexPaths.map { _ in false }.bindTo(searchResultTableView.rx_hidden).addDisposableTo(disposeBag)
-    
-    selectedIndexPaths.subscribeNext { [unowned self] indexPath in
-      let selectedText = self.viewModel.recentSearchFor(indexPath.row)
-      self.searchBar.text = selectedText
-      self.viewModel.searchForKey(selectedText)
-    }.addDisposableTo(disposeBag)
   }
   
   func configureSearchResultTableView() {
     searchResultTableView.frame = self.view.bounds
     view.addSubview(searchResultTableView)
-    
-    searchResultTableView.rx_itemSelected.subscribeNext { [unowned self] indexPath in
-      let data = self.viewModel[indexPath.row]
-      guard let photoViewController = self.storyboard?.instantiateViewControllerWithIdentifier("Photo") as? PhotoViewController, let viewData = data else { return }
-      
-      photoViewController.id = viewData.id
-      
-      self.navigationController?.pushViewController(photoViewController, animated: true)
-    }.addDisposableTo(disposeBag)
   }
   
   func bindings() {
-    //loading
-    viewModel.loadings.subscribeNext {
-      UIApplication.sharedApplication().networkActivityIndicatorVisible = $0
-    }.addDisposableTo(disposeBag)
+    let loadSearchCommand = controller.viewData.map { SearchViewModelCommand.SetSearchItems(items: $0.results) }
+    let loadRecentCommand = controller.recentItems.map { SearchViewModelCommand.SetRecentItems(items: $0) }
+    let resetSearchCommand = searchBar.rx_text.filter { !$0.isEmpty }.map { _ in SearchViewModelCommand.SetSearchItems(items: []) }
     
-    //recent search
-    viewModel.recents.bindTo(recentSearchTableView.rx_itemsWithCellIdentifier("RecentSearchCell", cellType: UITableViewCell.self)) { row, element, cell in
-      cell.textLabel?.text = element
-      cell.textLabel?.font = UIFont(name: "Menlo", size: 12.0)
-    }.addDisposableTo(disposeBag)
+    let viewModel = Observable.of(loadSearchCommand, loadRecentCommand, resetSearchCommand)
+                              .merge()
+                              .scan(SearchViewModel(searchItems: [], recentItems: [])) { viewModel, command in
+        viewModel.executeCommand(command)
+      }
+      .shareReplay(1)
     
-    //search results
-    viewModel.results.bindTo(searchResultTableView.rx_itemsWithCellIdentifier("SearchResultCell", cellType: SearchTableViewCell.self)) { row, element, cell in
-      cell.viewData.value = element
-    }.addDisposableTo(disposeBag)
+    viewModel.map { $0.searchItems }
+             .bindTo(searchResultTableView.rx_itemsWithCellIdentifier("SearchResultCell", cellType: SearchTableViewCell.self)) { row, element, cell in
+                cell.viewData.value = element
+             }
+             .addDisposableTo(disposeBag)
+    
+    viewModel.map { $0.recentItems }
+             .bindTo(recentSearchTableView.rx_itemsWithCellIdentifier("RecentSearchCell", cellType: UITableViewCell.self)) { row, element, cell in
+                cell.textLabel?.text = element
+                cell.textLabel?.font = UIFont(name: "Menlo", size: 12.0)
+             }
+            .addDisposableTo(disposeBag)
+    
+    searchResultTableView.rx_itemSelected
+                         .withLatestFrom(viewModel) { indexPath, viewModel in
+                            viewModel.searchItems[indexPath.row]
+                         }
+                         .subscribeNext { [unowned self] viewData in
+                            guard let photoViewController = self.storyboard?.instantiateViewControllerWithIdentifier("Photo") as? PhotoViewController else { return }
+                            photoViewController.id = viewData.id
+                            self.navigationController?.pushViewController(photoViewController, animated: true)
+                         }
+                         .addDisposableTo(disposeBag)
+    
+    recentSearchTableView.rx_itemSelected
+                         .withLatestFrom(viewModel) { indexPath, viewModel in
+                            viewModel.recentItems[indexPath.row]
+                         }
+                         .subscribeNext { [unowned self] text in
+                            self.searchBar.text = text
+                            self.controller.searchWith(text)
+                         }
+                         .addDisposableTo(disposeBag)
   }
   
 }
