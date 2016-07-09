@@ -21,6 +21,8 @@ class SearchDataController : SearchControllerObserver() {
 
     val loadings by lazy { _loadings.observable }
 
+    var currentPage = 1
+
     init {
         controller.subscribe(this)
     }
@@ -31,11 +33,12 @@ class SearchDataController : SearchControllerObserver() {
     }
 
     private fun searchWithKey(key: String, page: Int) {
+        currentPage = page
         controller.search(key, page.toByte())
     }
 
     fun searchNextPage(key: String) {
-
+        searchWithKey(key, currentPage + 1)
     }
 
     fun fetchRecents() {
@@ -59,6 +62,3 @@ class SearchDataController : SearchControllerObserver() {
     }
 
 }
-
-
- 
