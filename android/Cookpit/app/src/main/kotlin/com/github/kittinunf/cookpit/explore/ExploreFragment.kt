@@ -1,6 +1,7 @@
 package com.github.kittinunf.cookpit.explore
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -8,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import com.github.kittinunf.cookpit.BaseFragment
+import com.github.kittinunf.cookpit.ExploreDetailViewData
 import com.github.kittinunf.cookpit.R
+import com.github.kittinunf.cookpit.photo.PhotoViewActivity
 import com.github.kittinunf.cookpit.util.addSpaceItemDecoration
 import com.github.kittinunf.cookpit.util.not
 import com.github.kittinunf.cookpit.util.rx_staggeredLoadMore
@@ -19,6 +22,7 @@ import com.github.kittinunf.reactiveandroid.rx.bindTo
 import com.github.kittinunf.reactiveandroid.support.v4.widget.rx_refresh
 import com.github.kittinunf.reactiveandroid.support.v4.widget.rx_refreshing
 import com.github.kittinunf.reactiveandroid.support.v7.widget.rx_itemsWith
+import com.github.kittinunf.reactiveandroid.view.rx_click
 import com.github.kittinunf.reactiveandroid.view.rx_enabled
 import com.github.kittinunf.reactiveandroid.view.rx_visibility
 import kotlinx.android.synthetic.main.fragment_explore.*
@@ -45,7 +49,7 @@ class ExploreFragment : BaseFragment() {
 
         val viewModels = loadCommands.scan(ExploreViewModel(listOf())) { viewModel, command ->
             viewModel.executeCommand(command)
-        }.share()
+        }.replay(1).refCount()
 
         controller.request(1)
 
@@ -56,21 +60,11 @@ class ExploreFragment : BaseFragment() {
                     { parent, index ->
                         val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.recycler_item_explore, parent, false)
                         val viewHolder = ExploreViewHolder(itemView)
-//                    viewHolder.onClick = { viewHolder, selectedIndex ->
-//                        viewModel[selectedIndex]?.let {
-//                            val intent = Intent(activity, PhotoViewActivity::class.java)
-//                            intent.putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, it.id)
-//                            intent.putExtra(PhotoViewActivity.PHOTO_TITLE_EXTRA, it.title)
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                                val image = AndroidPair(viewHolder.backgroundImageView as View, viewHolder.backgroundImageView.transitionName)
-//                                val title = AndroidPair(viewHolder.titleTextView as View, viewHolder.titleTextView.transitionName)
-//                                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, image, title)
-//                                this@ExploreFragment.startActivity(intent, options.toBundle())
-//                            } else {
-//                                this@ExploreFragment.startActivity(intent)
-//                            }
-//                        }
-//                    }
+                        viewHolder.itemView.rx_click()
+                                .map { viewHolder.layoutPosition }
+                                .withLatestFrom(viewModels) { index, viewModel -> viewModel.items[index] }
+                                .bindNext(this@ExploreFragment, ExploreFragment::navigateToPhotoViewActivity)
+                                .addTo(subscriptions)
                         viewHolder
                     },
                     { viewHolder, index, item  ->
@@ -96,18 +90,15 @@ class ExploreFragment : BaseFragment() {
         controller.loadingMores.map { if (it) View.VISIBLE else View.GONE }.bindTo(exploreProgressLoadMore.rx_visibility).addTo(subscriptions)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    class ExploreViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        var onClick: ((ExploreViewHolder, Int) -> Unit)? = null
-
-        init {
-            view.setOnClickListener { onClick?.invoke(this, layoutPosition) }
+    fun navigateToPhotoViewActivity(viewData: ExploreDetailViewData) {
+        val intent = Intent(activity, PhotoViewActivity::class.java).apply {
+            putExtra(PhotoViewActivity.PHOTO_ID_EXTRA, viewData.id)
+            putExtra(PhotoViewActivity.PHOTO_TITLE_EXTRA, viewData.title)
         }
 
+        startActivity(intent)
     }
+
+    class ExploreViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
 }
