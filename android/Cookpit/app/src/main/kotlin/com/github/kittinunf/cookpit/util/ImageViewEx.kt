@@ -10,7 +10,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
-fun ImageView.setImage(url: String) {
+fun ImageView.setImageUrl(url: String) {
     Glide.with(context).load(url).fitCenter().crossFade().into(this)
 }
 

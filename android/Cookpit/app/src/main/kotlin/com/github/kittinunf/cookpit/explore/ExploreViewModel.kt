@@ -8,7 +8,7 @@ sealed class ExploreViewModelCommand {
 
 }
 
-data class ExploreViewModel(val items: List<ExploreDetailViewData>) {
+data class ExploreViewModel(val items: List<ExploreDetailViewData> = listOf()) {
 
     fun executeCommand(command: ExploreViewModelCommand): ExploreViewModel {
         when(command) {

@@ -47,9 +47,9 @@ class ExploreFragment : BaseFragment() {
     override fun setUp(view: View) {
         val loadCommands = controller.viewData.map { ExploreViewModelCommand.SetItems(it.explores) }
 
-        val viewModels = loadCommands.scan(ExploreViewModel(listOf())) { viewModel, command ->
-            viewModel.executeCommand(command)
-        }.replay(1).refCount()
+        val viewModels = loadCommands.scan(ExploreViewModel()) { viewModel, command -> viewModel.executeCommand(command) }
+                                        .replay(1)
+                                        .refCount()
 
         controller.request(1)
 
@@ -97,6 +97,11 @@ class ExploreFragment : BaseFragment() {
         }
 
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        controller.unsubscribe()
     }
 
     class ExploreViewHolder(view: View) : RecyclerView.ViewHolder(view)
