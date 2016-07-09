@@ -2,7 +2,7 @@ explore_detail_view_data = record {
   id: string;
   image_url: string;
   title: string;
-}
+} deriving (eq)
 
 explore_view_data = record {
   error: bool;

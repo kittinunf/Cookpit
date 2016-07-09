@@ -13,7 +13,7 @@ sdk.dir=<your_sdk_path>
 ```
 
 ## Installation
-* Run `make android` at root folder
+* Run `make android` at root folder by default, it focuses only 2 architectures which are `APP_ABI := armeabi-v7a,x86`
 * Optionally, run `make android ARCH=all` for all available Android architectures
 
 ## Building
