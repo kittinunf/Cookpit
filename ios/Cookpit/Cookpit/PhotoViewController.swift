@@ -19,30 +19,28 @@ class PhotoViewController: UIViewController {
   @IBOutlet weak var numberOfCommentLabel: UILabel!
   @IBOutlet weak var tableView: UITableView!
   
-  private var detailDataController: PhotoDetailDataController!
-  private var commentDataController: PhotoCommentDataController!
+  private var detailController: PhotoDetailDataController!
+  private var commentController: PhotoCommentDataController!
   
   private let disposeBag = DisposeBag()
   
-  var id: String = "" {
-    didSet {
-      detailDataController = PhotoDetailDataController(id: id)
-      commentDataController = PhotoCommentDataController(id: id)
-    }
-  }
+  var id: String!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    detailController = PhotoDetailDataController(id: id)
+    commentController = PhotoCommentDataController(id: id)
     
     bindings()
   }
   
   func bindings() {
-    detailDataController.request()
-    commentDataController.request()
+    detailController.request()
+    commentController.request()
     
-    let loadDetailCommand = detailDataController.viewData.map { PhotoViewModelCommand.SetPhoto(photo: $0) }
-    let loadCommentCommand = commentDataController.viewData.map { PhotoViewModelCommand.SetComments(comments: $0.comments) }
+    let loadDetailCommand = detailController.viewData.map { PhotoViewModelCommand.SetPhoto(photo: $0) }
+    let loadCommentCommand = commentController.viewData.map { PhotoViewModelCommand.SetComments(comments: $0.comments) }
     
     let viewModel = Observable.of(loadDetailCommand, loadCommentCommand)
                               .merge()
@@ -96,6 +94,11 @@ class PhotoViewController: UIViewController {
                cell.viewData.value = element
              }
              .addDisposableTo(disposeBag)
+  }
+  
+  deinit {
+    detailController.unsubscribe()
+    commentController.unsubscribe()
   }
   
 }

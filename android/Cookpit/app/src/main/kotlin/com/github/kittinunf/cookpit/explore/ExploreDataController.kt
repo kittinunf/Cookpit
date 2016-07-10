@@ -3,6 +3,7 @@ package com.github.kittinunf.cookpit.explore
 import com.github.kittinunf.cookpit.ExploreController
 import com.github.kittinunf.cookpit.ExploreControllerObserver
 import com.github.kittinunf.cookpit.ExploreViewData
+import com.github.kittinunf.cookpit.util.dispatchAsync
 import com.github.kittinunf.reactiveandroid.MutableProperty
 
 class ExploreDataController : ExploreControllerObserver() {
@@ -34,7 +35,9 @@ class ExploreDataController : ExploreControllerObserver() {
 
     fun request(page: Int) {
         currentPage = page
-        controller.request(page.toByte())
+        dispatchAsync {
+            controller.request(page.toByte())
+        }
     }
 
     fun requestNextPage() {

@@ -8,17 +8,18 @@
       'type': 'static_library',
       'conditions': [
         ['OS == "lib"', {
-          'actions': [ {
-            'action_name': 'clang-format',
-            'type' : 'none',
-            'inputs': [
-            ],
-            'outputs':[
-            ],
-            'action': [
-              '$SRCROOT/utils/run_clang'
-            ],
-          },
+          'actions': [
+            {
+              'action_name': 'clang-format',
+              'type' : 'none',
+              'inputs': [
+              ],
+              'outputs':[
+              ],
+              'action': [
+                '$SRCROOT/utils/run_clang'
+              ],
+            }
           ],
         }],
       ],
@@ -26,6 +27,7 @@
         'vendors/json11.gyp:json11',
       ],
       'libraries': [
+        'vendors/curl/<(OS)/bin/libcurl.a'
       ],
       'defines': [
       ],
@@ -43,6 +45,7 @@
       'include_dirs': [
         'vendors/flowcpp/include',
         'vendors/json11',
+        'vendors/curl/<(OS)/include',
       ],
     },
     {
@@ -66,7 +69,8 @@
         'vendors/djinni/support-lib/support_lib.gyp:djinni_jni',
       ],
       'ldflags': [
-        '-llog'
+        '-llog',
+        '-lz',
       ],
       'sources': [
         '<!@(python utils/glob.py -d android/<(name)/jni_gen -i *.cpp *.hpp)',
@@ -97,6 +101,7 @@
         'vendors/googletest/googlemock/include',
         'vendors/flowcpp/include',
         'vendors/json11',
+        'vendors/curl/include/',
       ],
     }
   ],

@@ -17,6 +17,8 @@ namespace cookpit
 {
 shared_ptr<explore_controller> explore_controller::create() { return make_shared<explore_controller_impl>(); }
 
+explore_controller_impl::explore_controller_impl() : curl_(curl_easy_init(), curl_easy_cleanup) {}
+
 void explore_controller_impl::subscribe(const shared_ptr<explore_controller_observer>& observer) {
   observer_ = observer;
 }
@@ -26,21 +28,33 @@ void explore_controller_impl::unsubscribe() { observer_ = nullptr; }
 void explore_controller_impl::reset() { items_.clear(); }
 
 void explore_controller_impl::request(int8_t page) {
-  const auto self = shared_from_this();
-
   unordered_map<string, string> params = {
-      {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {PER_PAGE, "10"s}, {PAGE, to_string(page)}};
+      {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {FORMAT, JSON_FORMAT},
+      {NO_JSON_CALLBACK, "1"s},          {PER_PAGE, "10"s},        {PAGE, to_string(page)}};
+
+  const weak_ptr<explore_controller_impl> weak_self = shared_from_this();
 
   observer_->on_begin_update();
-  api_impl::instance().client()->get(BASE_URL, params, self);
+  curl_get(curl_.get(), BASE_URL, params,
+           [weak_self](int /*code*/, const string& response) {
+             if (auto self = weak_self.lock()) {
+               self->on_success(response);
+               self->observer_->on_end_update();
+             }
+           },
+           [weak_self](int /*code*/, const string& response) {
+             if (auto self = weak_self.lock()) {
+               self->on_failure(response);
+               self->observer_->on_end_update();
+             }
+           });
 }
 
 void explore_controller_impl::on_failure(const string& reason) {
   string error;
   auto json = json11::Json::parse(reason, error);
-  auto message = error.empty() ? json["message"].string_value() : "";
+  auto message = error.empty() ? json["message"].string_value() : "There is something wrong, please try again later";
   observer_->on_update(explore_view_data{true, message, items_});
-  observer_->on_end_update();
 }
 
 void explore_controller_impl::on_success(const string& data) {
@@ -64,6 +78,5 @@ void explore_controller_impl::on_success(const string& data) {
 
   items_.insert(items_.end(), details.begin(), details.end());
   observer_->on_update(explore_view_data{false, json["stat"].string_value(), items_});
-  observer_->on_end_update();
 }
 }

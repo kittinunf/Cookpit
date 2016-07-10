@@ -17,11 +17,11 @@ namespace cookpit
 {
 shared_ptr<search_controller> search_controller::create() { return make_shared<search_controller_impl>(); }
 
+search_controller_impl::search_controller_impl() : curl_(curl_easy_init(), curl_easy_cleanup) {}
+
 void search_controller_impl::subscribe(const shared_ptr<search_controller_observer>& observer) { observer_ = observer; }
 
-void search_controller_impl::reset() {
-  items_.clear();
-}
+void search_controller_impl::reset() { items_.clear(); }
 
 vector<string> search_controller_impl::fetch_recents() {
   vector<string> keys(recent_search_key_.size());
@@ -30,15 +30,34 @@ vector<string> search_controller_impl::fetch_recents() {
 }
 
 void search_controller_impl::search(const string& key, int8_t page) {
+  // save item into recent search
   recent_search_key_.insert(key);
 
-  const auto self = shared_from_this();
+  // replace space if any to '+'
+  auto converted_key = key;
+  transform(converted_key.begin(), converted_key.end(), converted_key.begin(),
+            [](auto ch) { return ch == ' ' ? '+' : ch; });
 
-  unordered_map<string, string> params = {
-      {METHOD, PHOTOS_SEARCH}, {API_KEY, API_KEY_VALUE}, {TEXT, key}, {PER_PAGE, "25"s}, {PAGE, to_string(page)}};
+  unordered_map<string, string> params = {{METHOD, PHOTOS_SEARCH}, {API_KEY, API_KEY_VALUE}, {TEXT, converted_key},
+                                          {FORMAT, JSON_FORMAT},   {NO_JSON_CALLBACK, "1"s}, {PER_PAGE, "25"s},
+                                          {PAGE, to_string(page)}};
+
+  const weak_ptr<search_controller_impl> weak_self = shared_from_this();
 
   observer_->on_begin_update();
-  api_impl::instance().client()->get(BASE_URL, params, self);
+  curl_get(curl_.get(), BASE_URL, params,
+           [weak_self](int /*code*/, const string& response) {
+             if (auto self = weak_self.lock()) {
+               self->on_success(response);
+               self->observer_->on_end_update();
+             }
+           },
+           [weak_self](int /*code*/, const string& response) {
+             if (auto self = weak_self.lock()) {
+               self->on_failure(response);
+               self->observer_->on_end_update();
+             }
+           });
 }
 
 void search_controller_impl::unsubscribe() { observer_ = nullptr; }
@@ -48,7 +67,6 @@ void search_controller_impl::on_failure(const string& reason) {
   auto json = json11::Json::parse(reason, error);
   auto message = error.empty() ? json["message"].string_value() : "";
   observer_->on_update(search_view_data({true, message, items_}));
-  observer_->on_end_update();
 }
 
 void search_controller_impl::on_success(const string& data) {
@@ -72,6 +90,5 @@ void search_controller_impl::on_success(const string& data) {
 
   items_.insert(items_.end(), details.begin(), details.end());
   observer_->on_update(search_view_data{false, json["stat"].string_value(), items_});
-  observer_->on_end_update();
 }
 }

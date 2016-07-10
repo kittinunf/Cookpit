@@ -159,4 +159,8 @@ class SearchViewController : UIViewController {
                          .addDisposableTo(disposeBag)
   }
   
+  deinit {
+    controller.unsubscribe()
+  }
+  
 }

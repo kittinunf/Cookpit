@@ -28,6 +28,7 @@ import com.github.kittinunf.reactiveandroid.view.rx_visibility
 import kotlinx.android.synthetic.main.fragment_explore.*
 import kotlinx.android.synthetic.main.recycler_item_explore.view.*
 import rx.Observable
+import java.util.concurrent.TimeUnit
 import android.support.v4.util.Pair as AndroidPair
 
 class ExploreFragment : BaseFragment() {
@@ -82,6 +83,7 @@ class ExploreFragment : BaseFragment() {
         exploreRecyclerView.rx_staggeredLoadMore()
                 .withLatestFrom(Observable.merge(controller.loadings, controller.loadingMores)) { loadMore, loading -> loading }
                 .filter { !it }
+                .debounce(300, TimeUnit.MILLISECONDS)
                 .bindNext(controller, ExploreDataController::requestNextPage)
                 .addTo(subscriptions)
 
