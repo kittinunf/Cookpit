@@ -10,7 +10,7 @@ import Foundation
 
 private let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
 
-func async<T>(background: () -> T,
+func dispatchAsync<T>(background: () -> T,
               main: ((t: T) -> Void)? = nil) {
     dispatch_async(queue) { 
         let t = background()

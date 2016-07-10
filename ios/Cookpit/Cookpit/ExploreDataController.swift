@@ -56,7 +56,7 @@ class ExploreDataController {
   func request(page: Int) {
     currentPage = page
     
-    async({
+    dispatchAsync({
       self.controller.request(Int8(page))
     })
   }

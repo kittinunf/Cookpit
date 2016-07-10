@@ -66,7 +66,7 @@ class SearchDataController {
   }
   
   private func searchWith(key: String, page: Int) {
-    async({
+    dispatchAsync({
       self.controller.search(key, page: Int8(page))
     })
   }

@@ -23,7 +23,7 @@ internal fun <T, X> FuseAsync<T>.mainThread(f: (T) -> X) {
     thread(mainThreadExecutor, f)
 }
 
-internal fun <T> T.dispatch(executorService: ExecutorService = executor, block: FuseAsync<T>.() -> Unit): Future<Unit> {
+internal fun <T> T.dispatchAsync(executorService: ExecutorService = executor, block: FuseAsync<T>.() -> Unit): Future<Unit> {
     val a = FuseAsync(WeakReference(this))
     return executorService.submit<Unit> { a.block() }
 }
