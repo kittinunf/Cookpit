@@ -14,7 +14,7 @@ extension UIScrollView {
     return rx_contentOffset.asObservable().map { [unowned self] offset in
       let contentHeight = self.contentSize.height
       
-      if offset.y > (contentHeight - self.bounds.height) + 20 {
+      if offset.y > (contentHeight - self.bounds.height) {
         return true
       } else {
         return false

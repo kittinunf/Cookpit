@@ -42,7 +42,6 @@ dependencies {
             reactiveAndroidSupportV4,
             reactiveAndroidSupportDesign,
             glide,
-            fuel,
     )
 }
 

@@ -2,7 +2,6 @@
 
 #include <curl/curl.h>
 
-#include "gen/http_observer.hpp"
 #include "gen/photo_detail_controller.hpp"
 
 using namespace std;

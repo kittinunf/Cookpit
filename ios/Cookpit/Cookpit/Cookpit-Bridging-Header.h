@@ -3,8 +3,6 @@
 //
 
 #import "CPApi.h"
-#import "CPHttp.h"
-#import "CPHttpObserver.h"
 // explore
 #import "CPExploreController.h"
 #import "CPExploreControllerObserver.h"
