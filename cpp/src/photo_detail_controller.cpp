@@ -13,10 +13,11 @@
 namespace cookpit
 {
 shared_ptr<photo_detail_controller> photo_detail_controller::create(const string& id) {
-  auto controller = make_shared<photo_detail_controller_impl>();
-  controller->id(id);
-  return controller;
+  return make_shared<photo_detail_controller_impl>(id);
 }
+
+photo_detail_controller_impl::photo_detail_controller_impl(const string& id)
+    : curl_(curl_easy_init(), curl_easy_cleanup), id_(id) {}
 
 void photo_detail_controller_impl::subscribe(const shared_ptr<photo_detail_controller_observer>& observer) {
   observer_ = observer;
@@ -24,15 +25,29 @@ void photo_detail_controller_impl::subscribe(const shared_ptr<photo_detail_contr
 
 void photo_detail_controller_impl::unsubscribe() { observer_ = nullptr; }
 
-void photo_detail_controller_impl::id(const string& id) { id_ = id; }
-
 void photo_detail_controller_impl::request_detail() {
-  const auto self = shared_from_this();
+  unordered_map<string, string> params = {{METHOD, PHOTOS_INFO},
+                                          {API_KEY, API_KEY_VALUE},
+                                          {PHOTO_ID, id_},
+                                          {FORMAT, JSON_FORMAT},
+                                          {NO_JSON_CALLBACK, "1"s}};
 
-  unordered_map<string, string> params = {{METHOD, PHOTOS_INFO}, {API_KEY, API_KEY_VALUE}, {PHOTO_ID, id_}};
+  const weak_ptr<photo_detail_controller_impl> weak_self = shared_from_this();
 
   observer_->on_begin_update();
-  api_impl::instance().client()->get(BASE_URL, params, self);
+  curl_get(curl_.get(), BASE_URL, params,
+           [weak_self](int /*code*/, const string& response) {
+             if (auto self = weak_self.lock()) {
+               self->on_success(response);
+               self->observer_->on_end_update();
+             }
+           },
+           [weak_self](int /*code*/, const string& response) {
+             if (auto self = weak_self.lock()) {
+               self->on_failure(response);
+               self->observer_->on_end_update();
+             }
+           });
 }
 
 void photo_detail_controller_impl::on_failure(const string& reason) {
@@ -40,7 +55,6 @@ void photo_detail_controller_impl::on_failure(const string& reason) {
   auto json = json11::Json::parse(reason, error);
   auto message = error.empty() ? json["message"].string_value() : "";
   observer_->on_update(photo_detail_view_data{true, message, id_, "", "", "", "", 0, 0});
-  observer_->on_end_update();
 }
 
 void photo_detail_controller_impl::on_success(const string& data) {
@@ -60,6 +74,5 @@ void photo_detail_controller_impl::on_success(const string& data) {
       photo_detail_view_data(false, json["stat"].string_value(), photo["id"].string_value(),
                              title["_content"].string_value(), image_url, owner["username"].string_value(), avatar_url,
                              photo["views"].string_value(), photo["comments"]["_content"].string_value()));
-  observer_->on_end_update();
 }
 }

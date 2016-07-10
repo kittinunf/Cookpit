@@ -20,18 +20,21 @@ class SearchDataController {
       .filter { $0 != nil }
       .map { $0! as CPSearchViewData }
       .distinctUntilChanged()
+      .observeOn(MainScheduler.instance)
   }()
   
   private let _recentItems = Variable([String]())
   
   lazy var recentItems: Observable<[String]> = {
     self._recentItems.asObservable()
+      .observeOn(MainScheduler.instance)
   }()
   
   private let _loadings = Variable(false)
   
   lazy var loadings: Observable<Bool> = {
     self._loadings.asObservable()
+      .observeOn(MainScheduler.instance)
   }()
   
   lazy var errors: Observable<String> = {
@@ -41,10 +44,15 @@ class SearchDataController {
       .filter { $0.error }
       .distinctUntilChanged()
       .map { $0.message }
+      .observeOn(MainScheduler.instance)
   }()
   
   init() {
     controller.subscribe(self)
+  }
+  
+  func unsubscribe() {
+    controller.unsubscribe()
   }
   
   func fetchRecents() {
@@ -58,7 +66,9 @@ class SearchDataController {
   }
   
   private func searchWith(key: String, page: Int) {
-    controller.search(key, page: Int8(page))
+    async({
+      self.controller.search(key, page: Int8(page))
+    })
   }
   
   deinit {

@@ -28,30 +28,26 @@ void explore_controller_impl::unsubscribe() { observer_ = nullptr; }
 void explore_controller_impl::reset() { items_.clear(); }
 
 void explore_controller_impl::request(int8_t page) {
-  observer_->on_begin_update();
-
-  CURLcode res;
-  string buffer;
-  int code;
-
   unordered_map<string, string> params = {
       {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {FORMAT, JSON_FORMAT},
       {NO_JSON_CALLBACK, "1"s},          {PER_PAGE, "10"s},        {PAGE, to_string(page)}};
 
-  auto query_string = convert_to_query_param_string(params);
-  auto url = BASE_URL + "?" + query_string;
-  curl_easy_setopt(curl_.get(), CURLOPT_URL, url.c_str());
-  curl_easy_setopt(curl_.get(), CURLOPT_WRITEFUNCTION, write_to_string);
-  curl_easy_setopt(curl_.get(), CURLOPT_WRITEDATA, &buffer);
-  curl_easy_setopt(curl_.get(), CURLOPT_SSL_VERIFYPEER, false);
-  res = curl_easy_perform(curl_.get());
-  string response = buffer;
-  curl_easy_getinfo(curl_.get(), CURLINFO_RESPONSE_CODE, &code);
-  if (res == CURLE_OK && code == 200) {
-    on_success(response);
-  } else {
-    on_failure(response);
-  }
+  const weak_ptr<explore_controller_impl> weak_self = shared_from_this();
+
+  observer_->on_begin_update();
+  curl_get(curl_.get(), BASE_URL, params,
+           [weak_self](int /*code*/, const string& response) {
+             if (auto self = weak_self.lock()) {
+               self->on_success(response);
+               self->observer_->on_end_update();
+             }
+           },
+           [weak_self](int /*code*/, const string& response) {
+             if (auto self = weak_self.lock()) {
+               self->on_failure(response);
+               self->observer_->on_end_update();
+             }
+           });
 }
 
 void explore_controller_impl::on_failure(const string& reason) {
@@ -59,7 +55,6 @@ void explore_controller_impl::on_failure(const string& reason) {
   auto json = json11::Json::parse(reason, error);
   auto message = error.empty() ? json["message"].string_value() : "There is something wrong, please try again later";
   observer_->on_update(explore_view_data{true, message, items_});
-  observer_->on_end_update();
 }
 
 void explore_controller_impl::on_success(const string& data) {
@@ -83,6 +78,5 @@ void explore_controller_impl::on_success(const string& data) {
 
   items_.insert(items_.end(), details.begin(), details.end());
   observer_->on_update(explore_view_data{false, json["stat"].string_value(), items_});
-  observer_->on_end_update();
 }
 }

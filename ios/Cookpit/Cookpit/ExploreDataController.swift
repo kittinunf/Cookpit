@@ -44,6 +44,10 @@ class ExploreDataController {
     controller.subscribe(self)
   }
   
+  func unsubscribe() {
+    controller.unsubscribe()
+  }
+  
   func reset() {
     currentPage = 1
     controller.reset()

@@ -19,6 +19,7 @@ class PhotoDetailDataController {
     self._viewData.asObservable()
         .filter { $0 != nil }
         .map { $0! as CPPhotoDetailViewData }
+        .observeOn(MainScheduler.instance)
   }()
   
   init(id: String) {
@@ -26,12 +27,18 @@ class PhotoDetailDataController {
     controller.subscribe(self)
   }
   
+  func unsubscribe() {
+    controller.unsubscribe()
+  }
+  
   func request() {
-    controller.requestDetail()
+    async({
+      self.controller.requestDetail()
+    })
   }
   
   deinit {
-    controller.unsubscribe()
+    print("detail \(#function)")
   }
   
 }
@@ -62,20 +69,26 @@ class PhotoCommentDataController {
     self._viewData.asObservable()
         .filter { $0 != nil }
         .map { $0! as CPPhotoCommentViewData }
+        .observeOn(MainScheduler.instance)
   }()
   
   init(id: String) {
     controller = CPPhotoCommentController.create(id)!
     controller.subscribe(self)
-    controller.requestComments()
+  }
+  
+  func unsubscribe() {
+    controller.unsubscribe()
   }
   
   func request() {
-    controller.requestComments()
+    async({
+      self.controller.requestComments()
+    })
   }
   
   deinit {
-    controller.unsubscribe()
+    print("comment \(#function)")
   }
   
 }
