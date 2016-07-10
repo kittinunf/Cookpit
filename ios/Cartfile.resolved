@@ -1,3 +1,2 @@
-github "Alamofire/Alamofire" "3.4.0"
-github "onevcat/Kingfisher" "2.4.1"
-github "ReactiveX/RxSwift" "2.5.0"
+github "onevcat/Kingfisher" "2.4.2"
+github "ReactiveX/RxSwift" "2.6.0"

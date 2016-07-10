@@ -5,7 +5,6 @@
 
 #include "api.hpp"
 #include "constants.hpp"
-#include "gen/http.hpp"
 #include "gen/photo_detail_controller_observer.hpp"
 #include "gen/photo_detail_view_data.hpp"
 #include "utility.hpp"

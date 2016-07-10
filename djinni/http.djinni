@@ -1,8 +1,0 @@
-http_observer = interface +c {
-    on_failure(reason: string);
-    on_success(data: string);
-}
-
-http = interface +o +j {
-    get(url: string, params: optional<map<string, string>>, observer: http_observer);
-}

@@ -7,10 +7,8 @@
 #include "constants.hpp"
 #include "gen/explore_controller_observer.hpp"
 #include "gen/explore_view_data.hpp"
-#include "gen/http.hpp"
 #include "utility.hpp"
 
-using namespace experimental;
 using namespace string_literals;
 
 namespace cookpit

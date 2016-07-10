@@ -19,8 +19,6 @@
 		3C8915771CFD8A3A009BC69E /* libcookpit_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915741CFD8A3A009BC69E /* libcookpit_ios.a */; };
 		3C8915781CFD8A3A009BC69E /* libcookpit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915751CFD8A3A009BC69E /* libcookpit.a */; };
 		3C8915791CFD8A3A009BC69E /* libdjinni_objc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */; };
-		3C8915891CFD9D4D009BC69E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915881CFD9D4D009BC69E /* Alamofire.framework */; };
-		3C89159D1CFDC9B3009BC69E /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C89159C1CFDC9B3009BC69E /* HttpClient.swift */; };
 		3C8915A51CFDD7DA009BC69E /* libjson11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8915A41CFDD7DA009BC69E /* libjson11.a */; };
 		3C8915B91CFDEC76009BC69E /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8915B81CFDEC76009BC69E /* ExploreViewController.swift */; };
 		3C8915C21CFE1510009BC69E /* ExploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8915C11CFE1510009BC69E /* ExploreCollectionViewCell.swift */; };
@@ -53,8 +51,6 @@
 		3C8915751CFD8A3A009BC69E /* libcookpit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcookpit.a; path = "../../build/Debug-iphoneos/libcookpit.a"; sourceTree = "<group>"; };
 		3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdjinni_objc.a; path = "../../vendors/djinni/support-lib/build/Debug-iphoneos/libdjinni_objc.a"; sourceTree = "<group>"; };
 		3C89157B1CFD8B5B009BC69E /* Cookpit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cookpit-Bridging-Header.h"; sourceTree = "<group>"; };
-		3C8915881CFD9D4D009BC69E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		3C89159C1CFDC9B3009BC69E /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		3C8915A41CFDD7DA009BC69E /* libjson11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjson11.a; path = "../../vendors/build/Debug-iphoneos/libjson11.a"; sourceTree = "<group>"; };
 		3C8915B81CFDEC76009BC69E /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		3C8915C11CFE1510009BC69E /* ExploreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -81,7 +77,6 @@
 				3C8915771CFD8A3A009BC69E /* libcookpit_ios.a in Frameworks */,
 				3C8915781CFD8A3A009BC69E /* libcookpit.a in Frameworks */,
 				3C8915791CFD8A3A009BC69E /* libdjinni_objc.a in Frameworks */,
-				3C8915891CFD9D4D009BC69E /* Alamofire.framework in Frameworks */,
 				3C8915C41CFE1B4C009BC69E /* Kingfisher.framework in Frameworks */,
 				3C8915C61CFE1B56009BC69E /* RxSwift.framework in Frameworks */,
 				3C8915C81CFE1B5A009BC69E /* RxCocoa.framework in Frameworks */,
@@ -138,7 +133,6 @@
 		3C89157A1CFD8A41009BC69E /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				3C8915881CFD9D4D009BC69E /* Alamofire.framework */,
 				3C8915C31CFE1B4C009BC69E /* Kingfisher.framework */,
 				3C8915741CFD8A3A009BC69E /* libcookpit_ios.a */,
 				3C8915751CFD8A3A009BC69E /* libcookpit.a */,
@@ -165,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				3C6B4CD61D3200DC004CC677 /* Async.swift */,
-				3C89159C1CFDC9B3009BC69E /* HttpClient.swift */,
 				3CA6D83A1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift */,
 			);
 			name = Utils;
@@ -268,7 +261,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/../Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/../Carthage/Build/iOS/Kingfisher.framework",
 				"$(SRCROOT)/../Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/../Carthage/Build/iOS/RxCocoa.framework",
@@ -294,7 +286,6 @@
 				3CA6D8471CFF03BE001BE50C /* SearchViewController.swift in Sources */,
 				3CC84D351D2E04BC009C4B16 /* ExploreDataController.swift in Sources */,
 				3C8915B91CFDEC76009BC69E /* ExploreViewController.swift in Sources */,
-				3C89159D1CFDC9B3009BC69E /* HttpClient.swift in Sources */,
 				3CA6D8491CFF03C8001BE50C /* SearchViewModel.swift in Sources */,
 				3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */,
 				3C61ECBE1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift in Sources */,

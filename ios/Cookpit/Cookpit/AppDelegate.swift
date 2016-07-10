@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let paths = NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true)
     CPApi.setPath(paths.first!)
-    CPApi.setHttp(HttpClient())
     
     return true
   }
