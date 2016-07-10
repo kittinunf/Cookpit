@@ -20,12 +20,14 @@ class ExploreDataController {
       .filter { $0 != nil }
       .map { $0! as CPExploreViewData }
       .distinctUntilChanged()
+      .observeOn(MainScheduler.instance)
   }()
   
   private let _loadings = Variable(false)
   
   lazy var loadings: Observable<Bool> = {
     self._loadings.asObservable()
+        .observeOn(MainScheduler.instance)
   }()
   
   lazy var errors: Observable<String> = {
@@ -33,6 +35,7 @@ class ExploreDataController {
       .filter { $0 != nil && $0!.error }
       .distinctUntilChanged { $0!.error }
       .map { $0!.message }
+      .observeOn(MainScheduler.instance)
   }()
   
   var currentPage: Int = 1
@@ -48,7 +51,10 @@ class ExploreDataController {
   
   func request(page: Int) {
     currentPage = page
-    controller.request(Int8(page))
+    
+    async({
+      self.controller.request(Int8(page))
+    })
   }
   
   func requestNextPage() {

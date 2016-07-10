@@ -17,6 +17,8 @@ namespace cookpit
 {
 shared_ptr<explore_controller> explore_controller::create() { return make_shared<explore_controller_impl>(); }
 
+explore_controller_impl::explore_controller_impl() : curl_(curl_easy_init(), curl_easy_cleanup) {}
+
 void explore_controller_impl::subscribe(const shared_ptr<explore_controller_observer>& observer) {
   observer_ = observer;
 }
@@ -26,19 +28,36 @@ void explore_controller_impl::unsubscribe() { observer_ = nullptr; }
 void explore_controller_impl::reset() { items_.clear(); }
 
 void explore_controller_impl::request(int8_t page) {
-  const auto self = shared_from_this();
+  observer_->on_begin_update();
+
+  CURLcode res;
+  string buffer;
+  int code;
 
   unordered_map<string, string> params = {
-      {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {PER_PAGE, "10"s}, {PAGE, to_string(page)}};
+      {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {FORMAT, JSON_FORMAT},
+      {NO_JSON_CALLBACK, "1"s},          {PER_PAGE, "10"s},        {PAGE, to_string(page)}};
 
-  observer_->on_begin_update();
-  api_impl::instance().client()->get(BASE_URL, params, self);
+  auto query_string = convert_to_query_param_string(params);
+  auto url = BASE_URL + "?" + query_string;
+  curl_easy_setopt(curl_.get(), CURLOPT_URL, url.c_str());
+  curl_easy_setopt(curl_.get(), CURLOPT_WRITEFUNCTION, write_to_string);
+  curl_easy_setopt(curl_.get(), CURLOPT_WRITEDATA, &buffer);
+  curl_easy_setopt(curl_.get(), CURLOPT_SSL_VERIFYPEER, false);
+  res = curl_easy_perform(curl_.get());
+  string response = buffer;
+  curl_easy_getinfo(curl_.get(), CURLINFO_RESPONSE_CODE, &code);
+  if (res == CURLE_OK && code == 200) {
+    on_success(response);
+  } else {
+    on_failure(response);
+  }
 }
 
 void explore_controller_impl::on_failure(const string& reason) {
   string error;
   auto json = json11::Json::parse(reason, error);
-  auto message = error.empty() ? json["message"].string_value() : "";
+  auto message = error.empty() ? json["message"].string_value() : "There is something wrong, please try again later";
   observer_->on_update(explore_view_data{true, message, items_});
   observer_->on_end_update();
 }

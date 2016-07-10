@@ -10,6 +10,8 @@
 		3C5034721D2916F400F34AA7 /* PhotoCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5034711D2916F400F34AA7 /* PhotoCommentTableViewCell.swift */; };
 		3C61ECBC1CFFE47F009F2A0E /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C61ECBB1CFFE47F009F2A0E /* PhotoViewController.swift */; };
 		3C61ECBE1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C61ECBD1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift */; };
+		3C6B4CD51D316930004CC677 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6B4CD41D316930004CC677 /* libz.tbd */; };
+		3C6B4CD71D3200DC004CC677 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6B4CD61D3200DC004CC677 /* Async.swift */; };
 		3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7F200B1CFD83B900937E4F /* AppDelegate.swift */; };
 		3C7F20111CFD83B900937E4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C7F200F1CFD83B900937E4F /* Main.storyboard */; };
 		3C7F20131CFD83B900937E4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C7F20121CFD83B900937E4F /* Assets.xcassets */; };
@@ -39,6 +41,8 @@
 		3C5034711D2916F400F34AA7 /* PhotoCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCommentTableViewCell.swift; sourceTree = "<group>"; };
 		3C61ECBB1CFFE47F009F2A0E /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		3C61ECBD1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
+		3C6B4CD41D316930004CC677 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		3C6B4CD61D3200DC004CC677 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		3C7F20081CFD83B900937E4F /* Cookpit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookpit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C7F200B1CFD83B900937E4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C7F20101CFD83B900937E4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C6B4CD51D316930004CC677 /* libz.tbd in Frameworks */,
 				3C8915A51CFDD7DA009BC69E /* libjson11.a in Frameworks */,
 				3C8915771CFD8A3A009BC69E /* libcookpit_ios.a in Frameworks */,
 				3C8915781CFD8A3A009BC69E /* libcookpit.a in Frameworks */,
@@ -139,6 +144,7 @@
 				3C8915751CFD8A3A009BC69E /* libcookpit.a */,
 				3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */,
 				3C8915A41CFDD7DA009BC69E /* libjson11.a */,
+				3C6B4CD41D316930004CC677 /* libz.tbd */,
 				3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */,
 				3C8915C51CFE1B56009BC69E /* RxSwift.framework */,
 			);
@@ -158,6 +164,7 @@
 		3C8915A71CFDDF85009BC69E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3C6B4CD61D3200DC004CC677 /* Async.swift */,
 				3C89159C1CFDC9B3009BC69E /* HttpClient.swift */,
 				3CA6D83A1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift */,
 			);
@@ -282,6 +289,7 @@
 			files = (
 				3CA6D8361CFE94FD001BE50C /* ExploreViewModel.swift in Sources */,
 				3C8915C21CFE1510009BC69E /* ExploreCollectionViewCell.swift in Sources */,
+				3C6B4CD71D3200DC004CC677 /* Async.swift in Sources */,
 				3C5034721D2916F400F34AA7 /* PhotoCommentTableViewCell.swift in Sources */,
 				3CA6D8471CFF03BE001BE50C /* SearchViewController.swift in Sources */,
 				3CC84D351D2E04BC009C4B16 /* ExploreDataController.swift in Sources */,

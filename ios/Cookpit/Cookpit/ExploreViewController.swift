@@ -74,11 +74,11 @@ class ExploreViewController: UICollectionViewController {
     }.addDisposableTo(disposeBag)
     
     //load more
-    Observable.combineLatest(collectionView!.rx_loadMore(), controller.loadings) {
-      return $0 && !$1
-    }.filter { $0 }.subscribeNext { [unowned self] _ in
-      self.controller.requestNextPage()
-    }.addDisposableTo(disposeBag)
+    Observable.combineLatest(collectionView!.rx_loadMore(), controller.loadings) { return $0 && !$1 }
+        .filter { $0 }
+        .throttle(0.3, scheduler: MainScheduler.instance).subscribeNext { [unowned self] _ in
+          self.controller.requestNextPage()
+        }.addDisposableTo(disposeBag)
   }
   
 }
