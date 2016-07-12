@@ -33,6 +33,7 @@
 		3CC84D351D2E04BC009C4B16 /* ExploreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC84D341D2E04BC009C4B16 /* ExploreDataController.swift */; };
 		3CC84D371D2E1A5B009C4B16 /* SearchDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC84D361D2E1A5B009C4B16 /* SearchDataController.swift */; };
 		3CE0140B1D2F60430064F156 /* PhotoDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE0140A1D2F60430064F156 /* PhotoDataController.swift */; };
+		3CFBF21F1D34E70A008D1388 /* liblmdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CFBF21E1D34E70A008D1388 /* liblmdb.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		3CC84D341D2E04BC009C4B16 /* ExploreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreDataController.swift; sourceTree = "<group>"; };
 		3CC84D361D2E1A5B009C4B16 /* SearchDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDataController.swift; sourceTree = "<group>"; };
 		3CE0140A1D2F60430064F156 /* PhotoDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDataController.swift; sourceTree = "<group>"; };
+		3CFBF21E1D34E70A008D1388 /* liblmdb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblmdb.a; path = "../../vendors/build/Debug-iphoneos/liblmdb.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,12 +74,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C6B4CD51D316930004CC677 /* libz.tbd in Frameworks */,
-				3C8915A51CFDD7DA009BC69E /* libjson11.a in Frameworks */,
+				3C8915C41CFE1B4C009BC69E /* Kingfisher.framework in Frameworks */,
 				3C8915771CFD8A3A009BC69E /* libcookpit_ios.a in Frameworks */,
 				3C8915781CFD8A3A009BC69E /* libcookpit.a in Frameworks */,
 				3C8915791CFD8A3A009BC69E /* libdjinni_objc.a in Frameworks */,
-				3C8915C41CFE1B4C009BC69E /* Kingfisher.framework in Frameworks */,
+				3C8915A51CFDD7DA009BC69E /* libjson11.a in Frameworks */,
+				3CFBF21F1D34E70A008D1388 /* liblmdb.a in Frameworks */,
+				3C6B4CD51D316930004CC677 /* libz.tbd in Frameworks */,
 				3C8915C61CFE1B56009BC69E /* RxSwift.framework in Frameworks */,
 				3C8915C81CFE1B5A009BC69E /* RxCocoa.framework in Frameworks */,
 			);
@@ -138,6 +141,7 @@
 				3C8915751CFD8A3A009BC69E /* libcookpit.a */,
 				3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */,
 				3C8915A41CFDD7DA009BC69E /* libjson11.a */,
+				3CFBF21E1D34E70A008D1388 /* liblmdb.a */,
 				3C6B4CD41D316930004CC677 /* libz.tbd */,
 				3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */,
 				3C8915C51CFE1B56009BC69E /* RxSwift.framework */,

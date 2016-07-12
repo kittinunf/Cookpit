@@ -16,8 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
     
-    let paths = NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true)
-    CPApi.setPath(paths.first!)
+    let path = NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true).first!
+    let dbPath = (path as NSString).stringByAppendingPathComponent("CookpitDB")
+    try! NSFileManager.defaultManager().createDirectoryAtPath(dbPath, withIntermediateDirectories: true, attributes: nil);
+    CPApi.setPath(dbPath)
     
     return true
   }

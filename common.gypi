@@ -3,7 +3,6 @@
     'deployment_target': '8.0',
     'warning_flags': [
       '-Wall',
-      '-Werror',
       '-Wextra',
       '-Wno-extern-c-compat',
       '-Wno-missing-field-initializers',
@@ -14,10 +13,12 @@
     'default_configuration': 'Debug',
     'android_unmangled_name': 1,
     'cflags': [
+      '-Werror',
       '-gdwarf-2',
       '<(warning_flags)',
     ],
     'cflags_cc': [
+      '-Werror',
       '-std=c++14',
       '-frtti',
       '-fexceptions',

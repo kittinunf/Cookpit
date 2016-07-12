@@ -25,6 +25,7 @@
       ],
       'dependencies': [
         'vendors/json11.gyp:json11',
+        'vendors/lmdb.gyp:lmdb'
       ],
       'libraries': [
         'vendors/curl/<(OS)/bin/libcurl.a'
@@ -46,6 +47,8 @@
         'vendors/flowcpp/include',
         'vendors/json11',
         'vendors/curl/<(OS)/include',
+        'vendors/lmdb/libraries/liblmdb',
+        'vendors/lmdbxx',
       ],
     },
     {
@@ -102,6 +105,8 @@
         'vendors/flowcpp/include',
         'vendors/json11',
         'vendors/curl/include/',
+        'vendors/lmdb/libraries/liblmdb',
+        'vendors/lmdbxx',
       ],
     }
   ],
