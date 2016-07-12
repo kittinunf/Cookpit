@@ -4,18 +4,20 @@
       'target_name': 'lmdb',
       'type': 'static_library',
       'sources': [
-        '<!@(python ../utils/glob.py -d lmdb/libraries/liblmdb -i *.c -e *test*.cc)',
+        '<!@(python ../utils/glob.py -d lmdb/libraries/liblmdb -i *.c -e *test*.c *_copy.c)',
       ],
-      'cflags_cc!': [
+      'cflags': [
+        '-Wno-unused-parameter',
+      ],
+      'cflags!': [
         '-Werror',
-        '-fno-rtti',
-        '-fno-exceptions',
       ],
       'xcode_settings': {
-        'OTHER_CPLUSPLUSFLAGS!' : [
+        'OTHER_CFLAGS' : [
+          '<@(_cflags)'
+        ],
+        'OTHER_CFLAGS!' : [
           '-Werror',
-          '-fno-rtti',
-          '-fno-exceptions',
         ],
       },
       'include_dirs': [

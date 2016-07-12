@@ -47,7 +47,8 @@
         'vendors/flowcpp/include',
         'vendors/json11',
         'vendors/curl/<(OS)/include',
-        'vendors/lmdb/libraries/liblmdb'
+        'vendors/lmdb/libraries/liblmdb',
+        'vendors/lmdbxx',
       ],
     },
     {
@@ -104,7 +105,8 @@
         'vendors/flowcpp/include',
         'vendors/json11',
         'vendors/curl/include/',
-        'vendors/lmdb/libraries/liblmdb'
+        'vendors/lmdb/libraries/liblmdb',
+        'vendors/lmdbxx',
       ],
     }
   ],

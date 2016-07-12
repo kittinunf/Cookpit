@@ -12,7 +12,9 @@ class Application : android.app.Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Api.setPath(filesDir.absolutePath)
+        val db = getDatabasePath("CookpitDB")
+        db.mkdirs()
+        Api.setPath(db.absolutePath)
     }
 
 }

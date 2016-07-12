@@ -74,7 +74,8 @@ class ExploreViewController: UICollectionViewController {
     }.addDisposableTo(disposeBag)
     
     //load more
-    collectionView!.rx_loadMore().withLatestFrom(controller.loadings) { return $0 && !$1 }
+    collectionView!.rx_loadMore()
+        .withLatestFrom(controller.loadings) { return $0 && !$1 }
         .filter { $0 }
         .throttle(0.3, scheduler: MainScheduler.instance).subscribeNext { [unowned self] _ in
           self.controller.requestNextPage()
