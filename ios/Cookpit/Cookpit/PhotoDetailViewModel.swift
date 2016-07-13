@@ -11,7 +11,7 @@ import RxSwift
 
 enum PhotoViewModelCommand {
 
-  case SetPhoto(photo: CPPhotoDetailViewData)
+  case SetPhoto(photo: CPPhotoDetailViewData?)
   case SetComments(comments: [CPPhotoCommentDetailViewData])
   
 }

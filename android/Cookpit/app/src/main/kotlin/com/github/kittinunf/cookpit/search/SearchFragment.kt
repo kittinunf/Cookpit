@@ -23,6 +23,7 @@ import com.github.kittinunf.reactiveandroid.view.rx_visibility
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.recycler_item_search.view.*
 import rx.Observable
+import rx.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class SearchFragment : BaseFragment() {
@@ -43,6 +44,7 @@ class SearchFragment : BaseFragment() {
         searchTexts.filter { !it.isEmpty() }
                 .debounce(600, TimeUnit.MILLISECONDS)
                 .distinctUntilChanged()
+                .observeOn(Schedulers.computation())
                 .bindNext(controller, SearchDataController::searchWith)
                 .addTo(subscriptions)
 

@@ -28,7 +28,8 @@ class ExploreViewController: UICollectionViewController {
     let refreshControl = UIRefreshControl()
     collectionView!.addSubview(refreshControl)
     
-    refreshControl.rx_controlEvent(.ValueChanged).subscribeNext { [unowned self] _ in
+    let scheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background)
+    refreshControl.rx_controlEvent(.ValueChanged).observeOn(scheduler).subscribeNext { [unowned self] _ in
       self.controller.reset()
       self.controller.request(1)
     }.addDisposableTo(disposeBag)
@@ -49,23 +50,24 @@ class ExploreViewController: UICollectionViewController {
   }
   
   func bindings() {
+    let scheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background)
+    
+    let initialCommand = Observable.deferred { [unowned self] in Observable.just(self.controller.request(1)) }.subscribeOn(scheduler).map { ExploreViewModelCommand.SetItems(items: []) }
     let loadCommand = controller.viewData.map { ExploreViewModelCommand.SetItems(items: $0.explores) }
     
-    let viewModel = loadCommand.scan(ExploreViewModel(items: [])) { viewModel, command in
+    let viewModel = Observable.of(initialCommand, loadCommand).concat().scan(ExploreViewModel(items: [])) { viewModel, command in
         viewModel.executeCommand(command)
       }
       .shareReplay(1)
     
-    viewModel
-        .map { $0.items }
+    viewModel.map { $0.items }
+        .observeOn(MainScheduler.instance)
         .bindTo(collectionView!.rx_itemsWithCellIdentifier("ExploreCell", cellType: ExploreCollectionViewCell.self)) { row, element, cell in
       cell.viewData.value = element
     }.addDisposableTo(disposeBag)
     
-    //load first page
-    controller.request(1)
     
-    collectionView?.rx_itemSelected
+    collectionView!.rx_itemSelected
         .withLatestFrom(viewModel) { indexPath, viewModel in viewModel.items[indexPath.row] }
         .subscribeNext { [unowned self] viewData in
         guard let photoViewController = self.storyboard?.instantiateViewControllerWithIdentifier("Photo") as? PhotoViewController else { return }
@@ -77,7 +79,9 @@ class ExploreViewController: UICollectionViewController {
     collectionView!.rx_loadMore()
         .withLatestFrom(controller.loadings) { return $0 && !$1 }
         .filter { $0 }
-        .throttle(0.3, scheduler: MainScheduler.instance).subscribeNext { [unowned self] _ in
+        .throttle(0.3, scheduler: MainScheduler.instance)
+        .observeOn(scheduler)
+        .subscribeNext { [unowned self] _ in
           self.controller.requestNextPage()
         }.addDisposableTo(disposeBag)
   }

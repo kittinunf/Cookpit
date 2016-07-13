@@ -4,7 +4,7 @@ import com.github.kittinunf.cookpit.ExploreDetailViewData
 
 sealed class ExploreViewModelCommand {
 
-    class SetItems(val items: List<ExploreDetailViewData>) : ExploreViewModelCommand()
+    class SetItems(val items: List<ExploreDetailViewData> = listOf()) : ExploreViewModelCommand()
 
 }
 

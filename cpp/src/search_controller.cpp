@@ -46,13 +46,11 @@ void search_controller_impl::search(const string& key, int8_t page) {
            [weak_self](int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_success(response);
-               self->observer_->on_end_update();
              }
            },
            [weak_self](int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_failure(response);
-               self->observer_->on_end_update();
              }
            });
 }
@@ -63,7 +61,10 @@ void search_controller_impl::on_failure(const string& reason) {
   string error;
   auto json = json11::Json::parse(reason, error);
   auto message = error.empty() ? json["message"].string_value() : "";
-  observer_->on_update(search_view_data({true, message, items_}));
+  if (observer_) {
+    observer_->on_update(search_view_data({true, message, items_}));
+    observer_->on_end_update();
+  }
 }
 
 void search_controller_impl::on_success(const string& data) {
@@ -86,6 +87,9 @@ void search_controller_impl::on_success(const string& data) {
   });
 
   items_.insert(items_.end(), details.begin(), details.end());
-  observer_->on_update(search_view_data{false, json["stat"].string_value(), items_});
+  if (observer_) {
+    observer_->on_update(search_view_data{false, json["stat"].string_value(), items_});
+    observer_->on_end_update();
+  }
 }
 }

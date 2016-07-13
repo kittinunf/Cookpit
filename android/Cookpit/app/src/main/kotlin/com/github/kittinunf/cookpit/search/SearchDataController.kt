@@ -3,7 +3,6 @@ package com.github.kittinunf.cookpit.search
 import com.github.kittinunf.cookpit.SearchController
 import com.github.kittinunf.cookpit.SearchControllerObserver
 import com.github.kittinunf.cookpit.SearchViewData
-import com.github.kittinunf.cookpit.util.dispatchAsync
 import com.github.kittinunf.reactiveandroid.MutableProperty
 
 class SearchDataController : SearchControllerObserver() {
@@ -35,9 +34,9 @@ class SearchDataController : SearchControllerObserver() {
 
     private fun searchWithKey(key: String, page: Int) {
         currentPage = page
-        dispatchAsync {
+//        dispatchAsync {
             controller.search(key, page.toByte())
-        }
+//        }
     }
 
     fun searchNextPage(key: String) {

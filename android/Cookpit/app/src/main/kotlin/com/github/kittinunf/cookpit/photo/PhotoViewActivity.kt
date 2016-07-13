@@ -21,6 +21,7 @@ import com.github.kittinunf.reactiveandroid.widget.rx_text
 import kotlinx.android.synthetic.main.activity_photo_view.*
 import kotlinx.android.synthetic.main.recycler_item_comment.view.*
 import rx.Observable
+import rx.schedulers.Schedulers
 
 class PhotoViewActivity : BaseActivity() {
 
@@ -50,11 +51,13 @@ class PhotoViewActivity : BaseActivity() {
 
         val viewModels = Observable.merge(loadDetailCommands, loadCommentCommands)
                 .scan(PhotoViewModel()) { viewModel, command -> viewModel.executeCommand(command) }
+                .doOnSubscribe {
+                    detailController.request()
+                    commentController.request()
+                }
+                .subscribeOn(Schedulers.computation())
                 .replay(1)
                 .refCount()
-
-        detailController.request()
-        commentController.request()
 
         photoCommentRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@PhotoViewActivity)

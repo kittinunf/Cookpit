@@ -38,13 +38,11 @@ void photo_detail_controller_impl::request_detail() {
            [weak_self](int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_success(response);
-               self->observer_->on_end_update();
              }
            },
            [weak_self](int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_failure(response);
-               self->observer_->on_end_update();
              }
            });
 }
@@ -53,7 +51,10 @@ void photo_detail_controller_impl::on_failure(const string& reason) {
   string error;
   auto json = json11::Json::parse(reason, error);
   auto message = error.empty() ? json["message"].string_value() : "";
-  observer_->on_update(photo_detail_view_data{true, message, id_, "", "", "", "", 0, 0});
+  if (observer_) {
+    observer_->on_update(photo_detail_view_data{true, message, id_, "", "", "", "", 0, 0});
+    observer_->on_end_update();
+  }
 }
 
 void photo_detail_controller_impl::on_success(const string& data) {
@@ -69,9 +70,13 @@ void photo_detail_controller_impl::on_success(const string& data) {
   auto avatar_url = construct_flickr_avatar_url(owner["iconfarm"].int_value(), owner["iconserver"].string_value(),
                                                 owner["nsid"].string_value());
 
-  observer_->on_update(
+  if (observer_) {
+    observer_->on_update(
       photo_detail_view_data(false, json["stat"].string_value(), photo["id"].string_value(),
                              title["_content"].string_value(), image_url, owner["username"].string_value(), avatar_url,
                              photo["views"].string_value(), photo["comments"]["_content"].string_value()));
+      
+    observer_->on_end_update();
+  }
 }
 }

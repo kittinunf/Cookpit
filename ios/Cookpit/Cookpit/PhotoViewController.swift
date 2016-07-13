@@ -36,17 +36,20 @@ class PhotoViewController: UIViewController {
   }
   
   func bindings() {
-    detailController.request()
-    commentController.request()
+    let scheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background)
+    
+    let initialDetailCommand = Observable.deferred { [unowned self] in Observable.just(self.detailController.request()) }.subscribeOn(scheduler).map { PhotoViewModelCommand.SetPhoto(photo: nil) }
+    let initialCommentCommand = Observable.deferred { [unowned self] in Observable.just(self.commentController.request()) }.subscribeOn(scheduler).map { PhotoViewModelCommand.SetComments(comments: []) }
     
     let loadDetailCommand = detailController.viewData.map { PhotoViewModelCommand.SetPhoto(photo: $0) }
     let loadCommentCommand = commentController.viewData.map { PhotoViewModelCommand.SetComments(comments: $0.comments) }
     
-    let viewModel = Observable.of(loadDetailCommand, loadCommentCommand)
+    let viewModel = Observable.of(initialDetailCommand, initialCommentCommand, loadDetailCommand, loadCommentCommand)
                               .merge()
                               .scan(PhotoViewModel(photo: nil, comments: [])) { viewModel, command in
                                 viewModel.executeCommand(command)
                               }
+                              .observeOn(MainScheduler.instance)
     
     viewModel.filter { $0.photo != nil }
              .map { $0.photo!.title }

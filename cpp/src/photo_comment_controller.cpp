@@ -38,13 +38,11 @@ void photo_comment_controller_impl::request_comments() {
            [weak_self](int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_success(response);
-               self->observer_->on_end_update();
              }
            },
            [weak_self](int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_failure(response);
-               self->observer_->on_end_update();
              }
            });
 }
@@ -53,7 +51,10 @@ void photo_comment_controller_impl::on_failure(const string& reason) {
   string error;
   auto json = json11::Json::parse(reason, error);
   auto message = error.empty() ? json["message"].string_value() : "";
-  observer_->on_update(photo_comment_view_data{true, message, items_});
+  if (observer_) {
+    observer_->on_update(photo_comment_view_data{true, message, items_});
+    observer_->on_end_update();
+  }
 }
 
 void photo_comment_controller_impl::on_success(const string& data) {
@@ -72,7 +73,10 @@ void photo_comment_controller_impl::on_success(const string& data) {
     auto text = j["_content"].string_value();
     return photo_comment_detail_view_data{id, author_name, author_avatar_url, text};
   });
-
-  observer_->on_update(photo_comment_view_data(false, json["stat"].string_value(), details));
+  
+  if (observer_) {
+    observer_->on_update(photo_comment_view_data(false, json["stat"].string_value(), details));
+    observer_->on_end_update();
+  }
 }
 }

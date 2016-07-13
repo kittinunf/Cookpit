@@ -86,11 +86,13 @@ class SearchViewController : UIViewController {
       self.searchBar.resignFirstResponder()
     }.addDisposableTo(disposeBag)
     
+    let scheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background)
     // search
     searchBarTexts
               .filter { !$0.isEmpty }
               .throttle(0.6, scheduler: MainScheduler.instance)
               .distinctUntilChanged()
+              .observeOn(scheduler)
               .subscribeNext { [unowned self] text in
                 self.controller.searchWith(text)
     }.addDisposableTo(disposeBag)
@@ -148,15 +150,19 @@ class SearchViewController : UIViewController {
                          }
                          .addDisposableTo(disposeBag)
     
-    recentSearchTableView.rx_itemSelected
+    let selectedText = recentSearchTableView.rx_itemSelected
                          .withLatestFrom(viewModel) { indexPath, viewModel in
                             viewModel.recentItems[indexPath.row]
-                         }
-                         .subscribeNext { [unowned self] text in
-                            self.searchBar.text = text
-                            self.controller.searchWith(text)
-                         }
-                         .addDisposableTo(disposeBag)
+                         }.share()
+    
+    selectedText.bindTo(self.searchBar.rx_text).addDisposableTo(disposeBag)
+    
+    let scheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background)
+    selectedText.observeOn(scheduler)
+        .subscribeNext { [unowned self] text in
+            self.controller.searchWith(text)
+        }
+        .addDisposableTo(disposeBag)
   }
   
   deinit {

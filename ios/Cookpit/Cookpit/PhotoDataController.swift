@@ -32,9 +32,7 @@ class PhotoDetailDataController {
   }
   
   func request() {
-    dispatchAsync({
-      self.controller.requestDetail()
-    })
+    self.controller.requestDetail()
   }
   
   deinit {
@@ -82,9 +80,7 @@ class PhotoCommentDataController {
   }
   
   func request() {
-    dispatchAsync({
-      self.controller.requestComments()
-    })
+    self.controller.requestComments()
   }
   
   deinit {

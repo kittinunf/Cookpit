@@ -27,6 +27,7 @@ import com.github.kittinunf.reactiveandroid.view.rx_enabled
 import com.github.kittinunf.reactiveandroid.view.rx_visibility
 import kotlinx.android.synthetic.main.fragment_explore.*
 import kotlinx.android.synthetic.main.recycler_item_explore.view.*
+import rx.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import android.support.v4.util.Pair as AndroidPair
 
@@ -48,10 +49,12 @@ class ExploreFragment : BaseFragment() {
         val loadCommands = controller.viewData.map { ExploreViewModelCommand.SetItems(it.explores) }
 
         val viewModels = loadCommands.scan(ExploreViewModel()) { viewModel, command -> viewModel.executeCommand(command) }
-                                        .replay(1)
-                                        .refCount()
-
-        controller.request(1)
+                .doOnSubscribe {
+                    controller.request(1)
+                }
+                .subscribeOn(Schedulers.computation())
+                .replay(1)
+                .refCount()
 
         exploreRecyclerView.apply {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -67,14 +70,14 @@ class ExploreFragment : BaseFragment() {
                                 .addTo(subscriptions)
                         viewHolder
                     },
-                    { viewHolder, index, item  ->
+                    { viewHolder, index, item ->
                         viewHolder.itemView.exploreCardView.preventCornerOverlap = false
                         viewHolder.itemView.exploreBackgroundImageView.setImage(item.imageUrl, screenSize.x / 2, 600)
                         viewHolder.itemView.exploreTitleTextView.text = item.title
                     })
         }
 
-        exploreSwipeRefreshLayout.rx_refresh().subscribe {
+        exploreSwipeRefreshLayout.rx_refresh().observeOn(Schedulers.computation()).subscribe {
             controller.reset()
             controller.request(1)
         }.addTo(subscriptions)
@@ -83,6 +86,7 @@ class ExploreFragment : BaseFragment() {
                 .withLatestFrom(controller.loadings) { loadMore, loading -> loadMore && !loading }
                 .filter { it }
                 .debounce(300, TimeUnit.MILLISECONDS)
+                .observeOn(Schedulers.computation())
                 .bindNext(controller, ExploreDataController::requestNextPage)
                 .addTo(subscriptions)
 
