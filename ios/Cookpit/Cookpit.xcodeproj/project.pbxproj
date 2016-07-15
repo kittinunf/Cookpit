@@ -35,10 +35,9 @@
 		3CBE4FD41D32B6300030E75A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE4FD31D32B62F0030E75A /* MapViewController.swift */; };
 		3CC84D351D2E04BC009C4B16 /* ExploreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC84D341D2E04BC009C4B16 /* ExploreDataController.swift */; };
 		3CC84D371D2E1A5B009C4B16 /* SearchDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC84D361D2E1A5B009C4B16 /* SearchDataController.swift */; };
+		3CDE71921D3885A900DC0A45 /* MapDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDE71911D3885A900DC0A45 /* MapDataController.swift */; };
 		3CE0140B1D2F60430064F156 /* PhotoDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE0140A1D2F60430064F156 /* PhotoDataController.swift */; };
 		3CFBF21F1D34E70A008D1388 /* liblmdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CFBF21E1D34E70A008D1388 /* liblmdb.a */; };
-		3CBBC6C41D29777800D3E109 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CBBC6C31D29777800D3E109 /* Mapbox.framework */; };
-		3CBBC6C51D29777800D3E109 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3CBBC6C31D29777800D3E109 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -86,9 +85,9 @@
 		3CBE4FD31D32B62F0030E75A /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3CC84D341D2E04BC009C4B16 /* ExploreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreDataController.swift; sourceTree = "<group>"; };
 		3CC84D361D2E1A5B009C4B16 /* SearchDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDataController.swift; sourceTree = "<group>"; };
+		3CDE71911D3885A900DC0A45 /* MapDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDataController.swift; sourceTree = "<group>"; };
 		3CE0140A1D2F60430064F156 /* PhotoDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDataController.swift; sourceTree = "<group>"; };
 		3CFBF21E1D34E70A008D1388 /* liblmdb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblmdb.a; path = "../../vendors/build/Debug-iphoneos/liblmdb.a"; sourceTree = "<group>"; };
-		3CBBC6C31D29777800D3E109 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				3CBE4FD31D32B62F0030E75A /* MapViewController.swift */,
+				3CDE71911D3885A900DC0A45 /* MapDataController.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -330,6 +330,7 @@
 				3CE0140B1D2F60430064F156 /* PhotoDataController.swift in Sources */,
 				3CA6D83B1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift in Sources */,
 				3C61ECBC1CFFE47F009F2A0E /* PhotoViewController.swift in Sources */,
+				3CDE71921D3885A900DC0A45 /* MapDataController.swift in Sources */,
 				3CA6D8541CFF2667001BE50C /* SearchTableViewCell.swift in Sources */,
 				3CC84D371D2E1A5B009C4B16 /* SearchDataController.swift in Sources */,
 				3CBE4FD41D32B6300030E75A /* MapViewController.swift in Sources */,

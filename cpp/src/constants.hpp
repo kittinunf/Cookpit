@@ -7,6 +7,8 @@ namespace cookpit
 using namespace std;
 
 const string BASE_URL = "https://api.flickr.com/services/rest/";
+
+const string MAP_TOKEN = "pk.eyJ1Ijoia2l0dGludW5mIiwiYSI6ImNpcTZyY2MwODAwaDBmcW02N3JweTk3M2wifQ.zM0-aialUeNtcCslIVG1ow";
 // key
 const string METHOD = "method";
 const string API_KEY = "api_key";

@@ -81,7 +81,8 @@
         '<!@(python utils/glob.py -d android/<(name)/jni_gen -i *.cpp *.hpp)',
       ],
       'include_dirs': [
-        'cpp/src/gen'
+        'cpp/src/gen',
+        'cpp/src/translator',
       ],
     },
     {

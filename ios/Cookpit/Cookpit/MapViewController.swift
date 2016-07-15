@@ -12,12 +12,15 @@ import Mapbox
 class MapViewController : UIViewController {
 
   @IBOutlet weak var mapView: MGLMapView!
+  
+  private var controller: MapDataController!
     
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let token = "pk.eyJ1Ijoia2l0dGludW5mIiwiYSI6ImNpcTZyY2MwODAwaDBmcW02N3JweTk3M2wifQ.zM0-aialUeNtcCslIVG1ow"
-    MGLAccountManager.setAccessToken(token)
+    controller = MapDataController()
+    
+    MGLAccountManager.setAccessToken(controller.mapToken)
     
     let center = CLLocationCoordinate2D(latitude: 40.7326808, longitude: -73.9843407)
     mapView.setCenterCoordinate(center, zoomLevel: 10, animated: false)

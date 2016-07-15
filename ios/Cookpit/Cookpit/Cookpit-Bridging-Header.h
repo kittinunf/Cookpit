@@ -21,4 +21,7 @@
 #import "CPPhotoCommentController.h"
 #import "CPPhotoCommentControllerObserver.h"
 #import "CPPhotoCommentViewData.h"
+// map
+#import "CPMapController.h"
+#import "CPMapControllerObserver.h"
 

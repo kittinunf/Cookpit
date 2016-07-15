@@ -6,7 +6,7 @@ params: []
 prefix: ''
 cpp:
   typename: '::cookpit::coordinate'
-  header: '"coordinate.hpp"'
+  header: '"../coordinate.hpp"'
   byValue: true
 objc:
   typename: 'NSValue'

@@ -14,9 +14,11 @@ class MapFragment : BaseFragment() {
 
     override val resourceId: Int = R.layout.fragment_map
 
+    lateinit var controller: MapDataController
+
     override fun setUp() {
-        val token = "pk.eyJ1Ijoia2l0dGludW5mIiwiYSI6ImNpcTZyY2MwODAwaDBmcW02N3JweTk3M2wifQ.zM0-aialUeNtcCslIVG1ow"
-        MapboxAccountManager.start(activity, token)
+        controller = MapDataController()
+        MapboxAccountManager.start(activity, MapDataController.mapToken())
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
