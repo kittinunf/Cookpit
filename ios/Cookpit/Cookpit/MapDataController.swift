@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class MapDataController {
   
@@ -16,10 +17,28 @@ class MapDataController {
     CPMapController.mapToken()
   }()
   
+  private let _viewData = Variable<CPMapViewData?>(nil)
+  
+  lazy var viewData: Observable<CPMapViewData> = {
+    self._viewData.asObservable()
+        .filter { $0 != nil }
+        .map { $0! as CPMapViewData }
+        .observeOn(MainScheduler.instance)
+  }()
+  
   init() {
     controller = CPMapController.create()!
+    controller.subscribe(self)
   }
-    
+  
+  func unsubscribe() {
+    controller.unsubscribe()
+  }
+  
+  func request() {
+    controller.request()
+  }
+   
 }
 
 extension MapDataController : CPMapControllerObserver {
@@ -28,8 +47,8 @@ extension MapDataController : CPMapControllerObserver {
 
   }
   
-  @objc func onUpdate(viewDate: CPMapViewData) {
-
+  @objc func onUpdate(data: CPMapViewData) {
+    _viewData.value = data
   }
   
   @objc func onEndUpdate() {

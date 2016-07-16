@@ -22,14 +22,18 @@ class MapViewController : UIViewController {
     
     MGLAccountManager.setAccessToken(controller.mapToken)
     
-    let center = CLLocationCoordinate2D(latitude: 40.7326808, longitude: -73.9843407)
-    mapView.setCenterCoordinate(center, zoomLevel: 10, animated: false)
-    
-    let annotation = MGLPointAnnotation()
-    annotation.coordinate = center
-    annotation.title = "Hello"
-    
-    mapView.addAnnotation(annotation)
+    controller.request()
+    controller.viewData.map { $0.items }.subscribeNext { data in
+      let locations = data.map { ($0.title, $0.location) }
+      for tuple in locations {
+        var location = CLLocationCoordinate2D()
+        tuple.1.getValue(&location)
+        let annotation = MGLPointAnnotation()
+        annotation.coordinate = location
+        annotation.title = tuple.0
+        self.mapView.addAnnotation(annotation)
+      }
+    }
   }
   
 }
