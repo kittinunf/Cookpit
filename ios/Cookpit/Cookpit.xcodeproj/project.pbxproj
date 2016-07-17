@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C23A5161D3B726600C45DAB /* NSValue+Coordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C23A5151D3B726600C45DAB /* NSValue+Coordinate2D.swift */; };
 		3C5034721D2916F400F34AA7 /* PhotoCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5034711D2916F400F34AA7 /* PhotoCommentTableViewCell.swift */; };
 		3C61ECBC1CFFE47F009F2A0E /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C61ECBB1CFFE47F009F2A0E /* PhotoViewController.swift */; };
 		3C61ECBE1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C61ECBD1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift */; };
@@ -36,6 +37,7 @@
 		3CC84D351D2E04BC009C4B16 /* ExploreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC84D341D2E04BC009C4B16 /* ExploreDataController.swift */; };
 		3CC84D371D2E1A5B009C4B16 /* SearchDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC84D361D2E1A5B009C4B16 /* SearchDataController.swift */; };
 		3CDE71921D3885A900DC0A45 /* MapDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDE71911D3885A900DC0A45 /* MapDataController.swift */; };
+		3CDE719C1D3AAFF200DC0A45 /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDE719B1D3AAFF200DC0A45 /* MapCollectionViewCell.swift */; };
 		3CE0140B1D2F60430064F156 /* PhotoDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE0140A1D2F60430064F156 /* PhotoDataController.swift */; };
 		3CFBF21F1D34E70A008D1388 /* liblmdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CFBF21E1D34E70A008D1388 /* liblmdb.a */; };
 /* End PBXBuildFile section */
@@ -55,6 +57,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3C23A5151D3B726600C45DAB /* NSValue+Coordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSValue+Coordinate2D.swift"; sourceTree = "<group>"; };
 		3C5034711D2916F400F34AA7 /* PhotoCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCommentTableViewCell.swift; sourceTree = "<group>"; };
 		3C61ECBB1CFFE47F009F2A0E /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		3C61ECBD1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 		3CC84D341D2E04BC009C4B16 /* ExploreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreDataController.swift; sourceTree = "<group>"; };
 		3CC84D361D2E1A5B009C4B16 /* SearchDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDataController.swift; sourceTree = "<group>"; };
 		3CDE71911D3885A900DC0A45 /* MapDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDataController.swift; sourceTree = "<group>"; };
+		3CDE719B1D3AAFF200DC0A45 /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
 		3CE0140A1D2F60430064F156 /* PhotoDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDataController.swift; sourceTree = "<group>"; };
 		3CFBF21E1D34E70A008D1388 /* liblmdb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblmdb.a; path = "../../vendors/build/Debug-iphoneos/liblmdb.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,6 +192,7 @@
 			children = (
 				3C6B4CD61D3200DC004CC677 /* Async.swift */,
 				3CA6D83A1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift */,
+				3C23A5151D3B726600C45DAB /* NSValue+Coordinate2D.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -217,8 +222,9 @@
 		3CBE4FD51D32B6340030E75A /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				3CBE4FD31D32B62F0030E75A /* MapViewController.swift */,
+				3CDE719B1D3AAFF200DC0A45 /* MapCollectionViewCell.swift */,
 				3CDE71911D3885A900DC0A45 /* MapDataController.swift */,
+				3CBE4FD31D32B62F0030E75A /* MapViewController.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -324,6 +330,7 @@
 				3CA6D8471CFF03BE001BE50C /* SearchViewController.swift in Sources */,
 				3CC84D351D2E04BC009C4B16 /* ExploreDataController.swift in Sources */,
 				3C8915B91CFDEC76009BC69E /* ExploreViewController.swift in Sources */,
+				3CDE719C1D3AAFF200DC0A45 /* MapCollectionViewCell.swift in Sources */,
 				3CA6D8491CFF03C8001BE50C /* SearchViewModel.swift in Sources */,
 				3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */,
 				3C61ECBE1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift in Sources */,
@@ -332,6 +339,7 @@
 				3C61ECBC1CFFE47F009F2A0E /* PhotoViewController.swift in Sources */,
 				3CDE71921D3885A900DC0A45 /* MapDataController.swift in Sources */,
 				3CA6D8541CFF2667001BE50C /* SearchTableViewCell.swift in Sources */,
+				3C23A5161D3B726600C45DAB /* NSValue+Coordinate2D.swift in Sources */,
 				3CC84D371D2E1A5B009C4B16 /* SearchDataController.swift in Sources */,
 				3CBE4FD41D32B6300030E75A /* MapViewController.swift in Sources */,
 			);

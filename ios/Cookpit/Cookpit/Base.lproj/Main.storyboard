@@ -447,10 +447,10 @@
             </objects>
             <point key="canvasLocation" x="1451" y="345"/>
         </scene>
-        <!--Delegate-->
+        <!--Map View Controller-->
         <scene sceneID="gbW-aV-GCM">
             <objects>
-                <viewController id="dSD-Yb-PdX" customClass="MapViewController" customModule="Cookpit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dSD-Yb-PdX" userLabel="Map View Controller" customClass="MapViewController" customModule="Cookpit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="awQ-dg-LUg"/>
                         <viewControllerLayoutGuide type="bottom" id="FKf-kM-AQu"/>
@@ -459,24 +459,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UbQ-Ic-NLy" customClass="MGLMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="delegate" destination="dSD-Yb-PdX" id="dZn-3y-qd4"/>
-                                </connections>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="96V-0P-MJS">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UbQ-Ic-NLy" customClass="MGLMapView">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="491"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="dSD-Yb-PdX" id="dZn-3y-qd4"/>
+                                        </connections>
+                                    </view>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6Gk-2g-UPm">
+                                        <rect key="frame" x="0.0" y="491" width="600" height="60"/>
+                                        <color key="backgroundColor" red="0.96862751245498657" green="0.97647064924240112" blue="0.98823535442352295" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="OSd-n3-Ikr"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dfK-2A-rce">
+                                            <size key="itemSize" width="55" height="55"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MapCell" id="Drk-tM-TF5" customClass="MapCollectionViewCell" customModule="Cookpit" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="2.5" width="55" height="55"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pww-7r-6ZL">
+                                                            <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstItem="Pww-7r-6ZL" firstAttribute="height" secondItem="Drk-tM-TF5" secondAttribute="height" id="3fO-wF-4m0"/>
+                                                    <constraint firstItem="Pww-7r-6ZL" firstAttribute="centerY" secondItem="Drk-tM-TF5" secondAttribute="centerY" id="7Fq-G3-WBm"/>
+                                                    <constraint firstItem="Pww-7r-6ZL" firstAttribute="width" secondItem="Drk-tM-TF5" secondAttribute="width" id="dRO-5R-uR6"/>
+                                                    <constraint firstItem="Pww-7r-6ZL" firstAttribute="centerX" secondItem="Drk-tM-TF5" secondAttribute="centerX" id="wuf-dH-MBJ"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="photoImageView" destination="Pww-7r-6ZL" id="Fwv-7M-x24"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="UbQ-Ic-NLy" firstAttribute="width" secondItem="L1H-n9-20r" secondAttribute="width" id="9NM-hq-ah1"/>
-                            <constraint firstItem="UbQ-Ic-NLy" firstAttribute="centerX" secondItem="L1H-n9-20r" secondAttribute="centerX" id="Bdg-MQ-4ME"/>
-                            <constraint firstItem="UbQ-Ic-NLy" firstAttribute="centerY" secondItem="L1H-n9-20r" secondAttribute="centerY" id="D68-LH-EmF"/>
-                            <constraint firstItem="UbQ-Ic-NLy" firstAttribute="height" secondItem="L1H-n9-20r" secondAttribute="height" id="Eer-ks-tA9"/>
+                            <constraint firstItem="96V-0P-MJS" firstAttribute="leading" secondItem="L1H-n9-20r" secondAttribute="leadingMargin" constant="-20" id="NdA-cb-BiU"/>
+                            <constraint firstItem="FKf-kM-AQu" firstAttribute="top" secondItem="96V-0P-MJS" secondAttribute="bottom" id="WLj-Gh-FN3"/>
+                            <constraint firstItem="96V-0P-MJS" firstAttribute="top" secondItem="awQ-dg-LUg" secondAttribute="bottom" constant="-20" id="Xed-oM-79W"/>
+                            <constraint firstItem="96V-0P-MJS" firstAttribute="centerX" secondItem="L1H-n9-20r" secondAttribute="centerX" id="ZMA-72-3c0"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="ic_map_36pt" id="znd-UH-STF"/>
                     <connections>
+                        <outlet property="collectionView" destination="6Gk-2g-UPm" id="U4y-Gd-Sbs"/>
                         <outlet property="mapView" destination="UbQ-Ic-NLy" id="R1R-eu-gax"/>
                     </connections>
                 </viewController>
