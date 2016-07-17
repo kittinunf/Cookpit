@@ -21,7 +21,7 @@ struct ExploreViewModel {
   func executeCommand(command: ExploreViewModelCommand) -> ExploreViewModel {
     switch command {
     case let .SetItems(items):
-        return ExploreViewModel(items: items)
+      return ExploreViewModel(items: items)
     }
   }
   

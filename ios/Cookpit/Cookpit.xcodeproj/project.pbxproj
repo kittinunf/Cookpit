@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C23A5161D3B726600C45DAB /* NSValue+Coordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C23A5151D3B726600C45DAB /* NSValue+Coordinate2D.swift */; };
+		3C23A5181D3B7D3E00C45DAB /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C23A5171D3B7D3E00C45DAB /* MapViewModel.swift */; };
 		3C5034721D2916F400F34AA7 /* PhotoCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5034711D2916F400F34AA7 /* PhotoCommentTableViewCell.swift */; };
 		3C61ECBC1CFFE47F009F2A0E /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C61ECBB1CFFE47F009F2A0E /* PhotoViewController.swift */; };
 		3C61ECBE1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C61ECBD1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		3C23A5151D3B726600C45DAB /* NSValue+Coordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSValue+Coordinate2D.swift"; sourceTree = "<group>"; };
+		3C23A5171D3B7D3E00C45DAB /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		3C5034711D2916F400F34AA7 /* PhotoCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCommentTableViewCell.swift; sourceTree = "<group>"; };
 		3C61ECBB1CFFE47F009F2A0E /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		3C61ECBD1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				3CDE719B1D3AAFF200DC0A45 /* MapCollectionViewCell.swift */,
 				3CDE71911D3885A900DC0A45 /* MapDataController.swift */,
 				3CBE4FD31D32B62F0030E75A /* MapViewController.swift */,
+				3C23A5171D3B7D3E00C45DAB /* MapViewModel.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				3CA6D8491CFF03C8001BE50C /* SearchViewModel.swift in Sources */,
 				3C7F200C1CFD83B900937E4F /* AppDelegate.swift in Sources */,
 				3C61ECBE1CFFE4A8009F2A0E /* PhotoDetailViewModel.swift in Sources */,
+				3C23A5181D3B7D3E00C45DAB /* MapViewModel.swift in Sources */,
 				3CE0140B1D2F60430064F156 /* PhotoDataController.swift in Sources */,
 				3CA6D83B1CFEA51B001BE50C /* UIScrollView+RxLoadMore.swift in Sources */,
 				3C61ECBC1CFFE47F009F2A0E /* PhotoViewController.swift in Sources */,

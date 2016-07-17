@@ -103,7 +103,7 @@
                     <connections>
                         <segue destination="A8e-wf-YWm" kind="relationship" relationship="viewControllers" id="cTn-aw-qoi"/>
                         <segue destination="uAd-ga-kZf" kind="relationship" relationship="viewControllers" id="oLb-JM-VOV"/>
-                        <segue destination="dSD-Yb-PdX" kind="relationship" relationship="viewControllers" id="OZA-f4-wxN"/>
+                        <segue destination="be4-OU-74k" kind="relationship" relationship="viewControllers" id="OZA-f4-wxN"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q2B-gQ-0sB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -460,17 +460,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="96V-0P-MJS">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="507"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UbQ-Ic-NLy" customClass="MGLMapView">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="491"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="447"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="delegate" destination="dSD-Yb-PdX" id="dZn-3y-qd4"/>
                                         </connections>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6Gk-2g-UPm">
-                                        <rect key="frame" x="0.0" y="491" width="600" height="60"/>
+                                        <rect key="frame" x="0.0" y="447" width="600" height="60"/>
                                         <color key="backgroundColor" red="0.96862751245498657" green="0.97647064924240112" blue="0.98823535442352295" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="OSd-n3-Ikr"/>
@@ -518,7 +518,7 @@
                             <constraint firstItem="96V-0P-MJS" firstAttribute="centerX" secondItem="L1H-n9-20r" secondAttribute="centerX" id="ZMA-72-3c0"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="ic_map_36pt" id="znd-UH-STF"/>
+                    <navigationItem key="navigationItem" id="2bc-UD-8nt"/>
                     <connections>
                         <outlet property="collectionView" destination="6Gk-2g-UPm" id="U4y-Gd-Sbs"/>
                         <outlet property="mapView" destination="UbQ-Ic-NLy" id="R1R-eu-gax"/>
@@ -526,7 +526,31 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GhX-Gz-Cyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1451" y="1119"/>
+            <point key="canvasLocation" x="2258" y="1045"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="bkw-zA-NvB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="be4-OU-74k" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" image="ic_map_36pt" id="znd-UH-STF"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VHy-pk-QFK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.41176474094390869" green="0.43529415130615234" blue="0.4745098352432251" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dSD-Yb-PdX" kind="relationship" relationship="rootViewController" id="arS-Wq-4j9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xlf-MC-kdH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1451" y="1045"/>
         </scene>
     </scenes>
     <resources>

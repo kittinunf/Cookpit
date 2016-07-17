@@ -35,6 +35,11 @@ class PhotoViewController: UIViewController {
     bindings()
   }
   
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBarHidden = false
+  }
+  
   func bindings() {
     let scheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background)
     

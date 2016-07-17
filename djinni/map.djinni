@@ -3,7 +3,7 @@
 map_detail_view_data = record {
   id: string;
   image_url: string;
-  title: string;
+  text: string;
   location: coordinate;
 }
 
