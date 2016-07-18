@@ -15,7 +15,7 @@ map_view_data = record {
 
 map_controller_observer = interface +o +j {
   on_begin_update();
-  on_update(view_date: map_view_data);
+  on_update(view_data: map_view_data);
   on_end_update();
 }
 

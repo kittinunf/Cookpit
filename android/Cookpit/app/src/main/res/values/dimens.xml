@@ -7,5 +7,6 @@
 
     <dimen name="explore_item_offset">8dp</dimen>
     <dimen name="search_item_offset">8dp</dimen>
+    <dimen name="map_item_size">60dp</dimen>
 
 </resources>
