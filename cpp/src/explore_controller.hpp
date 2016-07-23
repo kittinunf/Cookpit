@@ -16,12 +16,12 @@ class explore_controller_impl : public explore_controller, public enable_shared_
 
   void subscribe(const shared_ptr<explore_controller_observer>& observer) override;
   void unsubscribe() override;
-
+    
   void reset() override;
   void request(int8_t page) override;
 
  private:
-  std::unique_ptr<CURL, decltype(&curl_easy_cleanup)> curl_;
+  unique_ptr<CURL, decltype(&curl_easy_cleanup)> curl_;
   shared_ptr<explore_controller_observer> observer_;
 
   // data

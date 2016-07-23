@@ -1,0 +1,30 @@
+@extern "coordinate.yaml"
+
+map_detail_view_data = record {
+  id: string;
+  image_url: string;
+  text: string;
+  location: coordinate;
+}
+
+map_view_data = record {
+  error: bool;
+  message: string;
+  items: list<map_detail_view_data>;
+}
+
+map_controller_observer = interface +o +j {
+  on_begin_update();
+  on_update(view_data: map_view_data);
+  on_end_update();
+}
+
+map_controller = interface +c {
+  static create(): map_controller;
+  static map_token(): string;
+
+  subscribe(observer: map_controller_observer);
+  unsubscribe();
+
+  request();
+}

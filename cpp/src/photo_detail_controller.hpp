@@ -19,8 +19,9 @@ class photo_detail_controller_impl : public photo_detail_controller,
   void request_detail() override;
 
  private:
-  std::unique_ptr<CURL, decltype(&curl_easy_cleanup)> curl_;
+  unique_ptr<CURL, decltype(&curl_easy_cleanup)> curl_;
   shared_ptr<photo_detail_controller_observer> observer_;
+  
   string id_;
 
   void on_failure(const string& reason);

@@ -43,6 +43,10 @@ dependencies {
             reactiveAndroidSupportDesign,
             glide,
     )
+
+    compile(mapbox) {
+        transitive = true
+    }
 }
 
 buildscript {
