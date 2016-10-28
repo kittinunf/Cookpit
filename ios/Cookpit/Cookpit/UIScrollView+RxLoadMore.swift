@@ -11,7 +11,7 @@ import RxSwift
 
 extension UIScrollView {
   func rx_loadMore() -> Observable<Bool> {
-    return rx_contentOffset.asObservable().map { [unowned self] offset in
+    return rx.contentOffset.asObservable().map { [unowned self] offset in
       let contentHeight = self.contentSize.height
       
       if offset.y > (contentHeight - self.bounds.height) {

@@ -11,7 +11,7 @@ import Mapbox
 import RxCocoa
 import RxSwift
 
-class MapViewController : UIViewController {
+class MapViewController : UIViewController, MGLMapViewDelegate  {
 
   @IBOutlet weak var mapView: MGLMapView!
   
@@ -30,19 +30,23 @@ class MapViewController : UIViewController {
     bindings()
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    navigationController?.navigationBarHidden = true
+    navigationController?.isNavigationBarHidden = true
   }
   
   func configureViews() {
-    collectionView.rx_modelSelected(CPMapDetailViewData.self).subscribeNext { [unowned self] data in
-      self.mapView.setCenterCoordinate(data.coordinate, zoomLevel: 12.0, animated: true)
-      
-      let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5*Double(NSEC_PER_SEC)))
-      dispatch_after(delay, dispatch_get_main_queue()) {
-        self.mapView.selectAnnotation(data, animated: true)
-      }
+    collectionView.rx.modelSelected(CPMapDetailViewData.self).subscribe { [unowned self] event in
+        switch (event) {
+        case .next(let value):
+            self.mapView.setCenter(value.coordinate, zoomLevel: 12.0, animated: true)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                self.mapView.selectAnnotation(value, animated: true)
+            }
+        default:
+            break
+        }
     }.addDisposableTo(disposeBag)
   }
   
@@ -51,19 +55,19 @@ class MapViewController : UIViewController {
     
     MGLAccountManager.setAccessToken(controller.mapToken)
     
-    let scheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background)
+    let scheduler = SerialDispatchQueueScheduler(qos: .background)
     let initialCommand = Observable.deferred { [unowned self] in Observable.just(self.controller.request()) }
                                     .subscribeOn(scheduler)
                                     .map { MapViewModelCommand.SetItems(items: []) }
     let loadCommand = controller.viewData.map { MapViewModelCommand.SetItems(items: $0.items) }
     
     let viewModel = Observable.of(initialCommand, loadCommand).concat().scan(MapViewModel(items: [])) { viewModel, command in
-      viewModel.executeCommand(command)
+        viewModel.executeCommand(command: command)
     }.shareReplay(1)
     
     viewModel.map { $0.items }
         .observeOn(MainScheduler.instance)
-        .bindTo(collectionView.rx_itemsWithCellIdentifier("MapCell", cellType: MapCollectionViewCell.self)) { row, element, cell in
+        .bindTo(collectionView.rx.items(cellIdentifier: "MapCell", cellType: MapCollectionViewCell.self)) { row, element, cell in
       cell.viewData.value = element
     }.addDisposableTo(disposeBag)
     
@@ -72,38 +76,39 @@ class MapViewController : UIViewController {
         .addDisposableTo(disposeBag)
     
     selectedAnnotation.asObservable()
-      .withLatestFrom(viewModel) { annotation, viewModel in
-      guard let viewData = annotation as? CPMapDetailViewData, index = viewModel.items.indexOf(viewData) else { return NSIndexPath(forItem: -1, inSection: 0) }
-      return NSIndexPath(forItem: index, inSection: 0)
-    }.filter { $0.item != -1 }.subscribeNext { [unowned self] indexPath in
-        self.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: true)
+      .withLatestFrom(viewModel) { annotation, viewModel -> IndexPath? in
+      guard let viewData = annotation as? CPMapDetailViewData, let index = viewModel.items.index(of: viewData) else { return nil }
+      return IndexPath(item: index, section: 0)
+    }.filter { $0 != nil }.subscribe { [unowned self] event in
+        switch (event) {
+        case .next(let value):
+            self.collectionView.scrollToItem(at: value!, at: .centeredHorizontally, animated: true)
+        default:
+            break
+        }
     }.addDisposableTo(disposeBag)
   }
   
   deinit {
     controller.unsubscribe()
   }
-  
-}
 
-extension MapViewController : MGLMapViewDelegate {
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
 
-  func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-    return true
-  }
-  
-  func mapView(mapView: MGLMapView, rightCalloutAccessoryViewForAnnotation annotation: MGLAnnotation) -> UIView? {
-    return UIButton(type: .InfoLight)
-  }
-  
-  func mapView(mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
-    guard let photoViewController = self.storyboard?.instantiateViewControllerWithIdentifier("Photo") as? PhotoViewController, viewData = annotation as? CPMapDetailViewData else { return }
+    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+        return UIButton(type: .infoLight)
+    }
+
+    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
+        guard let photoViewController = self.storyboard?.instantiateViewController(withIdentifier: "Photo") as? PhotoViewController, let viewData = annotation as? CPMapDetailViewData else { return }
         photoViewController.id = viewData.id
-    self.navigationController?.pushViewController(photoViewController, animated: true)
-  }
-  
-  func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
-    selectedAnnotation.value = annotation
-  }
-  
+        self.navigationController?.pushViewController(photoViewController, animated: true)
+    }
+
+    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        selectedAnnotation.value = annotation
+    }
+    
 }

@@ -8,15 +8,15 @@
 
 import Foundation
 
-private let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
+private let queue = DispatchQueue.global(qos: .default)
 
-func dispatchAsync<T>(background: () -> T,
-              main: ((t: T) -> Void)? = nil) {
-    dispatch_async(queue) { 
+func dispatchAsync<T>(background: @escaping () -> T,
+              main: ((_ t: T) -> Void)? = nil) {
+    queue.async {
         let t = background()
         guard let main = main else { return }
-        dispatch_async(dispatch_get_main_queue()) {
-            main(t: t)
+        DispatchQueue.main.async  {
+            main(t)
         }
     }
 }

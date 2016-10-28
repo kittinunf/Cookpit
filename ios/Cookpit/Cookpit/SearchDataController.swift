@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class SearchDataController {
+class SearchDataController : CPSearchControllerObserver {
 
   private let controller = CPSearchController.create()!
   
@@ -62,7 +62,7 @@ class SearchDataController {
   
   func searchWith(key: String) {
     controller.reset()
-    searchWith(key, page: 1)
+    searchWith(key: key, page: 1)
   }
   
   private func searchWith(key: String, page: Int) {
@@ -73,20 +73,15 @@ class SearchDataController {
     controller.unsubscribe()
   }
   
-}
+    func onBeginUpdate() {
+        _loadings.value = true
+    }
 
-extension SearchDataController : CPSearchControllerObserver {
+    func onUpdate(_ viewData: CPSearchViewData) {
+        _viewData.value = viewData
+    }
 
-  @objc func onBeginUpdate() {
-    _loadings.value = true
-  }
-  
-  @objc func onUpdate(viewData: CPSearchViewData) {
-    _viewData.value = viewData
-  }
-  
-  @objc func onEndUpdate() {
-    _loadings.value = false
-  }
-  
+    func onEndUpdate() {
+        _loadings.value = false
+    }
 }

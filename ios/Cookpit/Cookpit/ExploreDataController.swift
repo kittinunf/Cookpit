@@ -9,12 +9,12 @@
 import Foundation
 import RxSwift
 
-class ExploreDataController {
+class ExploreDataController : CPExploreControllerObserver {
 
   private let controller = CPExploreController.create()!
-  
+
   private let _viewData = Variable<CPExploreViewData?>(nil)
-  
+
   lazy var viewData: Observable<CPExploreViewData> = {
     self._viewData.asObservable()
       .filter { $0 != nil }
@@ -61,28 +61,40 @@ class ExploreDataController {
   
   func requestNextPage() {
     if !_loadings.value {
-      request(currentPage + 1)
+        request(page: currentPage + 1)
     }
   }
-  
+
   deinit {
     controller.unsubscribe()
   }
-  
+
+    func onBeginUpdate() {
+        _loadings.value = true
+    }
+
+    func onUpdate(_ viewData: CPExploreViewData) {
+        _viewData.value = viewData
+    }
+
+    func onEndUpdate() {
+        _loadings.value = false
+    }
+
 }
 
-extension ExploreDataController : CPExploreControllerObserver {
-    
-  @objc func onBeginUpdate() {
-    _loadings.value = true
-  }
-  
-  @objc func onUpdate(viewData: CPExploreViewData) {
-    _viewData.value = viewData
-  }
-  
-  @objc func onEndUpdate() {
-    _loadings.value = false
-  }
-  
-}
+//extension ExploreDataController : CPExploreControllerObserver {
+//    
+//  func onBeginUpdate() {
+//    _loadings.value = true
+//  }
+//  
+//  func onUpdate(_ viewData: CPExploreViewData) {
+//    _viewData.value = viewData
+//  }
+//  
+//  func onEndUpdate() {
+//    _loadings.value = false
+//  }
+//  
+//}
