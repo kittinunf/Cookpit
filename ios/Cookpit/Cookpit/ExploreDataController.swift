@@ -82,19 +82,3 @@ class ExploreDataController : CPExploreControllerObserver {
     }
 
 }
-
-//extension ExploreDataController : CPExploreControllerObserver {
-//    
-//  func onBeginUpdate() {
-//    _loadings.value = true
-//  }
-//  
-//  func onUpdate(_ viewData: CPExploreViewData) {
-//    _viewData.value = viewData
-//  }
-//  
-//  func onEndUpdate() {
-//    _loadings.value = false
-//  }
-//  
-//}
