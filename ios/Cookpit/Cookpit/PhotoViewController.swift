@@ -40,11 +40,6 @@ class PhotoViewController: UIViewController {
     navigationController?.isNavigationBarHidden = false
   }
 
-    func foo() -> Int {
-        let i = 5
-        return i
-    }
-  
   func bindings() {
     let scheduler = SerialDispatchQueueScheduler(qos: .background)
 
