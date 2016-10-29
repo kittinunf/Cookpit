@@ -35,19 +35,19 @@ class PhotoDetailDataController : CPPhotoDetailControllerObserver {
     self.controller.requestDetail()
   }
   
-  deinit {
+  func onBeginUpdate() {
   }
 
-    func onBeginUpdate() {
-    }
+  func onUpdate(_ viewData: CPPhotoDetailViewData) {
+      _viewData.value = viewData
+  }
 
-    func onUpdate(_ viewData: CPPhotoDetailViewData) {
-        _viewData.value = viewData
-    }
+  func onEndUpdate() {
+  }
 
-    func onEndUpdate() {
-    }
-
+  deinit {
+  }
+    
 }
 
 class PhotoCommentDataController : CPPhotoCommentControllerObserver{
@@ -76,18 +76,19 @@ class PhotoCommentDataController : CPPhotoCommentControllerObserver{
     self.controller.requestComments()
   }
   
+  func onBeginUpdate() {
+
+  }
+
+  func onUpdate(_ viewData: CPPhotoCommentViewData) {
+        _viewData.value = viewData
+  }
+
+  func onEndUpdate() {
+        
+  }
+    
   deinit {
   }
-  
-    func onBeginUpdate() {
 
-    }
-
-    func onUpdate(_ viewData: CPPhotoCommentViewData) {
-        _viewData.value = viewData
-    }
-
-    func onEndUpdate() {
-        
-    }
 }

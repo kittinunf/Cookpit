@@ -38,16 +38,16 @@ class MapDataController : CPMapControllerObserver {
     controller.request()
   }
    
-    func onBeginUpdate() {
+  func onBeginUpdate() {
 
-    }
+  }
 
-    func onUpdate(_ data: CPMapViewData) {
-        _viewData.value = data
-    }
+  func onUpdate(_ data: CPMapViewData) {
+      _viewData.value = data
+  }
 
-    func onEndUpdate() {
-        
-    }
+  func onEndUpdate() {
+      
+  }
     
 }

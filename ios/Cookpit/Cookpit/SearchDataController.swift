@@ -68,20 +68,21 @@ class SearchDataController : CPSearchControllerObserver {
   private func searchWith(key: String, page: Int) {
     self.controller.search(key, page: Int8(page))
   }
-  
+ 
+  func onBeginUpdate() {
+      _loadings.value = true
+  }
+
+  func onUpdate(_ viewData: CPSearchViewData) {
+      _viewData.value = viewData
+  }
+
+  func onEndUpdate() {
+      _loadings.value = false
+  }
+     
   deinit {
     controller.unsubscribe()
   }
-  
-    func onBeginUpdate() {
-        _loadings.value = true
-    }
 
-    func onUpdate(_ viewData: CPSearchViewData) {
-        _viewData.value = viewData
-    }
-
-    func onEndUpdate() {
-        _loadings.value = false
-    }
 }
