@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class PhotoDetailDataController {
+class PhotoDetailDataController : CPPhotoDetailControllerObserver {
 
   private let controller: CPPhotoDetailController
   
@@ -35,28 +35,22 @@ class PhotoDetailDataController {
     self.controller.requestDetail()
   }
   
+  func onBeginUpdate() {
+  }
+
+  func onUpdate(_ viewData: CPPhotoDetailViewData) {
+      _viewData.value = viewData
+  }
+
+  func onEndUpdate() {
+  }
+
   deinit {
   }
-  
+    
 }
 
-extension PhotoDetailDataController : CPPhotoDetailControllerObserver {
-
-  @objc func onBeginUpdate() {
-
-  }
-  
-  @objc func onUpdate(viewData: CPPhotoDetailViewData) {
-    _viewData.value = viewData
-  }
-  
-  @objc func onEndUpdate() {
-
-  }
-  
-}
-
-class PhotoCommentDataController {
+class PhotoCommentDataController : CPPhotoCommentControllerObserver{
 
   private let controller: CPPhotoCommentController
   
@@ -82,23 +76,19 @@ class PhotoCommentDataController {
     self.controller.requestComments()
   }
   
+  func onBeginUpdate() {
+
+  }
+
+  func onUpdate(_ viewData: CPPhotoCommentViewData) {
+        _viewData.value = viewData
+  }
+
+  func onEndUpdate() {
+        
+  }
+    
   deinit {
   }
-  
-}
 
-extension PhotoCommentDataController : CPPhotoCommentControllerObserver {
-
-  @objc func onBeginUpdate() {
-
-  }
-  
-  @objc func onUpdate(viewData: CPPhotoCommentViewData) {
-    _viewData.value = viewData
-  }
-  
-  @objc func onEndUpdate() {
-
-  }
-  
 }

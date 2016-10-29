@@ -7,9 +7,12 @@ buildscript {
 
     ext {
         //version
-        supportVersion = '23.4.0'
+        compileSdkVersion = 25
+        buildToolsVersion = '25.0.0'
+        minSdkVersion = 16
+        supportVersion = '25.0.0'
         reactiveAndroidVersion = '0.3.7'
-        kotlinVersion = '1.0.3'
+        kotlinVersion = '1.0.4'
 
         kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
         kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
@@ -27,11 +30,11 @@ buildscript {
         reactiveAndroidSupportDesign = "com.github.kittinunf.reactiveandroid:reactiveandroid-design:$reactiveAndroidVersion"
 
         glide = "com.github.bumptech.glide:glide:3.7.0"
-        mapbox = "com.mapbox.mapboxsdk:mapbox-android-sdk:4.1.0@aar"
+        mapbox = "com.mapbox.mapboxsdk:mapbox-android-sdk:4.1.1@aar"
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.android.tools.build:gradle:2.2.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

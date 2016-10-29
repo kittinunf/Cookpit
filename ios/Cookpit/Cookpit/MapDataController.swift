@@ -1,5 +1,4 @@
-//
-//  MapDataController.swift
+// //  MapDataController.swift
 //  Cookpit
 //
 //  Created by Kittinun Vantasin on 7/15/16.
@@ -9,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class MapDataController {
+class MapDataController : CPMapControllerObserver {
   
   let controller: CPMapController
   
@@ -39,20 +38,16 @@ class MapDataController {
     controller.request()
   }
    
-}
-
-extension MapDataController : CPMapControllerObserver {
-
-  @objc func onBeginUpdate() {
+  func onBeginUpdate() {
 
   }
-  
-  @objc func onUpdate(data: CPMapViewData) {
-    _viewData.value = data
-  }
-  
-  @objc func onEndUpdate() {
 
+  func onUpdate(_ data: CPMapViewData) {
+      _viewData.value = data
   }
-  
+
+  func onEndUpdate() {
+      
+  }
+    
 }

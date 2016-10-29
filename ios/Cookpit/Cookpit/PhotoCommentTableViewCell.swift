@@ -23,10 +23,15 @@ class PhotoCommentTableViewCell : UITableViewCell {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     
-    viewData.asObservable().filter { $0 != nil }.map { $0! }.subscribeNext { [unowned self] in
-      self.commentOwnerAvatarImageView.kf_setImageWithURL(NSURL(string: $0.ownerAvatarUrl)!)
-      self.commentOwnerNameLabel.text = $0.ownerName
-      self.commentTextLabel.text = $0.text
+    viewData.asObservable().filter { $0 != nil }.map { $0! }.subscribe { [unowned self] event in
+        switch (event) {
+        case .next(let value):
+            self.commentOwnerAvatarImageView.kf.setImage(with: URL(string: value.ownerAvatarUrl)!)
+            self.commentOwnerNameLabel.text = value.ownerName
+            self.commentTextLabel.text = value.text
+        default:
+            break
+        }
     }.addDisposableTo(disposeBag)
   }
   

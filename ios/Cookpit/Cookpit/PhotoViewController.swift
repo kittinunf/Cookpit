@@ -35,70 +35,113 @@ class PhotoViewController: UIViewController {
     bindings()
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    navigationController?.navigationBarHidden = false
+    navigationController?.isNavigationBarHidden = false
   }
-  
+
   func bindings() {
-    let scheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background)
+    let scheduler = SerialDispatchQueueScheduler(qos: .background)
+
+    Observable.deferred { [unowned self] in
+            Observable.just(self.detailController.request())
+        }
+        .subscribeOn(scheduler)
+        .publish()
+        .connect()
+        .addDisposableTo(disposeBag)
+
+    Observable.deferred { [unowned self] in
+            Observable.just(self.commentController.request())
+        }
+        .subscribeOn(scheduler)
+        .publish()
+        .connect()
+        .addDisposableTo(disposeBag)
     
-    let initialDetailCommand = Observable.deferred { [unowned self] in Observable.just(self.detailController.request()) }.subscribeOn(scheduler).map { PhotoViewModelCommand.SetPhoto(photo: nil) }
-    let initialCommentCommand = Observable.deferred { [unowned self] in Observable.just(self.commentController.request()) }.subscribeOn(scheduler).map { PhotoViewModelCommand.SetComments(comments: []) }
-    
-    let loadDetailCommand = detailController.viewData.map { PhotoViewModelCommand.SetPhoto(photo: $0) }
-    let loadCommentCommand = commentController.viewData.map { PhotoViewModelCommand.SetComments(comments: $0.comments) }
-    
-    let viewModel = Observable.of(initialDetailCommand, initialCommentCommand, loadDetailCommand, loadCommentCommand)
+    let loadDetailCommand = detailController.viewData.map {
+        PhotoViewModelCommand.SetPhoto(photo: $0)
+    }
+    let loadCommentCommand = commentController.viewData.map {
+        PhotoViewModelCommand.SetComments(comments: $0.comments)
+    }
+
+    let viewModel = Observable.of(loadDetailCommand, loadCommentCommand)
                               .merge()
                               .scan(PhotoViewModel(photo: nil, comments: [])) { viewModel, command in
-                                viewModel.executeCommand(command)
+                                viewModel.executeCommand(command: command)
                               }
+                              .shareReplay(2)
                               .observeOn(MainScheduler.instance)
     
     viewModel.filter { $0.photo != nil }
              .map { $0.photo!.title }
-             .bindTo(self.navigationItem.rx_title)
+             .bindTo(self.navigationItem.rx.title)
              .addDisposableTo(disposeBag)
-    
+
     viewModel.filter { $0.photo != nil }
-             .map { NSURL(string: $0.photo!.imageUrl)! }
-             .subscribeNext { [unowned self] url in
-               self.photoImageView.kf_showIndicatorWhenLoading = true
-               self.photoImageView.kf_setImageWithURL(url)
+             .map { URL(string: $0.photo!.imageUrl)! }
+             .subscribe { [unowned self] event in
+                switch (event) {
+                case .next(let value):
+                    self.photoImageView.kf.indicatorType = .activity
+                    self.photoImageView.kf.setImage(with: value)
+                default:
+                    break
+                }
              }
              .addDisposableTo(disposeBag)
     
     viewModel.filter { $0.photo != nil }
-             .map { NSURL(string: $0.photo!.ownerAvatarUrl)! }
-             .subscribeNext { [unowned self] url in
-               self.ownerAvatarImageView.kf_setImageWithURL(url)
+             .map { URL(string: $0.photo!.ownerAvatarUrl)! }
+             .subscribe { [unowned self] event in
+                switch (event) {
+                case .next(let value):
+                    self.ownerAvatarImageView.kf.setImage(with: value)
+                default:
+                    break
+                }
              }
              .addDisposableTo(disposeBag)
     
     viewModel.filter { $0.photo != nil }
              .map { $0.photo!.ownerName }
-             .subscribeNext { [unowned self] text in
-               self.ownerLabel.text = text
+             .subscribe { [unowned self] event in
+                switch (event) {
+                case .next(let value):
+                    self.ownerLabel.text = value
+                default:
+                    break
+                }
              }
              .addDisposableTo(disposeBag)
     
     viewModel.filter { $0.photo != nil }
              .map { $0.photo!.numberOfView }
-             .subscribeNext { [unowned self] text in
-               self.numberOfViewLabel.text = text
+             .subscribe { [unowned self] event in
+                switch (event) {
+                case .next(let value):
+                    self.numberOfViewLabel.text = value
+                default:
+                    break
+                }
              }
              .addDisposableTo(disposeBag)
     
     viewModel.filter { $0.photo != nil }
              .map { $0.photo!.numberOfComment }
-             .subscribeNext { [unowned self] text in
-               self.numberOfCommentLabel.text = text
+             .subscribe { [unowned self] event in
+                switch (event) {
+                case .next(let value):
+                    self.numberOfCommentLabel.text = value
+                default:
+                    break
+                }
              }
              .addDisposableTo(disposeBag)
     
     viewModel.map { $0.comments }
-             .bindTo(tableView.rx_itemsWithCellIdentifier("CommentCell", cellType: PhotoCommentTableViewCell.self)) { row, element, cell in
+        .bindTo(tableView.rx.items(cellIdentifier: "CommentCell", cellType: PhotoCommentTableViewCell.self)) { row, element, cell in
                cell.viewData.value = element
              }
              .addDisposableTo(disposeBag)

@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion parent.ext.compileSdkVersion
+    buildToolsVersion parent.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.github.kittinunf.cookpit"
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion parent.ext.minSdkVersion
+        targetSdkVersion parent.ext.compileSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -113,4 +113,3 @@ task generateApplicationMk << {
 }
 
 ndkBuild.dependsOn generateApplicationMk
-

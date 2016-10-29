@@ -24,8 +24,13 @@ class MapCollectionViewCell : UICollectionViewCell {
     viewData.asObservable()
         .filter { $0 != nil }
         .map { $0! }
-        .subscribeNext { [unowned self] in
-      self.photoImageView.kf_setImageWithURL(NSURL(string: $0.imageUrl)!)
+        .subscribe { [unowned self] event in
+            switch (event) {
+            case .next(let value):
+                self.photoImageView.kf.setImage(with: URL(string: value.imageUrl)!)
+            default:
+                break
+            }
     }.addDisposableTo(disposeBag)
   }
   

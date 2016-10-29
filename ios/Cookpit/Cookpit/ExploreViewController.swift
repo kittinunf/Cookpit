@@ -28,51 +28,71 @@ class ExploreViewController: UICollectionViewController {
     let refreshControl = UIRefreshControl()
     collectionView!.addSubview(refreshControl)
     
-    let scheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background)
-    refreshControl.rx_controlEvent(.ValueChanged).observeOn(scheduler).subscribeNext { [unowned self] _ in
-      self.controller.reset()
-      self.controller.request(1)
+    let scheduler = SerialDispatchQueueScheduler(qos: .background)
+    refreshControl.rx.controlEvent(.valueChanged).observeOn(scheduler).subscribe { [unowned self] event in
+        switch (event) {
+        case .next:
+            self.controller.reset()
+            self.controller.request(page: 1)
+        default:
+            break
+        }
     }.addDisposableTo(disposeBag)
-    
+
     //loadings
-    controller.loadings.bindTo(refreshControl.rx_refreshing).addDisposableTo(disposeBag)
-    controller.loadings.bindTo(UIApplication.sharedApplication().rx_networkActivityIndicatorVisible).addDisposableTo(disposeBag)
+    controller.loadings.bindTo(refreshControl.rx.refreshing).addDisposableTo(disposeBag)
+
+    controller.loadings.bindTo(UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
     
     //errors
-    controller.errors.subscribeNext { [unowned self] message in
-      let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
-      let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+    controller.errors.subscribe { [unowned self] event in
+        switch (event) {
+        case .next(let value):
+            let alert = UIAlertController(title: "Error", message: value, preferredStyle: .alert)
+      let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
       alert.addAction(okAction)
       if self.presentedViewController == nil {
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
       }
+        default:
+            break
+        }
+      
     }.addDisposableTo(disposeBag)
   }
-  
+
   func bindings() {
-    let scheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background)
+    let scheduler = SerialDispatchQueueScheduler(qos: .background)
     
-    let initialCommand = Observable.deferred { [unowned self] in Observable.just(self.controller.request(1)) }.subscribeOn(scheduler).map { ExploreViewModelCommand.SetItems(items: []) }
+    let initialCommand = Observable.deferred { [unowned self] in
+        Observable.just(self.controller.request(page: 1))
+        }.subscribeOn(scheduler).map { ExploreViewModelCommand.SetItems(items: []) }
     let loadCommand = controller.viewData.map { ExploreViewModelCommand.SetItems(items: $0.explores) }
     
     let viewModel = Observable.of(initialCommand, loadCommand).concat().scan(ExploreViewModel(items: [])) { viewModel, command in
-        viewModel.executeCommand(command)
+        viewModel.executeCommand(command: command)
       }
       .shareReplay(1)
     
     viewModel.map { $0.items }
         .observeOn(MainScheduler.instance)
-        .bindTo(collectionView!.rx_itemsWithCellIdentifier("ExploreCell", cellType: ExploreCollectionViewCell.self)) { row, element, cell in
+        .bindTo(collectionView!.rx.items(cellIdentifier: "ExploreCell", cellType: ExploreCollectionViewCell.self)) { row, element, cell in
       cell.viewData.value = element
     }.addDisposableTo(disposeBag)
     
     
-    collectionView!.rx_itemSelected
+    collectionView!.rx.itemSelected
         .withLatestFrom(viewModel) { indexPath, viewModel in viewModel.items[indexPath.row] }
-        .subscribeNext { [unowned self] viewData in
-        guard let photoViewController = self.storyboard?.instantiateViewControllerWithIdentifier("Photo") as? PhotoViewController else { return }
-        photoViewController.id = viewData.id
+        .subscribe { [unowned self] event in
+            switch (event) {
+            case .next(let value):
+                guard let photoViewController = self.storyboard?.instantiateViewController(withIdentifier: "Photo") as? PhotoViewController else { return }
+        photoViewController.id = value.id
         self.navigationController?.pushViewController(photoViewController, animated: true)
+            default:
+                break
+            }
+        
     }.addDisposableTo(disposeBag)
     
     //load more
@@ -81,8 +101,13 @@ class ExploreViewController: UICollectionViewController {
         .filter { $0 }
         .throttle(0.3, scheduler: MainScheduler.instance)
         .observeOn(scheduler)
-        .subscribeNext { [unowned self] _ in
-          self.controller.requestNextPage()
+        .subscribe { [unowned self] event in
+            switch (event) {
+            case .next:
+                self.controller.requestNextPage()
+            default:
+                break
+            }
         }.addDisposableTo(disposeBag)
   }
   
@@ -94,17 +119,17 @@ class ExploreViewController: UICollectionViewController {
 
 extension ExploreViewController : UICollectionViewDelegateFlowLayout {
 
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let width = collectionView.bounds.width;
     let itemWidth = (width / 2) - 2.5;
     return CGSize(width: itemWidth, height: itemWidth);
   }
 
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     return CGFloat(5)
   }
     
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+  func collectionView(_ minimumLineSpacingForSectionAtcollectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return CGFloat(5)
   }
   

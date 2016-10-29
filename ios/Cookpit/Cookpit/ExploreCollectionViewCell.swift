@@ -22,9 +22,14 @@ class ExploreCollectionViewCell: UICollectionViewCell {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     
-    viewData.asObservable().filter { $0 != nil }.map { $0! }.subscribeNext { [unowned self] in
-      self.titleLabel.text = $0.title
-      self.backgroundImageView.kf_setImageWithURL(NSURL(string: $0.imageUrl)!)
+    viewData.asObservable().filter { $0 != nil }.map { $0! }.subscribe { [unowned self] event in
+        switch (event) {
+        case .next(let value):
+            self.titleLabel.text = value.title
+            self.backgroundImageView.kf.setImage(with: URL(string: value.imageUrl)!)
+        default:
+            break
+        }
     }.addDisposableTo(disposeBag)
   }
   
