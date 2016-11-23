@@ -8,11 +8,11 @@ buildscript {
     ext {
         //version
         compileSdkVersion = 25
-        buildToolsVersion = '25.0.0'
+        buildToolsVersion = '25.0.1'
         minSdkVersion = 16
-        supportVersion = '25.0.0'
+        supportVersion = '25.0.1'
         reactiveAndroidVersion = '0.3.7'
-        kotlinVersion = '1.0.4'
+        kotlinVersion = '1.0.5'
 
         kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
         kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"

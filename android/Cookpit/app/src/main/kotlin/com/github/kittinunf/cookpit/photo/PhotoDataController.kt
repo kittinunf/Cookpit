@@ -1,7 +1,6 @@
 package com.github.kittinunf.cookpit.photo
 
 import com.github.kittinunf.cookpit.*
-import com.github.kittinunf.cookpit.util.dispatchAsync
 import com.github.kittinunf.reactiveandroid.MutableProperty
 
 class PhotoDetailDataController(id: String) : PhotoDetailControllerObserver() {
@@ -26,9 +25,7 @@ class PhotoDetailDataController(id: String) : PhotoDetailControllerObserver() {
     }
 
     fun request() {
-        dispatchAsync {
-            controller.requestDetail()
-        }
+        controller.requestDetail()
     }
 
     //region PhotoDetailControllerObserver
@@ -47,7 +44,7 @@ class PhotoDetailDataController(id: String) : PhotoDetailControllerObserver() {
 
 }
 
-class PhotoCommentDataController(id: String): PhotoCommentControllerObserver() {
+class PhotoCommentDataController(id: String) : PhotoCommentControllerObserver() {
 
     private val controller: PhotoCommentController
 
@@ -69,9 +66,7 @@ class PhotoCommentDataController(id: String): PhotoCommentControllerObserver() {
     }
 
     fun request() {
-        dispatchAsync {
-            controller.requestComments()
-        }
+        controller.requestComments()
     }
 
     //region PhotoCommentControllerObserver

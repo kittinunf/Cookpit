@@ -28,11 +28,14 @@ abstract class BaseActivity : AppCompatActivity() {
         setUp()
     }
 
-    open fun handleSavedInstanceState(savedInstanceState: Bundle) { }
+    open fun handleSavedInstanceState(savedInstanceState: Bundle) {
+    }
 
-    open fun handleIntent(intent: Intent) { }
+    open fun handleIntent(intent: Intent) {
+    }
 
-    open fun setUp() { }
+    open fun setUp() {
+    }
 
     override fun onDestroy() {
         subscriptions.unsubscribe()

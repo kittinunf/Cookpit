@@ -48,7 +48,7 @@ class ExploreFragment : BaseFragment() {
     override fun setUp(view: View) {
         val loadCommands = controller.viewData.map { ExploreViewModelCommand.SetItems(it.explores) }
 
-        val viewModels = loadCommands.scan(ExploreViewModel()) { viewModel, command -> viewModel.executeCommand(command) }
+        val viewModels = loadCommands.scan(ExploreViewModel(), ExploreViewModel::executeCommand)
                 .doOnSubscribe {
                     controller.request(1)
                 }

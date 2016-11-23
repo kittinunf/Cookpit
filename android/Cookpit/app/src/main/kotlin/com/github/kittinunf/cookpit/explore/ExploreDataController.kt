@@ -34,9 +34,7 @@ class ExploreDataController : ExploreControllerObserver() {
 
     fun request(page: Int) {
         currentPage = page
-//        dispatchAsync {
-            controller.request(page.toByte())
-//        }
+        controller.request(page.toByte())
     }
 
     fun requestNextPage() {

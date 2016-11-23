@@ -12,7 +12,7 @@ sealed class MapViewModelCommand {
 class MapViewModel(val items: List<MapDetailViewData> = listOf()) {
 
     fun executeCommand(command: MapViewModelCommand): MapViewModel {
-        when(command) {
+        when (command) {
             is MapViewModelCommand.SetItems -> {
                 return MapViewModel(command.items)
             }

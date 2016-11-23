@@ -12,7 +12,7 @@ sealed class SearchViewModelCommand {
 data class SearchViewModel(val recentItems: List<String> = listOf(), val searchResults: List<SearchDetailViewData> = listOf()) {
 
     fun executeCommand(command: SearchViewModelCommand): SearchViewModel {
-        when(command) {
+        when (command) {
             is SearchViewModelCommand.SetRecentItems -> {
                 return SearchViewModel(command.items, searchResults)
             }
