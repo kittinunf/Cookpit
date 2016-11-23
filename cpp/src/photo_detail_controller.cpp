@@ -34,13 +34,17 @@ void photo_detail_controller_impl::request_detail() {
   const weak_ptr<photo_detail_controller_impl> weak_self = shared_from_this();
 
   observer_->on_begin_update();
-  curl_get(curl_.get(), BASE_URL, params,
-           [weak_self](int /*code*/, const string& response) {
+
+  auto query_string = convert_to_query_param_string(params);
+  auto url = BASE_URL + "?" + query_string;
+
+  curl_get(curl_.get(), url,
+           [weak_self](const string& /*url*/, int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_success(response);
              }
            },
-           [weak_self](int /*code*/, const string& response) {
+           [weak_self](const string& /*url*/, int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_failure(response);
              }
@@ -71,11 +75,11 @@ void photo_detail_controller_impl::on_success(const string& data) {
                                                 owner["nsid"].string_value());
 
   if (observer_) {
-    observer_->on_update(
-      photo_detail_view_data(false, json["stat"].string_value(), photo["id"].string_value(),
-                             title["_content"].string_value(), image_url, owner["username"].string_value(), avatar_url,
-                             photo["views"].string_value(), photo["comments"]["_content"].string_value()));
-      
+    observer_->on_update(photo_detail_view_data(
+        false, json["stat"].string_value(), photo["id"].string_value(), title["_content"].string_value(), image_url,
+        owner["username"].string_value(), avatar_url, photo["views"].string_value(),
+        photo["comments"]["_content"].string_value()));
+
     observer_->on_end_update();
   }
 }

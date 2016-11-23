@@ -2,6 +2,7 @@ package com.github.kittinunf.cookpit.explore
 
 import com.github.kittinunf.cookpit.ExploreController
 import com.github.kittinunf.cookpit.ExploreControllerObserver
+import com.github.kittinunf.cookpit.ExploreDetailViewData
 import com.github.kittinunf.cookpit.ExploreViewData
 import com.github.kittinunf.reactiveandroid.MutableProperty
 
@@ -36,6 +37,8 @@ class ExploreDataController : ExploreControllerObserver() {
         currentPage = page
         controller.request(page.toByte())
     }
+
+    fun requestDb(page: Int): List<ExploreDetailViewData> = controller.requestDb(page.toByte())
 
     fun requestNextPage() {
         request(currentPage + 1)

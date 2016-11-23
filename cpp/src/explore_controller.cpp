@@ -26,27 +26,43 @@ void explore_controller_impl::unsubscribe() { observer_ = nullptr; }
 void explore_controller_impl::reset() { items_.clear(); }
 
 void explore_controller_impl::request(int8_t page) {
-  unordered_map<string, string> params = {
-      {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {FORMAT, JSON_FORMAT},
-      {NO_JSON_CALLBACK, "1"s},          {PER_PAGE, "10"s},        {PAGE, to_string(page)}};
-
   const weak_ptr<explore_controller_impl> weak_self = shared_from_this();
 
   observer_->on_begin_update();
-  curl_get(curl_.get(), BASE_URL, params,
-           [weak_self](int /*code*/, const string& response) {
+
+  auto url = construct_url(BASE_URL, page);
+  curl_get(curl_.get(), url,
+           [weak_self](const string& url, int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
-               self->on_success(response);
+               self->on_success(url, response);
              }
            },
-           [weak_self](int /*code*/, const string& response) {
+           [weak_self](const string& url, int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
-               self->on_failure(response);
+               self->on_failure(url, response);
              }
            });
 }
 
-void explore_controller_impl::on_failure(const string& reason) {
+vector<explore_detail_view_data> explore_controller_impl::request_db(int8_t page) {
+  auto env = api_impl::instance().db("explore");
+  auto txn = lmdb::txn::begin(env, nullptr, MDB_RDONLY);
+  auto db = lmdb::dbi::open(txn);
+  auto cursor = lmdb::cursor::open(txn, db);
+  auto key = construct_url(BASE_URL, page);
+
+  string value;
+  vector<explore_detail_view_data> results;
+  if (cursor.get(key, value, MDB_SET)) {
+    results = construct_detail_view_data_from_data(value);
+  }
+
+  cursor.close();
+  txn.abort();
+  return results;
+}
+
+void explore_controller_impl::on_failure(const string& /*url*/, const string& reason) {
   string error;
   auto json = json11::Json::parse(reason, error);
   auto message = error.empty() ? json["message"].string_value() : "There is something wrong, please try again later";
@@ -56,7 +72,23 @@ void explore_controller_impl::on_failure(const string& reason) {
   }
 }
 
-void explore_controller_impl::on_success(const string& data) {
+void explore_controller_impl::on_success(const string& url, const string& data) {
+  auto details = construct_detail_view_data_from_data(data);
+  items_.insert(items_.end(), details.begin(), details.end());
+  if (observer_) {
+    observer_->on_update(explore_view_data{false, "ok", items_});
+    observer_->on_end_update();
+  }
+
+  // save into our db
+  auto env = api_impl::instance().db("explore");
+  auto txn = lmdb::txn::begin(env);
+  auto db = lmdb::dbi::open(txn);
+  db.put(txn, url, data);
+  txn.commit();
+}
+
+vector<explore_detail_view_data> explore_controller_impl::construct_detail_view_data_from_data(const string& data) {
   string error;
   auto json = json11::Json::parse(data, error);
 
@@ -64,7 +96,6 @@ void explore_controller_impl::on_success(const string& data) {
   auto photoArray = topPhotos["photo"];
 
   auto photos = photoArray.array_items();
-
   vector<explore_detail_view_data> details;
   transform(photos.cbegin(), photos.cend(), back_inserter(details), [](const auto& j) {
     auto id = j["id"].string_value();
@@ -74,11 +105,14 @@ void explore_controller_impl::on_success(const string& data) {
 
     return explore_detail_view_data{id, image_url, title};
   });
+  return details;
+}
 
-  items_.insert(items_.end(), details.begin(), details.end());
-  if (observer_) {
-    observer_->on_update(explore_view_data{false, json["stat"].string_value(), items_});
-    observer_->on_end_update();
-  }
+string explore_controller_impl::construct_url(const string& url, int8_t page) {
+  unordered_map<string, string> params = {
+      {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {FORMAT, JSON_FORMAT},
+      {NO_JSON_CALLBACK, "1"s},          {PER_PAGE, "10"s},        {PAGE, to_string(page)}};
+  auto query_string = convert_to_query_param_string(params);
+  return url + "?" + query_string;
 }
 }
