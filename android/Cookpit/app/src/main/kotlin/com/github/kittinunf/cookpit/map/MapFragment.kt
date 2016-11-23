@@ -53,7 +53,7 @@ class MapFragment : BaseFragment() {
     override fun setUp(view: View) {
         val loadCommands = controller.viewData.map { MapViewModelCommand.SetItems(it.items) }
 
-        val viewModels = loadCommands.scan(MapViewModel()) { viewModel, command -> viewModel.executeCommand(command) }
+        val viewModels = loadCommands.scan(MapViewModel(), MapViewModel::executeCommand)
                 .doOnSubscribe {
                     controller.request()
                 }
@@ -111,14 +111,15 @@ class MapFragment : BaseFragment() {
         selectedViewData.observable
                 .subscribe { data ->
                     val map = mapboxMap.value ?: return@subscribe
-                    map.animateCamera({ CameraPosition.Builder().zoom(12.0).target(data.location).build() }, object : MapboxMap.CancelableCallback {
-                        override fun onCancel() {
-                        }
+                    map.animateCamera({ CameraPosition.Builder().zoom(12.0).target(data.location).build() },
+                            object : MapboxMap.CancelableCallback {
+                                override fun onCancel() {
+                                }
 
-                        override fun onFinish() {
-                            map.selectMarker(map.markers.filter { it.position == data.location }.first())
-                        }
-                    })
+                                override fun onFinish() {
+                                    map.selectMarker(map.markers.filter { it.position == data.location }.first())
+                                }
+                            })
                 }.addTo(subscriptions)
     }
 

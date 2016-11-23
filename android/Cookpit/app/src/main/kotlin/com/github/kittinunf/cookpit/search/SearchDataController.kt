@@ -34,9 +34,7 @@ class SearchDataController : SearchControllerObserver() {
 
     private fun searchWithKey(key: String, page: Int) {
         currentPage = page
-//        dispatchAsync {
-            controller.search(key, page.toByte())
-//        }
+        controller.search(key, page.toByte())
     }
 
     fun searchNextPage(key: String) {

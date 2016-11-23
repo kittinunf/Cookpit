@@ -50,7 +50,7 @@ class PhotoViewActivity : BaseActivity() {
         val loadCommentCommands = commentController.viewData.map { PhotoViewModelCommand.SetComments(it.comments) }
 
         val viewModels = Observable.merge(loadDetailCommands, loadCommentCommands)
-                .scan(PhotoViewModel()) { viewModel, command -> viewModel.executeCommand(command) }
+                .scan(PhotoViewModel(), PhotoViewModel::executeCommand)
                 .doOnSubscribe {
                     detailController.request()
                     commentController.request()

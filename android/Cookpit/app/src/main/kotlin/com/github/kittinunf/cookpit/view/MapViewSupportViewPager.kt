@@ -6,9 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.mapbox.mapboxsdk.maps.MapView
 
-class MapViewSupportViewPager : ViewPager {
-
-    @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs)
+class MapViewSupportViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
 
     override fun canScroll(v: View?, checkV: Boolean, dx: Int, x: Int, y: Int): Boolean {
         if (v is MapView) {

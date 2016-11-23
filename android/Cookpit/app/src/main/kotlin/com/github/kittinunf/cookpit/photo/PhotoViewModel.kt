@@ -14,7 +14,7 @@ sealed class PhotoViewModelCommand {
 data class PhotoViewModel(val photo: PhotoDetailViewData? = null, val comments: List<PhotoCommentDetailViewData> = listOf()) {
 
     fun executeCommand(command: PhotoViewModelCommand): PhotoViewModel {
-        when(command) {
+        when (command) {
             is PhotoViewModelCommand.SetPhoto -> {
                 return PhotoViewModel(command.photo, comments)
             }
