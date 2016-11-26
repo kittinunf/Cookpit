@@ -1,6 +1,7 @@
 #include "utility.hpp"
 
 #include <sstream>
+#include <vector>
 
 using namespace string_literals;
 
@@ -24,7 +25,11 @@ size_t write_to_string(void* ptr, size_t size, size_t count, void* stream) {
   return size * count;
 }
 
-string convert_to_query_param_string(const unordered_map<string, string>& queries) {
+template string convert_to_query_param_string<unordered_map<string, string>>(const unordered_map<string, string>&);
+template string convert_to_query_param_string<vector<pair<string, string>>>(const vector<pair<string, string>>&);
+
+template <typename T>
+string convert_to_query_param_string(const T& queries) {
   ostringstream ss;
   for_each(queries.cbegin(), queries.cend(), [&ss](const auto& p) { ss << p.first << "=" << p.second << "&"; });
   return ss.str();

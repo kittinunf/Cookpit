@@ -58,6 +58,10 @@ class ExploreDataController : CPExploreControllerObserver {
     
     self.controller.request(Int8(page))
   }
+
+  func requestFromDb(page: Int) -> [CPExploreDetailViewData] {
+    return controller.requestDb(Int8(page))
+  }
   
   func requestNextPage() {
     if !_loadings.value {

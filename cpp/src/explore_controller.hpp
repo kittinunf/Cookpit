@@ -1,6 +1,7 @@
 #pragma once
 
 #include <curl/curl.h>
+#include <lmdb++.h>
 #include <vector>
 
 #include "gen/explore_controller.hpp"

@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 
 class ExploreViewController: UICollectionViewController {
-
   private let controller = ExploreDataController()
   
   private let disposeBag = DisposeBag()
@@ -110,7 +109,7 @@ class ExploreViewController: UICollectionViewController {
             }
         }.addDisposableTo(disposeBag)
   }
-  
+
   deinit {
     controller.unsubscribe()
   }

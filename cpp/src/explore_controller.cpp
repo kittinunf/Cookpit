@@ -9,6 +9,8 @@
 #include "gen/explore_view_data.hpp"
 #include "utility.hpp"
 
+const int item_per_page = 10;
+
 using namespace string_literals;
 
 namespace cookpit
@@ -30,6 +32,16 @@ void explore_controller_impl::request(int8_t page) {
 
   observer_->on_begin_update();
 
+  auto data = request_db(page);
+  auto item_per_page = 10;
+  if (items_.size() >= (size_t)(page * item_per_page)) {
+    auto start = items_.begin() + ((page - 1) * item_per_page);
+    copy(data.cbegin(), data.cend(), start);
+  } else {
+    items_.insert(items_.end(), data.cbegin(), data.cend());
+  }
+  observer_->on_update(explore_view_data{false, "cache", items_});
+
   auto url = construct_url(BASE_URL, page);
   curl_get(curl_.get(), url,
            [weak_self](const string& url, int /*code*/, const string& response) {
@@ -49,14 +61,16 @@ vector<explore_detail_view_data> explore_controller_impl::request_db(int8_t page
   auto txn = lmdb::txn::begin(env, nullptr, MDB_RDONLY);
   auto db = lmdb::dbi::open(txn);
   auto cursor = lmdb::cursor::open(txn, db);
-  auto key = construct_url(BASE_URL, page);
+  auto url = construct_url(BASE_URL, page);
 
-  string value;
+  string key, value;
   vector<explore_detail_view_data> results;
-  if (cursor.get(key, value, MDB_SET)) {
-    results = construct_detail_view_data_from_data(value);
+  while (cursor.get(key, value, MDB_NEXT)) {
+    if (key == url) {
+      results = construct_detail_view_data_from_data(value);
+      break;
+    }
   }
-
   cursor.close();
   txn.abort();
   return results;
@@ -74,7 +88,22 @@ void explore_controller_impl::on_failure(const string& /*url*/, const string& re
 
 void explore_controller_impl::on_success(const string& url, const string& data) {
   auto details = construct_detail_view_data_from_data(data);
-  items_.insert(items_.end(), details.begin(), details.end());
+
+  auto page = -1;
+  auto found = url.find("page=");
+  if (found != string::npos) {
+    page = stoi(url.substr(found + 5, 1));
+  }
+
+  if (page == -1) return;
+
+  if (items_.size() >= (size_t)(page * item_per_page)) {
+    auto start = items_.begin() + ((page - 1) * item_per_page);
+    copy(details.cbegin(), details.cend(), start);
+  } else {
+    items_.insert(items_.end(), details.cbegin(), details.cend());
+  }
+
   if (observer_) {
     observer_->on_update(explore_view_data{false, "ok", items_});
     observer_->on_end_update();
@@ -82,10 +111,10 @@ void explore_controller_impl::on_success(const string& url, const string& data) 
 
   // save into our db
   auto env = api_impl::instance().db("explore");
-  auto txn = lmdb::txn::begin(env);
-  auto db = lmdb::dbi::open(txn);
-  db.put(txn, url, data);
-  txn.commit();
+  auto wtxn = lmdb::txn::begin(env);
+  auto dbi = lmdb::dbi::open(wtxn);
+  dbi.put(wtxn, url.c_str(), data.c_str());
+  wtxn.commit();
 }
 
 vector<explore_detail_view_data> explore_controller_impl::construct_detail_view_data_from_data(const string& data) {
@@ -109,9 +138,9 @@ vector<explore_detail_view_data> explore_controller_impl::construct_detail_view_
 }
 
 string explore_controller_impl::construct_url(const string& url, int8_t page) {
-  unordered_map<string, string> params = {
+  vector<pair<string, string>> params = {
       {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {FORMAT, JSON_FORMAT},
-      {NO_JSON_CALLBACK, "1"s},          {PER_PAGE, "10"s},        {PAGE, to_string(page)}};
+      {NO_JSON_CALLBACK, "1"s},          {PAGE, to_string(page)},  {PER_PAGE, to_string(item_per_page)}};
   auto query_string = convert_to_query_param_string(params);
   return url + "?" + query_string;
 }

@@ -1,7 +1,6 @@
 #include "api.hpp"
 
 #include <iostream>
-#include <lmdb++.h>
 
 static cookpit::api_impl instance_;
 
@@ -18,7 +17,6 @@ lmdb::env api_impl::db(const string& name) {
   auto env = lmdb::env::create();
   auto db_path = path_ + "/" + name;
   env.open(db_path.c_str(), MDB_NOSUBDIR);
-  env.set_mapsize(1 * 1024 * 1024);
   return env;
 }
 }
