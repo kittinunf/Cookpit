@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Point
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -104,9 +103,6 @@ class ExploreFragment : BaseFragment() {
                 .map { if (it) View.VISIBLE else View.GONE }
                 .bindTo(exploreProgressLoadMore.rx_visibility)
                 .addTo(subscriptions)
-
-        val items = controller.requestDb(1)
-        Log.e("items", items.size.toString())
     }
 
     fun navigateToPhotoViewActivity(viewData: ExploreDetailViewData) {
