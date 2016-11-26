@@ -22,6 +22,12 @@ class ExploreDataController : ExploreControllerObserver() {
 
     val loadingMores by lazy { _loadingMores.observable }
 
+    val errors by lazy {
+        _viewData.observable.filter { it.error }
+                .distinctUntilChanged()
+                .map { it.message }
+    }
+
     var currentPage = 1
 
     init {
