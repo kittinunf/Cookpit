@@ -56,7 +56,7 @@ void photo_detail_controller_impl::on_failure(const string& reason) {
   auto json = json11::Json::parse(reason, error);
   auto message = error.empty() ? json["message"].string_value() : "";
   if (observer_) {
-    observer_->on_update(photo_detail_view_data{true, message, id_, "", "", "", "", 0, 0});
+    observer_->on_update(photo_detail_view_data{true, message, id_, "", "", "", "", "0", "0"});
     observer_->on_end_update();
   }
 }
@@ -75,10 +75,10 @@ void photo_detail_controller_impl::on_success(const string& data) {
                                                 owner["nsid"].string_value());
 
   if (observer_) {
-    observer_->on_update(photo_detail_view_data(
+    observer_->on_update(photo_detail_view_data{
         false, json["stat"].string_value(), photo["id"].string_value(), title["_content"].string_value(), image_url,
         owner["username"].string_value(), avatar_url, photo["views"].string_value(),
-        photo["comments"]["_content"].string_value()));
+        photo["comments"]["_content"].string_value()});
 
     observer_->on_end_update();
   }

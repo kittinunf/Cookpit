@@ -9,11 +9,11 @@
 import Foundation
 import RxSwift
 
-class ExploreDataController : CPExploreControllerObserver {
+class ExploreDataController {
 
   private let controller = CPExploreController.create()!
 
-  private let _viewData = Variable<CPExploreViewData?>(nil)
+  fileprivate let _viewData = Variable<CPExploreViewData?>(nil)
 
   lazy var viewData: Observable<CPExploreViewData> = {
     self._viewData.asObservable()
@@ -23,7 +23,7 @@ class ExploreDataController : CPExploreControllerObserver {
       .observeOn(MainScheduler.instance)
   }()
   
-  private let _loadings = Variable(false)
+  fileprivate let _loadings = Variable(false)
   
   lazy var loadings: Observable<Bool> = {
     self._loadings.asObservable()
@@ -69,20 +69,24 @@ class ExploreDataController : CPExploreControllerObserver {
     }
   }
 
+  deinit {
+    controller.unsubscribe()
+  }
+
+}
+
+extension ExploreDataController : CPExploreControllerObserver {
+
   func onBeginUpdate() {
-      _loadings.value = true
+    _loadings.value = true
   }
 
   func onUpdate(_ viewData: CPExploreViewData) {
-      _viewData.value = viewData
+    _viewData.value = viewData
   }
 
   func onEndUpdate() {
-      _loadings.value = false
-  }
-
-  deinit {
-    controller.unsubscribe()
+    _loadings.value = false
   }
 
 }

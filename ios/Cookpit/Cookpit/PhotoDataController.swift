@@ -9,11 +9,11 @@
 import Foundation
 import RxSwift
 
-class PhotoDetailDataController : CPPhotoDetailControllerObserver {
+class PhotoDetailDataController {
 
   private let controller: CPPhotoDetailController
   
-  private let _viewData = Variable<CPPhotoDetailViewData?>(nil)
+  fileprivate let _viewData = Variable<CPPhotoDetailViewData?>(nil)
   
   lazy var viewData: Observable<CPPhotoDetailViewData> = {
     self._viewData.asObservable()
@@ -32,29 +32,34 @@ class PhotoDetailDataController : CPPhotoDetailControllerObserver {
   }
   
   func request() {
-    self.controller.requestDetail()
+    controller.requestDetail()
   }
-  
+
+  deinit {
+    controller.unsubscribe()
+  }
+
+}
+
+extension PhotoDetailDataController : CPPhotoDetailControllerObserver {
+
   func onBeginUpdate() {
   }
 
   func onUpdate(_ viewData: CPPhotoDetailViewData) {
-      _viewData.value = viewData
+    _viewData.value = viewData
   }
 
   func onEndUpdate() {
   }
 
-  deinit {
-  }
-    
 }
 
-class PhotoCommentDataController : CPPhotoCommentControllerObserver{
+class PhotoCommentDataController {
 
   private let controller: CPPhotoCommentController
   
-  private let _viewData = Variable<CPPhotoCommentViewData?>(nil)
+  fileprivate let _viewData = Variable<CPPhotoCommentViewData?>(nil)
   
   lazy var viewData: Observable<CPPhotoCommentViewData> = {
     self._viewData.asObservable()
@@ -73,22 +78,27 @@ class PhotoCommentDataController : CPPhotoCommentControllerObserver{
   }
   
   func request() {
-    self.controller.requestComments()
+    controller.requestComments()
+  }
+
+  deinit {
+    controller.unsubscribe()
   }
   
+}
+
+extension PhotoCommentDataController : CPPhotoCommentControllerObserver {
+
   func onBeginUpdate() {
 
   }
 
   func onUpdate(_ viewData: CPPhotoCommentViewData) {
-        _viewData.value = viewData
+    _viewData.value = viewData
   }
 
   func onEndUpdate() {
         
-  }
-    
-  deinit {
   }
 
 }
