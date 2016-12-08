@@ -71,6 +71,7 @@ vector<explore_detail_view_data> explore_controller_impl::request_db(int8_t page
       break;
     }
   }
+
   cursor.close();
   txn.abort();
   return results;

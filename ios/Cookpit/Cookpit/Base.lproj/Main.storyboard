@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zOT-86-dfb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zOT-86-dfb">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Explore-->
@@ -11,9 +15,9 @@
             <objects>
                 <collectionViewController id="ISk-Jd-zCW" userLabel="Explore" customClass="ExploreViewController" customModule="Cookpit" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="kZo-yz-c0w">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.83137261867523193" green="0.83921575546264648" blue="0.85882359743118286" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.79296690225601196" green="0.80149638652801514" blue="0.82558482885360718" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mIQ-6E-ic7">
                             <size key="itemSize" width="199" height="300"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -22,7 +26,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExploreCell" id="RII-ny-TTs" customClass="ExploreCollectionViewCell" customModule="Cookpit" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="65" width="199" height="300"/>
+                                <rect key="frame" x="88" y="1" width="199" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="199" height="300"/>
@@ -40,7 +44,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUf-6G-Sx6">
                                                         <rect key="frame" x="8" y="15" width="183" height="14"/>
                                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -57,9 +61,8 @@
                                             <blurEffect style="extraLight"/>
                                         </visualEffectView>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <color key="backgroundColor" red="0.96862751245498657" green="0.97647064924240112" blue="0.98823535442352295" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.96076858043670654" green="0.97003602981567383" blue="0.98508679866790771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottomMargin" secondItem="Scn-gw-gzN" secondAttribute="bottom" constant="-8" id="3u0-tk-BZf"/>
                                     <constraint firstAttribute="leadingMargin" secondItem="l86-r4-nd7" secondAttribute="leading" constant="8" id="Nj3-GJ-J0R"/>
@@ -92,11 +95,12 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zOT-86-dfb" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="JE9-aj-zLA">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                <color key="value" red="0.41176474094390869" green="0.43529415130615234" blue="0.4745098352432251" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="value" red="0.33762693405151367" green="0.35902220010757446" blue="0.39870846271514893" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBar>
@@ -119,10 +123,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kYh-KT-xdr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="16"/>
-                            <color key="textColor" red="0.41176474094390869" green="0.43529415130615234" blue="0.4745098352432251" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="textColor" red="0.33762693405151367" green="0.35902220010757446" blue="0.39870846271514893" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -143,9 +147,9 @@
                         <viewControllerLayoutGuide type="bottom" id="L9p-Ke-1Lr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nBh-Nc-l63">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="FOV-i0-I85"/>
@@ -160,21 +164,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sB0-kY-zOb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <barButtonItem title="Search" id="ghO-fn-zm0">
-                    <color key="tintColor" red="0.41176474089999998" green="0.43529415129999999" blue="0.47450983520000001" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="tintColor" red="0.33762693405151367" green="0.35902220010757446" blue="0.39870846271514893" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </barButtonItem>
                 <barButtonItem title="Cancel" id="A92-cv-cSY">
-                    <color key="tintColor" red="0.41176474089999998" green="0.43529415129999999" blue="0.47450983520000001" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="tintColor" red="0.33762693405151367" green="0.35902220010757446" blue="0.39870846271514893" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </barButtonItem>
                 <searchBar contentMode="redraw" searchBarStyle="minimal" id="j9T-ae-SgG">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <color key="barTintColor" red="0.55294120309999995" green="0.56862747670000002" blue="0.60392159219999997" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="barTintColor" red="0.47986441850662231" green="0.4950750470161438" blue="0.53372800350189209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="AVg-D3-QIn" userLabel="RecentSearchTableView">
                     <rect key="frame" x="0.0" y="0.0" width="562" height="128"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <view key="tableHeaderView" contentMode="scaleToFill" id="4yQ-x3-V7G">
                         <rect key="frame" x="0.0" y="0.0" width="562" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -182,11 +186,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LcW-X4-fYX">
                                 <rect key="frame" x="12" y="7" width="102" height="17"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="LcW-X4-fYX" firstAttribute="leading" secondItem="4yQ-x3-V7G" secondAttribute="leading" constant="12" id="6Fa-iy-Zo6"/>
                             <constraint firstItem="LcW-X4-fYX" firstAttribute="centerY" secondItem="4yQ-x3-V7G" secondAttribute="centerY" id="xmI-Zq-J70"/>
@@ -206,13 +210,13 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="wFg-N6-6tk" userLabel="SearchResultTableView">
                     <rect key="frame" x="0.0" y="0.0" width="562" height="239"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <prototypes>
                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" id="w2c-26-tHb" customClass="SearchTableViewCell" customModule="Cookpit" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="28" width="562" height="150"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w2c-26-tHb" id="jAN-08-MnD">
-                                <rect key="frame" x="0.0" y="0.0" width="562" height="149.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="562" height="149"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vrA-st-0Mh">
@@ -254,7 +258,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="umw-S1-mia">
                                 <rect key="frame" x="0.0" y="20" width="600" height="680"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" id="vH2-nZ-0Zq">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="510"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -269,26 +273,26 @@
                                             <rect key="frame" x="0.0" y="450" width="600" height="60"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJk-Ll-KDb" userLabel="Comment Label">
-                                                    <rect key="frame" x="572" y="23" width="8" height="14"/>
+                                                    <rect key="frame" x="572.5" y="23" width="7.5" height="14"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_comment" translatesAutoresizingMaskIntoConstraints="NO" id="h5x-Kv-EjI" userLabel="Comment Image View">
-                                                    <rect key="frame" x="544" y="20" width="20" height="20"/>
+                                                    <rect key="frame" x="544.5" y="20" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="OkE-tv-ATZ"/>
                                                         <constraint firstAttribute="height" constant="20" id="Z50-Gg-vrM"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjQ-nM-1yY" userLabel="View Label">
-                                                    <rect key="frame" x="516" y="23" width="8" height="14"/>
+                                                    <rect key="frame" x="517" y="23" width="7.5" height="14"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_eye" translatesAutoresizingMaskIntoConstraints="NO" id="BFg-pH-Joz" userLabel="View Image View">
-                                                    <rect key="frame" x="488" y="20" width="20" height="20"/>
+                                                    <rect key="frame" x="489" y="20" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="o59-yg-gw8"/>
                                                         <constraint firstAttribute="width" constant="20" id="u2I-2R-IlH"/>
@@ -307,13 +311,13 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gmY-Mt-RZI">
-                                                    <rect key="frame" x="66" y="30" width="414" height="0.0"/>
+                                                    <rect key="frame" x="66" y="30" width="415" height="0.0"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="BFg-pH-Joz" firstAttribute="leading" secondItem="gmY-Mt-RZI" secondAttribute="trailing" constant="8" id="84D-W6-4v8"/>
                                                 <constraint firstItem="BFg-pH-Joz" firstAttribute="centerY" secondItem="Neh-FN-Qyy" secondAttribute="centerY" id="Bzd-iM-e0H"/>
@@ -357,19 +361,19 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="vNy-cZ-CaO" userLabel="Comment Info Holder">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="vNy-cZ-CaO" userLabel="Comment Info Holder">
                                                     <rect key="frame" x="82" y="10" width="502" height="39"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="John Appleseed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPM-CD-WFQ" userLabel="Comment Owner Name Label">
-                                                            <rect key="frame" x="0.0" y="0.0" width="502" height="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Appleseed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPM-CD-WFQ" userLabel="Comment Owner Name Label">
+                                                            <rect key="frame" x="0.0" y="0.0" width="502" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The quick brown fox jumps over the lazy dog" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1da-Ad-VvG" userLabel="Comment Text Label">
-                                                            <rect key="frame" x="0.0" y="23" width="502" height="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The quick brown fox jumps over the lazy dog" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1da-Ad-VvG" userLabel="Comment Text Label">
+                                                            <rect key="frame" x="0.0" y="22.5" width="502" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -402,7 +406,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="umw-S1-mia" firstAttribute="top" secondItem="aNC-6J-saq" secondAttribute="bottom" id="Sr8-d8-zKg"/>
                             <constraint firstItem="umw-S1-mia" firstAttribute="leading" secondItem="VkB-A1-Ux3" secondAttribute="leadingMargin" constant="-20" id="hNU-e9-fD9"/>
@@ -424,7 +428,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eb9-d5-8D8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3001" y="41"/>
+            <point key="canvasLocation" x="3231" y="33"/>
         </scene>
         <!--Search-->
         <scene sceneID="qW3-mK-dCM">
@@ -434,9 +438,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Qe-MS-2s6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.41176474094390869" green="0.43529415130615234" blue="0.4745098352432251" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="textColor" red="0.33762693405151367" green="0.35902220010757446" blue="0.39870846271514893" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -456,22 +460,25 @@
                         <viewControllerLayoutGuide type="bottom" id="FKf-kM-AQu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="L1H-n9-20r">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="96V-0P-MJS">
-                                <rect key="frame" x="0.0" y="44" width="600" height="507"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UbQ-Ic-NLy" customClass="MGLMapView">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="447"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="514"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/outdoors-v9"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="dSD-Yb-PdX" id="dZn-3y-qd4"/>
                                         </connections>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6Gk-2g-UPm">
-                                        <rect key="frame" x="0.0" y="447" width="600" height="60"/>
-                                        <color key="backgroundColor" red="0.96862751245498657" green="0.97647064924240112" blue="0.98823535442352295" alpha="1" colorSpace="deviceRGB"/>
+                                        <rect key="frame" x="0.0" y="514" width="375" height="60"/>
+                                        <color key="backgroundColor" red="0.96076858043670654" green="0.97003602981567383" blue="0.98508679866790771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="OSd-n3-Ikr"/>
                                         </constraints>
@@ -483,7 +490,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MapCell" id="Drk-tM-TF5" customClass="MapCollectionViewCell" customModule="Cookpit" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="2.5" width="55" height="55"/>
+                                                <rect key="frame" x="0.0" y="3" width="55" height="55"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
@@ -493,7 +500,6 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <constraints>
                                                     <constraint firstItem="Pww-7r-6ZL" firstAttribute="height" secondItem="Drk-tM-TF5" secondAttribute="height" id="3fO-wF-4m0"/>
@@ -510,12 +516,12 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="96V-0P-MJS" firstAttribute="leading" secondItem="L1H-n9-20r" secondAttribute="leadingMargin" constant="-20" id="NdA-cb-BiU"/>
+                            <constraint firstItem="96V-0P-MJS" firstAttribute="width" secondItem="L1H-n9-20r" secondAttribute="width" id="KL3-BN-hMK"/>
                             <constraint firstItem="FKf-kM-AQu" firstAttribute="top" secondItem="96V-0P-MJS" secondAttribute="bottom" id="WLj-Gh-FN3"/>
                             <constraint firstItem="96V-0P-MJS" firstAttribute="top" secondItem="awQ-dg-LUg" secondAttribute="bottom" constant="-20" id="Xed-oM-79W"/>
-                            <constraint firstItem="96V-0P-MJS" firstAttribute="centerX" secondItem="L1H-n9-20r" secondAttribute="centerX" id="ZMA-72-3c0"/>
+                            <constraint firstItem="96V-0P-MJS" firstAttribute="leading" secondItem="L1H-n9-20r" secondAttribute="leading" id="tHs-Lu-3Fx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2bc-UD-8nt"/>
@@ -526,7 +532,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GhX-Gz-Cyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2258" y="1045"/>
+            <point key="canvasLocation" x="2256.8000000000002" y="1044.8275862068967"/>
         </scene>
         <!--Map-->
         <scene sceneID="bkw-zA-NvB">
@@ -537,8 +543,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VHy-pk-QFK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.41176474094390869" green="0.43529415130615234" blue="0.4745098352432251" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.33762693405151367" green="0.35902220010757446" blue="0.39870846271514893" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                         </textAttributes>
