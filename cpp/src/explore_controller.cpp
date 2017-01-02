@@ -9,6 +9,8 @@
 #include "gen/explore_view_data.hpp"
 #include "utility.hpp"
 
+const int item_per_page = 10;
+
 using namespace string_literals;
 
 namespace cookpit
@@ -26,27 +28,56 @@ void explore_controller_impl::unsubscribe() { observer_ = nullptr; }
 void explore_controller_impl::reset() { items_.clear(); }
 
 void explore_controller_impl::request(int8_t page) {
-  unordered_map<string, string> params = {
-      {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {FORMAT, JSON_FORMAT},
-      {NO_JSON_CALLBACK, "1"s},          {PER_PAGE, "10"s},        {PAGE, to_string(page)}};
-
   const weak_ptr<explore_controller_impl> weak_self = shared_from_this();
 
   observer_->on_begin_update();
-  curl_get(curl_.get(), BASE_URL, params,
-           [weak_self](int /*code*/, const string& response) {
+
+  auto data = request_db(page);
+  auto item_per_page = 10;
+  if (items_.size() >= (size_t)(page * item_per_page)) {
+    auto start = items_.begin() + ((page - 1) * item_per_page);
+    copy(data.cbegin(), data.cend(), start);
+  } else {
+    items_.insert(items_.end(), data.cbegin(), data.cend());
+  }
+  observer_->on_update(explore_view_data{false, "cache", items_});
+
+  auto url = construct_url(BASE_URL, page);
+  curl_get(curl_.get(), url,
+           [weak_self](const string& url, int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
-               self->on_success(response);
+               self->on_success(url, response);
              }
            },
-           [weak_self](int /*code*/, const string& response) {
+           [weak_self](const string& url, int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
-               self->on_failure(response);
+               self->on_failure(url, response);
              }
            });
 }
 
-void explore_controller_impl::on_failure(const string& reason) {
+vector<explore_detail_view_data> explore_controller_impl::request_db(int8_t page) {
+  auto env = api_impl::instance().db("explore");
+  auto txn = lmdb::txn::begin(env, nullptr, MDB_RDONLY);
+  auto db = lmdb::dbi::open(txn);
+  auto cursor = lmdb::cursor::open(txn, db);
+  auto url = construct_url(BASE_URL, page);
+
+  string key, value;
+  vector<explore_detail_view_data> results;
+  while (cursor.get(key, value, MDB_NEXT)) {
+    if (key == url) {
+      results = construct_detail_view_data_from_data(value);
+      break;
+    }
+  }
+
+  cursor.close();
+  txn.abort();
+  return results;
+}
+
+void explore_controller_impl::on_failure(const string& /*url*/, const string& reason) {
   string error;
   auto json = json11::Json::parse(reason, error);
   auto message = error.empty() ? json["message"].string_value() : "There is something wrong, please try again later";
@@ -56,7 +87,38 @@ void explore_controller_impl::on_failure(const string& reason) {
   }
 }
 
-void explore_controller_impl::on_success(const string& data) {
+void explore_controller_impl::on_success(const string& url, const string& data) {
+  auto details = construct_detail_view_data_from_data(data);
+
+  auto page = -1;
+  auto found = url.find("page=");
+  if (found != string::npos) {
+    page = stoi(url.substr(found + 5, 1));
+  }
+
+  if (page == -1) return;
+
+  if (items_.size() >= (size_t)(page * item_per_page)) {
+    auto start = items_.begin() + ((page - 1) * item_per_page);
+    copy(details.cbegin(), details.cend(), start);
+  } else {
+    items_.insert(items_.end(), details.cbegin(), details.cend());
+  }
+
+  if (observer_) {
+    observer_->on_update(explore_view_data{false, "ok", items_});
+    observer_->on_end_update();
+  }
+
+  // save into our db
+  auto env = api_impl::instance().db("explore");
+  auto wtxn = lmdb::txn::begin(env);
+  auto dbi = lmdb::dbi::open(wtxn);
+  dbi.put(wtxn, url.c_str(), data.c_str());
+  wtxn.commit();
+}
+
+vector<explore_detail_view_data> explore_controller_impl::construct_detail_view_data_from_data(const string& data) {
   string error;
   auto json = json11::Json::parse(data, error);
 
@@ -64,7 +126,6 @@ void explore_controller_impl::on_success(const string& data) {
   auto photoArray = topPhotos["photo"];
 
   auto photos = photoArray.array_items();
-
   vector<explore_detail_view_data> details;
   transform(photos.cbegin(), photos.cend(), back_inserter(details), [](const auto& j) {
     auto id = j["id"].string_value();
@@ -74,11 +135,14 @@ void explore_controller_impl::on_success(const string& data) {
 
     return explore_detail_view_data{id, image_url, title};
   });
+  return details;
+}
 
-  items_.insert(items_.end(), details.begin(), details.end());
-  if (observer_) {
-    observer_->on_update(explore_view_data{false, json["stat"].string_value(), items_});
-    observer_->on_end_update();
-  }
+string explore_controller_impl::construct_url(const string& url, int8_t page) {
+  vector<pair<string, string>> params = {
+      {METHOD, INTERESTINGNESS_GETLIST}, {API_KEY, API_KEY_VALUE}, {FORMAT, JSON_FORMAT},
+      {NO_JSON_CALLBACK, "1"s},          {PAGE, to_string(page)},  {PER_PAGE, to_string(item_per_page)}};
+  auto query_string = convert_to_query_param_string(params);
+  return url + "?" + query_string;
 }
 }

@@ -12,7 +12,7 @@ class map_controller_impl : public map_controller, public enable_shared_from_thi
  public:
   map_controller_impl();
 
-  void subscribe(const std::shared_ptr<map_controller_observer>& observer) override;
+  void subscribe(const shared_ptr<map_controller_observer>& observer) override;
   void unsubscribe() override;
 
   void request() override;

@@ -21,7 +21,9 @@ class SearchTableViewCell : UITableViewCell {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     
-    viewData.asObservable().filter { $0 != nil }.map { $0! }.subscribe { [unowned self] event in
+    viewData.asObservable().filter { $0 != nil }
+        .map { $0! }
+        .subscribe { [unowned self] event in
         switch (event) {
         case .next(let value):
             self.backgroundImageView.kf.setImage(with: URL(string: value.imageUrl)!)

@@ -15,7 +15,7 @@ class api_impl : public api {
   string path() const;
   void path(const string& path);
 
-  lmdb::env db(const std::string& name);
+  lmdb::env db(const string& name);
 
  private:
   string path_;

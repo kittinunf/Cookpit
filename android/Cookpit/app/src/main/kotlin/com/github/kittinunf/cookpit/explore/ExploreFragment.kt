@@ -8,6 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import com.github.kittinunf.cookpit.BaseFragment
 import com.github.kittinunf.cookpit.ExploreDetailViewData
 import com.github.kittinunf.cookpit.R
@@ -19,6 +20,7 @@ import com.github.kittinunf.cookpit.util.setImage
 import com.github.kittinunf.reactiveandroid.rx.addTo
 import com.github.kittinunf.reactiveandroid.rx.bindNext
 import com.github.kittinunf.reactiveandroid.rx.bindTo
+import com.github.kittinunf.reactiveandroid.scheduler.AndroidThreadScheduler
 import com.github.kittinunf.reactiveandroid.support.v4.widget.rx_refresh
 import com.github.kittinunf.reactiveandroid.support.v4.widget.rx_refreshing
 import com.github.kittinunf.reactiveandroid.support.v7.widget.rx_itemsWith
@@ -77,10 +79,12 @@ class ExploreFragment : BaseFragment() {
                     }).addTo(subscriptions)
         }
 
-        exploreSwipeRefreshLayout.rx_refresh().observeOn(Schedulers.computation()).subscribe {
-            controller.reset()
-            controller.request(1)
-        }.addTo(subscriptions)
+        exploreSwipeRefreshLayout.rx_refresh()
+                .observeOn(Schedulers.computation())
+                .subscribe {
+                    controller.reset()
+                    controller.request(1)
+                }.addTo(subscriptions)
 
         exploreRecyclerView.rx_staggeredLoadMore()
                 .withLatestFrom(controller.loadings) { loadMore, loading -> loadMore && !loading }
@@ -90,9 +94,27 @@ class ExploreFragment : BaseFragment() {
                 .bindNext(controller, ExploreDataController::requestNextPage)
                 .addTo(subscriptions)
 
-        controller.loadings.bindTo(exploreSwipeRefreshLayout.rx_refreshing).addTo(subscriptions)
-        controller.loadingMores.not().bindTo(exploreSwipeRefreshLayout.rx_enabled).addTo(subscriptions)
-        controller.loadingMores.map { if (it) View.VISIBLE else View.GONE }.bindTo(exploreProgressLoadMore.rx_visibility).addTo(subscriptions)
+        controller.errors
+                .observeOn(AndroidThreadScheduler.main)
+                .bindNext(this, ExploreFragment::showError)
+                .addTo(subscriptions)
+
+        controller.loadings.bindTo(exploreSwipeRefreshLayout.rx_refreshing)
+                .addTo(subscriptions)
+
+        controller.loadingMores.not()
+                .bindTo(exploreSwipeRefreshLayout.rx_enabled)
+                .addTo(subscriptions)
+
+        controller.loadingMores
+                .map { if (it) View.VISIBLE else View.GONE }
+                .bindTo(exploreProgressLoadMore.rx_visibility)
+                .addTo(subscriptions)
+
+    }
+
+    fun showError(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
     }
 
     fun navigateToPhotoViewActivity(viewData: ExploreDetailViewData) {

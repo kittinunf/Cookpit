@@ -20,7 +20,7 @@ string map_controller::map_token() { return MAP_TOKEN; }
 
 map_controller_impl::map_controller_impl() : curl_(curl_easy_init(), curl_easy_cleanup) {}
 
-void map_controller_impl::subscribe(const std::shared_ptr<map_controller_observer>& observer) { observer_ = observer; }
+void map_controller_impl::subscribe(const shared_ptr<map_controller_observer>& observer) { observer_ = observer; }
 
 void map_controller_impl::unsubscribe() { observer_ = nullptr; }
 
@@ -32,13 +32,17 @@ void map_controller_impl::request() {
   const weak_ptr<map_controller_impl> weak_self = shared_from_this();
 
   observer_->on_begin_update();
-  curl_get(curl_.get(), BASE_URL, params,
-           [weak_self](int /*code*/, const string& response) {
+
+  auto query_string = convert_to_query_param_string(params);
+  auto url = BASE_URL + "?" + query_string;
+
+  curl_get(curl_.get(), url,
+           [weak_self](const string& /*url*/, int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_success(response);
              }
            },
-           [weak_self](int /*code*/, const string& reason) {
+           [weak_self](const string& /*url*/, int /*code*/, const string& reason) {
              if (auto self = weak_self.lock()) {
                self->on_failure(reason);
              }
@@ -54,7 +58,7 @@ void map_controller_impl::on_success(const string& data) {
   auto top = json["photos"];
   auto photos = top["photo"];
 
-  std::vector<map_detail_view_data> details;
+  vector<map_detail_view_data> details;
   transform(photos.array_items().cbegin(), photos.array_items().cend(), back_inserter(details), [](const auto& j) {
     auto id = j["id"].string_value();
     auto image_url =

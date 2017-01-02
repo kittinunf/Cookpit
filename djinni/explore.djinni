@@ -24,4 +24,5 @@ explore_controller = interface +c {
 
   reset();
   request(page: i8);
+  request_db(page: i8): list<explore_detail_view_data>;
 }

@@ -9,11 +9,11 @@
 import Foundation
 import RxSwift
 
-class SearchDataController : CPSearchControllerObserver {
+class SearchDataController {
 
   private let controller = CPSearchController.create()!
   
-  private let _viewData = Variable<CPSearchViewData?>(nil)
+  fileprivate let _viewData = Variable<CPSearchViewData?>(nil)
   
   lazy var viewData: Observable<CPSearchViewData> = {
     self._viewData.asObservable()
@@ -30,7 +30,7 @@ class SearchDataController : CPSearchControllerObserver {
       .observeOn(MainScheduler.instance)
   }()
   
-  private let _loadings = Variable(false)
+  fileprivate let _loadings = Variable(false)
   
   lazy var loadings: Observable<Bool> = {
     self._loadings.asObservable()
@@ -69,6 +69,14 @@ class SearchDataController : CPSearchControllerObserver {
     self.controller.search(key, page: Int8(page))
   }
  
+  deinit {
+    controller.unsubscribe()
+  }
+
+}
+
+extension SearchDataController : CPSearchControllerObserver {
+
   func onBeginUpdate() {
       _loadings.value = true
   }
@@ -79,10 +87,6 @@ class SearchDataController : CPSearchControllerObserver {
 
   func onEndUpdate() {
       _loadings.value = false
-  }
-     
-  deinit {
-    controller.unsubscribe()
   }
 
 }

@@ -14,9 +14,9 @@ string construct_flickr_avatar_url(int farm, const string& server, const string&
 
 size_t write_to_string(void* ptr, size_t size, size_t count, void* stream);
 
-string convert_to_query_param_string(const std::unordered_map<string, string>& queries);
+template <typename T>
+string convert_to_query_param_string(const T& queries);
 
-void curl_get(CURL* curl_handler, const string& base_url, const unordered_map<string, string>& params,
-              std::function<void(int, const string&)> success_callback,
-              std::function<void(int, const string&)> failure_callback);
+void curl_get(CURL* curl_handler, const string& url, function<void(const string&, int, const string&)> success_callback,
+              function<void(const string&, int, const string&)> failure_callback);
 }

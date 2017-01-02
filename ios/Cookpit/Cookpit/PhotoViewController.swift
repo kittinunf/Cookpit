@@ -73,14 +73,14 @@ class PhotoViewController: UIViewController {
                               }
                               .shareReplay(2)
                               .observeOn(MainScheduler.instance)
-    
-    viewModel.filter { $0.photo != nil }
-             .map { $0.photo!.title }
+
+    let validPhotoViewModel = viewModel.filter { $0.photo != nil && $0.photo?.error == false }
+
+    validPhotoViewModel.map { $0.photo!.title }
              .bindTo(self.navigationItem.rx.title)
              .addDisposableTo(disposeBag)
 
-    viewModel.filter { $0.photo != nil }
-             .map { URL(string: $0.photo!.imageUrl)! }
+    validPhotoViewModel.map { URL(string: $0.photo!.imageUrl)! }
              .subscribe { [unowned self] event in
                 switch (event) {
                 case .next(let value):
@@ -92,8 +92,7 @@ class PhotoViewController: UIViewController {
              }
              .addDisposableTo(disposeBag)
     
-    viewModel.filter { $0.photo != nil }
-             .map { URL(string: $0.photo!.ownerAvatarUrl)! }
+    validPhotoViewModel.map { URL(string: $0.photo!.ownerAvatarUrl)! }
              .subscribe { [unowned self] event in
                 switch (event) {
                 case .next(let value):
@@ -104,8 +103,7 @@ class PhotoViewController: UIViewController {
              }
              .addDisposableTo(disposeBag)
     
-    viewModel.filter { $0.photo != nil }
-             .map { $0.photo!.ownerName }
+    validPhotoViewModel.map { $0.photo!.ownerName }
              .subscribe { [unowned self] event in
                 switch (event) {
                 case .next(let value):
@@ -116,8 +114,7 @@ class PhotoViewController: UIViewController {
              }
              .addDisposableTo(disposeBag)
     
-    viewModel.filter { $0.photo != nil }
-             .map { $0.photo!.numberOfView }
+    validPhotoViewModel.map { $0.photo!.numberOfView }
              .subscribe { [unowned self] event in
                 switch (event) {
                 case .next(let value):
@@ -128,8 +125,7 @@ class PhotoViewController: UIViewController {
              }
              .addDisposableTo(disposeBag)
     
-    viewModel.filter { $0.photo != nil }
-             .map { $0.photo!.numberOfComment }
+    validPhotoViewModel.map { $0.photo!.numberOfComment }
              .subscribe { [unowned self] event in
                 switch (event) {
                 case .next(let value):
