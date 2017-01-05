@@ -3,7 +3,6 @@
 #include <json11.hpp>
 #include <unordered_map>
 
-#include "api.hpp"
 #include "constants.hpp"
 #include "gen/photo_detail_controller_observer.hpp"
 #include "gen/photo_detail_view_data.hpp"

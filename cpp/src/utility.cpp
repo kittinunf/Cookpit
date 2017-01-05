@@ -1,6 +1,7 @@
 #include "utility.hpp"
 
 #include <sstream>
+#include <unordered_map>
 #include <vector>
 
 using namespace string_literals;
@@ -22,9 +23,9 @@ string construct_flickr_avatar_url(int farm, const string& server, const string&
 
 size_t write_to_string(void* ptr, size_t size, size_t count, void* stream) {
   if (stream) {
-      auto os = static_cast<ostream*>(stream);
-      os->write(static_cast<char*>(ptr), size * count);
-      return size * count;
+    auto os = static_cast<ostream*>(stream);
+    os->write(static_cast<char*>(ptr), size * count);
+    return size * count;
   }
   return 0;
 }

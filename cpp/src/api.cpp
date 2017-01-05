@@ -1,7 +1,5 @@
 #include "api.hpp"
 
-#include <iostream>
-
 static cookpit::api_impl instance_;
 
 namespace cookpit

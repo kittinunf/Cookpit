@@ -1,7 +1,6 @@
 #include "explore_controller.hpp"
 
 #include <json11.hpp>
-#include <sstream>
 
 #include "api.hpp"
 #include "constants.hpp"

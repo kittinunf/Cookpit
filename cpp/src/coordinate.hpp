@@ -1,16 +1,11 @@
 #pragma once
 
-#include <string>
-#include <utility>
-
-namespace cookpit {
-
+namespace cookpit
+{
 struct coordinate final {
-    double lat_;
-    double lng_;
-    
-    coordinate(double lat,
-               double lng) : lat_(lat), lng_(lng) {}
-};
+  double lat_;
+  double lng_;
 
-}  // namespace cookpit
+  coordinate(double lat, double lng) : lat_(lat), lng_(lng) {}
+};
+}

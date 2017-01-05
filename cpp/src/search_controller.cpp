@@ -1,10 +1,8 @@
 #include "search_controller.hpp"
 
 #include <json11.hpp>
-#include <set>
-#include <sstream>
+#include <unordered_map>
 
-#include "api.hpp"
 #include "constants.hpp"
 #include "gen/search_controller_observer.hpp"
 #include "gen/search_view_data.hpp"
