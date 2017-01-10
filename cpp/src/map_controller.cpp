@@ -1,6 +1,5 @@
 #include "map_controller.hpp"
 
-#include <iostream>
 #include <json11.hpp>
 #include <unordered_map>
 

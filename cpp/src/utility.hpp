@@ -1,8 +1,8 @@
 #pragma once
 
 #include <curl/curl.h>
+#include <functional>
 #include <string>
-#include <unordered_map>
 
 using namespace std;
 
