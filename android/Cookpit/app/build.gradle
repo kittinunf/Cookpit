@@ -61,10 +61,12 @@ buildscript {
 }
 
 task ndkBuild(type: Exec) {
-    String mainDirectory = System.getProperty("user.dir")
-    File ndkDir = project.getPlugins().getPlugin('android').sdkHandler.getNdkFolder()
+    def mainDirectory = System.getProperty("user.dir")
+    def ndkDir = System.getProperty("ndk.dir")
     if (ndkDir == null) {
-        ndkDir = file(System.env.ANDROID_NDK)
+        def prop = new Properties()
+        prop.load(project.rootProject.file('local.properties').newDataInputStream())
+        ndkDir = prop.getProperty("ndk.dir")
     }
 
     if (ndkDir == null) {
