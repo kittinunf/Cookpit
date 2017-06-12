@@ -39,44 +39,31 @@ class SearchViewController : UIViewController {
     controller.loadings.bind(to: UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
     
     //errors
-    controller.errors.subscribe { [unowned self] event in
-        switch (event) {
-        case .next(let value):
-            let alert = UIAlertController(title: "Error", message: value, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
-            if self.presentedViewController == nil {
-                self.present(alert, animated: true, completion: nil)
-            }
-        default:
-            break
-        }
-    }.addDisposableTo(disposeBag)
+    controller.errors.subscribe(onNext: { [unowned self] value in
+      let alert = UIAlertController(title: "Error", message: value, preferredStyle: .alert)
+      let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+      alert.addAction(okAction)
+      if self.presentedViewController == nil {
+        self.present(alert, animated: true, completion: nil)
+      }
+    }).addDisposableTo(disposeBag)
   }
-  
+
   func configureBarButtonItems() {
     if let font = UIFont(name: "Menlo", size: 14) {
       cancelBarButtonItem.setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
       searchBarButtonItem.setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
     }
-  
-    self.cancelBarButtonItem.rx.tap.subscribe { [unowned self] event in
-        switch (event) {
-        case .next:
-            self.searchBar.resignFirstResponder()
-        default:
-            break;
-        }
-    }.addDisposableTo(disposeBag)
+
+    cancelBarButtonItem.rx.tap
+      .subscribe(onNext: { [unowned self] value in
+        self.searchBar.resignFirstResponder()
+      }).addDisposableTo(disposeBag)
     
-    self.searchBarButtonItem.rx.tap.subscribe { [unowned self] event in
-        switch (event) {
-        case .next:
-            self.searchBar.resignFirstResponder()
-        default:
-            break;
-        }
-    }.addDisposableTo(disposeBag)
+    self.searchBarButtonItem.rx.tap
+      .subscribe(onNext: { [unowned self] value in
+        self.searchBar.resignFirstResponder()
+      }).addDisposableTo(disposeBag)
   }
   
   func configureSearchBar() {
@@ -85,53 +72,33 @@ class SearchViewController : UIViewController {
     
     navigationItem.titleView = searchBar
     
-    let searchBarTexts = searchBar.rx.text
-    searchBarTexts.filter { $0?.isEmpty ?? false }.subscribe { [unowned self] event in
-        switch (event) {
-        case .next:
-            self.controller.fetchRecents()
-        default:
-            break
-        }
-    }.addDisposableTo(disposeBag)
+    searchBar.rx.text.filter { $0?.isEmpty ?? false }
+      .subscribe(onNext: { [unowned self] value in
+        self.controller.fetchRecents()
+      }).addDisposableTo(disposeBag)
     
-    searchBarTexts.map { !($0?.isEmpty ?? false) }.bind(to: recentSearchTableView.rx.isHidden).addDisposableTo(disposeBag)
-    searchBarTexts.map { $0?.isEmpty ?? false }.bind(to: searchResultTableView.rx.isHidden).addDisposableTo(disposeBag)
+    searchBar.rx.text.map { !($0?.isEmpty ?? false) }.bind(to: recentSearchTableView.rx.isHidden).addDisposableTo(disposeBag)
+    searchBar.rx.text.map { $0?.isEmpty ?? false }.bind(to: searchResultTableView.rx.isHidden).addDisposableTo(disposeBag)
     
-    searchBarTexts.map { $0?.isEmpty ?? false }.subscribe { [unowned self] event in
-        switch (event) {
-        case .next(let value):
-            self.navigationItem.rightBarButtonItem = value ? self.cancelBarButtonItem : self.searchBarButtonItem
-        default:
-            break
-        }
-    }.addDisposableTo(disposeBag)
+    searchBar.rx.text.map { $0?.isEmpty ?? false }
+      .subscribe(onNext: { [unowned self] value in
+        self.navigationItem.rightBarButtonItem = value ? self.cancelBarButtonItem : self.searchBarButtonItem
+      }).addDisposableTo(disposeBag)
+
+    searchBar.rx.searchButtonClicked
+      .subscribe(onNext: { [unowned self] value in
+        self.searchBar.resignFirstResponder()
+      }).addDisposableTo(disposeBag)
     
-    searchBar.rx.searchButtonClicked.subscribe { [unowned self] event in
-        switch (event) {
-        case .next:
-            self.searchBar.resignFirstResponder()
-        default:
-            break
-        }
-    }.addDisposableTo(disposeBag)
-    
-    let scheduler = SerialDispatchQueueScheduler(qos: DispatchQoS.background)
     // search
-    searchBarTexts
-              .filter { !($0?.isEmpty ?? false) }
-              .throttle(0.6, scheduler: MainScheduler.instance)
-              .distinctUntilChanged(==)
-              .observeOn(scheduler)
-              .subscribe { [unowned self] event in
-                switch (event) {
-                case .next(let value):
-                    guard let value = value else { return }
-                    self.controller.searchWith(key: value)
-                default:
-                    break
-                }
-    }.addDisposableTo(disposeBag)
+    searchBar.rx.text.filter { !($0?.isEmpty ?? false) }
+      .throttle(0.6, scheduler: MainScheduler.instance)
+      .distinctUntilChanged(==)
+      .observeOn(SerialDispatchQueueScheduler(qos: DispatchQoS.background))
+      .subscribe(onNext: { [unowned self] value in
+        guard let value = value else { return }
+        self.controller.searchWith(key: value)
+      }).addDisposableTo(disposeBag)
     
   }
   
@@ -163,34 +130,27 @@ class SearchViewController : UIViewController {
                               .shareReplay(1)
 
     viewModel.map { $0.searchItems }
-        .bind(to: searchResultTableView.rx.items(cellIdentifier: "SearchResultCell", cellType: SearchTableViewCell.self)) { row, element, cell in
+      .bind(to: searchResultTableView.rx.items(cellIdentifier: "SearchResultCell", cellType: SearchTableViewCell.self)) { row, element, cell in
                 cell.viewData.value = element
              }
-             .addDisposableTo(disposeBag)
+      .addDisposableTo(disposeBag)
     
     viewModel.map { $0.recentItems }
-        .bind(to: recentSearchTableView.rx.items(cellIdentifier: "RecentSearchCell", cellType: UITableViewCell.self)) { row, element, cell in
+      .bind(to: recentSearchTableView.rx.items(cellIdentifier: "RecentSearchCell", cellType: UITableViewCell.self)) { row, element, cell in
                 cell.textLabel?.text = element
                 cell.textLabel?.font = UIFont(name: "Menlo", size: 12.0)
              }
-            .addDisposableTo(disposeBag)
+      .addDisposableTo(disposeBag)
     
     searchResultTableView.rx.itemSelected
-                         .withLatestFrom(viewModel) { indexPath, viewModel in
+      .withLatestFrom(viewModel) { indexPath, viewModel in
                             viewModel.searchItems[indexPath.row]
                          }
-                         .subscribe { [unowned self] event in
-                            switch (event) {
-                            case .next(let value):
-                                guard let photoViewController = self.storyboard?.instantiateViewController(withIdentifier: "Photo") as? PhotoViewController else { return }
-                                photoViewController.id = value.id
-                                self.navigationController?.pushViewController(photoViewController, animated: true)
-                            default:
-                                break
-                            }
-                            
-                         }
-                         .addDisposableTo(disposeBag)
+      .subscribe(onNext: { [unowned self] value in
+        guard let photoViewController = self.storyboard?.instantiateViewController(withIdentifier: "Photo") as? PhotoViewController else { return }
+        photoViewController.id = value.id
+        self.navigationController?.pushViewController(photoViewController, animated: true)
+      }).addDisposableTo(disposeBag)
     
     let selectedText = recentSearchTableView.rx.itemSelected
                          .withLatestFrom(viewModel) { indexPath, viewModel in
@@ -199,19 +159,12 @@ class SearchViewController : UIViewController {
     
     selectedText.bind(to: self.searchBar.rx.text).addDisposableTo(disposeBag)
     
-    let scheduler = SerialDispatchQueueScheduler(qos: .background)
-    selectedText.observeOn(scheduler)
-        .subscribe { [unowned self] event in
-            switch (event) {
-            case .next(let value):
-                self.controller.searchWith(key: value)
-            default:
-                break
-            }
-        }
-        .addDisposableTo(disposeBag)
+    selectedText.observeOn(SerialDispatchQueueScheduler(qos: .background))
+      .subscribe(onNext: { [unowned self] value in
+        self.controller.searchWith(key: value)
+      }).addDisposableTo(disposeBag)
   }
-  
+
   deinit {
     controller.unsubscribe()
   }

@@ -36,23 +36,19 @@ class MapViewController : UIViewController, MGLMapViewDelegate  {
   }
   
   func configureViews() {
-    collectionView.rx.modelSelected(CPMapDetailViewData.self).subscribe { [unowned self] event in
-        switch (event) {
-        case .next(let value):
-            self.mapView.setCenter(value.coordinate, zoomLevel: 12.0, animated: true)
+    collectionView.rx.modelSelected(CPMapDetailViewData.self)
+      .subscribe(onNext: { [unowned self] value in
+        self.mapView.setCenter(value.coordinate, zoomLevel: 12.0, animated: true)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                self.mapView.selectAnnotation(value, animated: true)
-            }
-        default:
-            break
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            self.mapView.selectAnnotation(value, animated: true)
         }
-    }.addDisposableTo(disposeBag)
+    }).addDisposableTo(disposeBag)
   }
-  
+
   func bindings() {
     controller = MapDataController()
-    
+
     
     let scheduler = SerialDispatchQueueScheduler(qos: .background)
     let initialCommand = Observable.deferred { [unowned self] in Observable.just(self.controller.request()) }
@@ -76,38 +72,35 @@ class MapViewController : UIViewController, MGLMapViewDelegate  {
     
     selectedAnnotation.asObservable()
       .withLatestFrom(viewModel) { annotation, viewModel -> IndexPath? in
-      guard let viewData = annotation as? CPMapDetailViewData, let index = viewModel.items.index(of: viewData) else { return nil }
-      return IndexPath(item: index, section: 0)
-    }.filter { $0 != nil }.subscribe { [unowned self] event in
-        switch (event) {
-        case .next(let value):
-            self.collectionView.scrollToItem(at: value!, at: .centeredHorizontally, animated: true)
-        default:
-            break
-        }
-    }.addDisposableTo(disposeBag)
+        guard let viewData = annotation as? CPMapDetailViewData, let index = viewModel.items.index(of: viewData) else { return nil }
+        return IndexPath(item: index, section: 0)
+      }
+      .filter { $0 != nil }
+      .subscribe(onNext: { [unowned self] value in
+        self.collectionView.scrollToItem(at: value!, at: .centeredHorizontally, animated: true)
+      }).addDisposableTo(disposeBag)
   }
-  
+
   deinit {
     controller.unsubscribe()
   }
 
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        return true
-    }
+  func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+    return true
+  }
 
-    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        return UIButton(type: .infoLight)
-    }
+  func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+    return UIButton(type: .infoLight)
+  }
 
-    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
-        guard let photoViewController = self.storyboard?.instantiateViewController(withIdentifier: "Photo") as? PhotoViewController, let viewData = annotation as? CPMapDetailViewData else { return }
-        photoViewController.id = viewData.id
-        self.navigationController?.pushViewController(photoViewController, animated: true)
-    }
+  func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
+    guard let photoViewController = self.storyboard?.instantiateViewController(withIdentifier: "Photo") as? PhotoViewController, let viewData = annotation as? CPMapDetailViewData else { return }
+    photoViewController.id = viewData.id
+    self.navigationController?.pushViewController(photoViewController, animated: true)
+  }
 
-    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        selectedAnnotation.value = annotation
-    }
-    
+  func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+    selectedAnnotation.value = annotation
+  }
+
 }

@@ -44,20 +44,20 @@ class PhotoViewController: UIViewController {
     let scheduler = SerialDispatchQueueScheduler(qos: .background)
 
     Observable.deferred { [unowned self] in
-            Observable.just(self.detailController.request())
+          Observable.just(self.detailController.request())
         }
-        .subscribeOn(scheduler)
-        .publish()
-        .connect()
-        .addDisposableTo(disposeBag)
+      .subscribeOn(scheduler)
+      .publish()
+      .connect()
+      .addDisposableTo(disposeBag)
 
     Observable.deferred { [unowned self] in
-            Observable.just(self.commentController.request())
+          Observable.just(self.commentController.request())
         }
-        .subscribeOn(scheduler)
-        .publish()
-        .connect()
-        .addDisposableTo(disposeBag)
+      .subscribeOn(scheduler)
+      .publish()
+      .connect()
+      .addDisposableTo(disposeBag)
     
     let loadDetailCommand = detailController.viewData.map {
         PhotoViewModelCommand.SetPhoto(photo: $0)
@@ -77,70 +77,38 @@ class PhotoViewController: UIViewController {
     let validPhotoViewModel = viewModel.filter { $0.photo != nil && $0.photo?.error == false }
 
     validPhotoViewModel.map { $0.photo!.title }
-             .bind(to: self.navigationItem.rx.title)
-             .addDisposableTo(disposeBag)
+      .bind(to: self.navigationItem.rx.title)
+      .addDisposableTo(disposeBag)
 
     validPhotoViewModel.map { URL(string: $0.photo!.imageUrl)! }
-             .subscribe { [unowned self] event in
-                switch (event) {
-                case .next(let value):
-                    self.photoImageView.kf.indicatorType = .activity
-                    self.photoImageView.kf.setImage(with: value)
-                default:
-                    break
-                }
-             }
-             .addDisposableTo(disposeBag)
+      .subscribe(onNext: { [unowned self] value in
+        self.photoImageView.kf.indicatorType = .activity
+        self.photoImageView.kf.setImage(with: value)
+      }).addDisposableTo(disposeBag)
     
     validPhotoViewModel.map { URL(string: $0.photo!.ownerAvatarUrl)! }
-             .subscribe { [unowned self] event in
-                switch (event) {
-                case .next(let value):
-                    self.ownerAvatarImageView.kf.setImage(with: value)
-                default:
-                    break
-                }
-             }
-             .addDisposableTo(disposeBag)
+      .subscribe(onNext: { [unowned self] value in
+        self.ownerAvatarImageView.kf.setImage(with: value)
+      }).addDisposableTo(disposeBag)
     
     validPhotoViewModel.map { $0.photo!.ownerName }
-             .subscribe { [unowned self] event in
-                switch (event) {
-                case .next(let value):
-                    self.ownerLabel.text = value
-                default:
-                    break
-                }
-             }
-             .addDisposableTo(disposeBag)
+      .bind(to: self.ownerLabel.rx.text)
+      .addDisposableTo(disposeBag)
     
     validPhotoViewModel.map { $0.photo!.numberOfView }
-             .subscribe { [unowned self] event in
-                switch (event) {
-                case .next(let value):
-                    self.numberOfViewLabel.text = value
-                default:
-                    break
-                }
-             }
-             .addDisposableTo(disposeBag)
+      .bind(to: self.numberOfViewLabel.rx.text)
+      .addDisposableTo(disposeBag)
     
     validPhotoViewModel.map { $0.photo!.numberOfComment }
-             .subscribe { [unowned self] event in
-                switch (event) {
-                case .next(let value):
-                    self.numberOfCommentLabel.text = value
-                default:
-                    break
-                }
-             }
-             .addDisposableTo(disposeBag)
-    
+      .bind(to: self.numberOfCommentLabel.rx.text)
+      .addDisposableTo(disposeBag)
+
     viewModel.map { $0.comments }
-        .bind(to: tableView.rx.items(cellIdentifier: "CommentCell", cellType: PhotoCommentTableViewCell.self)) { row, element, cell in
-               cell.viewData.value = element
-             }
-             .addDisposableTo(disposeBag)
+      .bind(to:
+        tableView.rx.items(cellIdentifier: "CommentCell", cellType: PhotoCommentTableViewCell.self)) { row, element, cell in
+          cell.viewData.value = element
+        }
+      .addDisposableTo(disposeBag)
   }
   
   deinit {
