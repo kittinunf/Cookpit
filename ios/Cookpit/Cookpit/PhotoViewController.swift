@@ -77,7 +77,7 @@ class PhotoViewController: UIViewController {
     let validPhotoViewModel = viewModel.filter { $0.photo != nil && $0.photo?.error == false }
 
     validPhotoViewModel.map { $0.photo!.title }
-             .bindTo(self.navigationItem.rx.title)
+             .bind(to: self.navigationItem.rx.title)
              .addDisposableTo(disposeBag)
 
     validPhotoViewModel.map { URL(string: $0.photo!.imageUrl)! }
@@ -137,7 +137,7 @@ class PhotoViewController: UIViewController {
              .addDisposableTo(disposeBag)
     
     viewModel.map { $0.comments }
-        .bindTo(tableView.rx.items(cellIdentifier: "CommentCell", cellType: PhotoCommentTableViewCell.self)) { row, element, cell in
+        .bind(to: tableView.rx.items(cellIdentifier: "CommentCell", cellType: PhotoCommentTableViewCell.self)) { row, element, cell in
                cell.viewData.value = element
              }
              .addDisposableTo(disposeBag)

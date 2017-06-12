@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let dbPath = (path as NSString).appendingPathComponent("CookpitDB")
     try! FileManager.default.createDirectory(atPath: dbPath, withIntermediateDirectories: true, attributes: nil);
     CPApi.setPath(dbPath)
-
     return true
   }
 

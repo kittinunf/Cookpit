@@ -39,9 +39,9 @@ class ExploreViewController: UICollectionViewController {
     }.addDisposableTo(disposeBag)
 
     //loadings
-    controller.loadings.bindTo(refreshControl.rx.refreshing).addDisposableTo(disposeBag)
+    controller.loadings.bind(to: refreshControl.rx.isRefreshing).addDisposableTo(disposeBag)
 
-    controller.loadings.bindTo(UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
+    controller.loadings.bind(to: UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
     
     //errors
     controller.errors.subscribe { [unowned self] event in
@@ -75,7 +75,7 @@ class ExploreViewController: UICollectionViewController {
     
     viewModel.map { $0.items }
         .observeOn(MainScheduler.instance)
-        .bindTo(collectionView!.rx.items(cellIdentifier: "ExploreCell", cellType: ExploreCollectionViewCell.self)) { row, element, cell in
+        .bind(to: collectionView!.rx.items(cellIdentifier: "ExploreCell", cellType: ExploreCollectionViewCell.self)) { row, element, cell in
       cell.viewData.value = element
     }.addDisposableTo(disposeBag)
     

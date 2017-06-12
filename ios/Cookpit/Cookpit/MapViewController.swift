@@ -53,7 +53,6 @@ class MapViewController : UIViewController, MGLMapViewDelegate  {
   func bindings() {
     controller = MapDataController()
     
-    MGLAccountManager.setAccessToken(controller.mapToken)
     
     let scheduler = SerialDispatchQueueScheduler(qos: .background)
     let initialCommand = Observable.deferred { [unowned self] in Observable.just(self.controller.request()) }
@@ -67,12 +66,12 @@ class MapViewController : UIViewController, MGLMapViewDelegate  {
     
     viewModel.map { $0.items }
         .observeOn(MainScheduler.instance)
-        .bindTo(collectionView.rx.items(cellIdentifier: "MapCell", cellType: MapCollectionViewCell.self)) { row, element, cell in
+        .bind(to: collectionView.rx.items(cellIdentifier: "MapCell", cellType: MapCollectionViewCell.self)) { row, element, cell in
       cell.viewData.value = element
     }.addDisposableTo(disposeBag)
     
     viewModel.map { $0.items }
-        .bindNext(mapView.addAnnotations)
+        .bind(onNext: mapView.addAnnotations)
         .addDisposableTo(disposeBag)
     
     selectedAnnotation.asObservable()

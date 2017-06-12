@@ -36,7 +36,7 @@ class SearchViewController : UIViewController {
     configureSearchResultTableView()
     
     //loadings
-    controller.loadings.bindTo(UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
+    controller.loadings.bind(to: UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
     
     //errors
     controller.errors.subscribe { [unowned self] event in
@@ -95,8 +95,8 @@ class SearchViewController : UIViewController {
         }
     }.addDisposableTo(disposeBag)
     
-    searchBarTexts.map { !($0?.isEmpty ?? false) }.bindTo(recentSearchTableView.rx.isHidden).addDisposableTo(disposeBag)
-    searchBarTexts.map { $0?.isEmpty ?? false }.bindTo(searchResultTableView.rx.isHidden).addDisposableTo(disposeBag)
+    searchBarTexts.map { !($0?.isEmpty ?? false) }.bind(to: recentSearchTableView.rx.isHidden).addDisposableTo(disposeBag)
+    searchBarTexts.map { $0?.isEmpty ?? false }.bind(to: searchResultTableView.rx.isHidden).addDisposableTo(disposeBag)
     
     searchBarTexts.map { $0?.isEmpty ?? false }.subscribe { [unowned self] event in
         switch (event) {
@@ -141,8 +141,8 @@ class SearchViewController : UIViewController {
     
     let selectedIndexPaths = recentSearchTableView.rx.itemSelected
     
-    selectedIndexPaths.map { _ in true }.bindTo(recentSearchTableView.rx.isHidden).addDisposableTo(disposeBag)
-    selectedIndexPaths.map { _ in false }.bindTo(searchResultTableView.rx.isHidden).addDisposableTo(disposeBag)
+    selectedIndexPaths.map { _ in true }.bind(to: recentSearchTableView.rx.isHidden).addDisposableTo(disposeBag)
+    selectedIndexPaths.map { _ in false }.bind(to: searchResultTableView.rx.isHidden).addDisposableTo(disposeBag)
   }
   
   func configureSearchResultTableView() {
@@ -163,13 +163,13 @@ class SearchViewController : UIViewController {
                               .shareReplay(1)
 
     viewModel.map { $0.searchItems }
-        .bindTo(searchResultTableView.rx.items(cellIdentifier: "SearchResultCell", cellType: SearchTableViewCell.self)) { row, element, cell in
+        .bind(to: searchResultTableView.rx.items(cellIdentifier: "SearchResultCell", cellType: SearchTableViewCell.self)) { row, element, cell in
                 cell.viewData.value = element
              }
              .addDisposableTo(disposeBag)
     
     viewModel.map { $0.recentItems }
-        .bindTo(recentSearchTableView.rx.items(cellIdentifier: "RecentSearchCell", cellType: UITableViewCell.self)) { row, element, cell in
+        .bind(to: recentSearchTableView.rx.items(cellIdentifier: "RecentSearchCell", cellType: UITableViewCell.self)) { row, element, cell in
                 cell.textLabel?.text = element
                 cell.textLabel?.font = UIFont(name: "Menlo", size: 12.0)
              }
@@ -197,7 +197,7 @@ class SearchViewController : UIViewController {
                             viewModel.recentItems[indexPath.row]
                          }.share()
     
-    selectedText.bindTo(self.searchBar.rx.text).addDisposableTo(disposeBag)
+    selectedText.bind(to: self.searchBar.rx.text).addDisposableTo(disposeBag)
     
     let scheduler = SerialDispatchQueueScheduler(qos: .background)
     selectedText.observeOn(scheduler)
