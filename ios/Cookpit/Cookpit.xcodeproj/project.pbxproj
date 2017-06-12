@@ -32,8 +32,6 @@
 		3CA6D8471CFF03BE001BE50C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6D8461CFF03BE001BE50C /* SearchViewController.swift */; };
 		3CA6D8491CFF03C8001BE50C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6D8481CFF03C8001BE50C /* SearchViewModel.swift */; };
 		3CA6D8541CFF2667001BE50C /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6D8531CFF2667001BE50C /* SearchTableViewCell.swift */; };
-		3CBBC6C41D29777800D3E109 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CBBC6C31D29777800D3E109 /* Mapbox.framework */; };
-		3CBBC6C51D29777800D3E109 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3CBBC6C31D29777800D3E109 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3CBE4FD41D32B6300030E75A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE4FD31D32B62F0030E75A /* MapViewController.swift */; };
 		3CC84D351D2E04BC009C4B16 /* ExploreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC84D341D2E04BC009C4B16 /* ExploreDataController.swift */; };
 		3CC84D371D2E1A5B009C4B16 /* SearchDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC84D361D2E1A5B009C4B16 /* SearchDataController.swift */; };
@@ -41,21 +39,8 @@
 		3CDE719C1D3AAFF200DC0A45 /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDE719B1D3AAFF200DC0A45 /* MapCollectionViewCell.swift */; };
 		3CE0140B1D2F60430064F156 /* PhotoDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE0140A1D2F60430064F156 /* PhotoDataController.swift */; };
 		3CFBF21F1D34E70A008D1388 /* liblmdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CFBF21E1D34E70A008D1388 /* liblmdb.a */; };
+		FAC822D91EEEC2ED00CD5DE7 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC822D81EEEC2ED00CD5DE7 /* Mapbox.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		3CBBC6C61D29777800D3E109 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				3CBBC6C51D29777800D3E109 /* Mapbox.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3C23A5151D3B726600C45DAB /* NSValue+Coordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSValue+Coordinate2D.swift"; sourceTree = "<group>"; };
@@ -86,7 +71,6 @@
 		3CA6D8461CFF03BE001BE50C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3CA6D8481CFF03C8001BE50C /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		3CA6D8531CFF2667001BE50C /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
-		3CBBC6C31D29777800D3E109 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		3CBE4FD31D32B62F0030E75A /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3CC84D341D2E04BC009C4B16 /* ExploreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreDataController.swift; sourceTree = "<group>"; };
 		3CC84D361D2E1A5B009C4B16 /* SearchDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDataController.swift; sourceTree = "<group>"; };
@@ -94,6 +78,7 @@
 		3CDE719B1D3AAFF200DC0A45 /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
 		3CE0140A1D2F60430064F156 /* PhotoDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDataController.swift; sourceTree = "<group>"; };
 		3CFBF21E1D34E70A008D1388 /* liblmdb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblmdb.a; path = "../../vendors/build/Debug-iphoneos/liblmdb.a"; sourceTree = "<group>"; };
+		FAC822D81EEEC2ED00CD5DE7 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mapbox.framework; path = ../Carthage/Build/iOS/Mapbox.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +86,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C8915C41CFE1B4C009BC69E /* Kingfisher.framework in Frameworks */,
 				3C8915771CFD8A3A009BC69E /* libcookpit_ios.a in Frameworks */,
 				3C8915781CFD8A3A009BC69E /* libcookpit.a in Frameworks */,
 				3C8915791CFD8A3A009BC69E /* libdjinni_objc.a in Frameworks */,
@@ -110,7 +94,8 @@
 				3C6B4CD51D316930004CC677 /* libz.tbd in Frameworks */,
 				3C8915C61CFE1B56009BC69E /* RxSwift.framework in Frameworks */,
 				3C8915C81CFE1B5A009BC69E /* RxCocoa.framework in Frameworks */,
-				3CBBC6C41D29777800D3E109 /* Mapbox.framework in Frameworks */,
+				3C8915C41CFE1B4C009BC69E /* Kingfisher.framework in Frameworks */,
+				FAC822D91EEEC2ED00CD5DE7 /* Mapbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +118,7 @@
 			children = (
 				3C7F200A1CFD83B900937E4F /* Cookpit */,
 				3C7F20091CFD83B900937E4F /* Products */,
+				FAC822D71EEEC2EC00CD5DE7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,16 +151,12 @@
 		3C89157A1CFD8A41009BC69E /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				3C8915C31CFE1B4C009BC69E /* Kingfisher.framework */,
 				3C8915741CFD8A3A009BC69E /* libcookpit_ios.a */,
 				3C8915751CFD8A3A009BC69E /* libcookpit.a */,
 				3C8915761CFD8A3A009BC69E /* libdjinni_objc.a */,
 				3C8915A41CFDD7DA009BC69E /* libjson11.a */,
 				3CFBF21E1D34E70A008D1388 /* liblmdb.a */,
 				3C6B4CD41D316930004CC677 /* libz.tbd */,
-				3CBBC6C31D29777800D3E109 /* Mapbox.framework */,
-				3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */,
-				3C8915C51CFE1B56009BC69E /* RxSwift.framework */,
 			);
 			name = Libraries;
 			path = ..;
@@ -232,6 +214,17 @@
 			name = Map;
 			sourceTree = "<group>";
 		};
+		FAC822D71EEEC2EC00CD5DE7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3C8915C51CFE1B56009BC69E /* RxSwift.framework */,
+				3C8915C71CFE1B5A009BC69E /* RxCocoa.framework */,
+				3C8915C31CFE1B4C009BC69E /* Kingfisher.framework */,
+				FAC822D81EEEC2ED00CD5DE7 /* Mapbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -243,7 +236,6 @@
 				3C7F20051CFD83B900937E4F /* Frameworks */,
 				3C7F20061CFD83B900937E4F /* Resources */,
 				3C89158F1CFD9E2E009BC69E /* Carthage Copy Framework */,
-				3CBBC6C61D29777800D3E109 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -312,6 +304,7 @@
 				"$(SRCROOT)/../Carthage/Build/iOS/Kingfisher.framework",
 				"$(SRCROOT)/../Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/../Carthage/Build/iOS/RxCocoa.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/Mapbox.framework",
 			);
 			name = "Carthage Copy Framework";
 			outputPaths = (
