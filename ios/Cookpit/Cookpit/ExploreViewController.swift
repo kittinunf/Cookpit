@@ -27,16 +27,12 @@ class ExploreViewController: UICollectionViewController {
     let refreshControl = UIRefreshControl()
     collectionView!.addSubview(refreshControl)
     
-    let scheduler = SerialDispatchQueueScheduler(qos: .background)
-    refreshControl.rx.controlEvent(.valueChanged).observeOn(scheduler).subscribe { [unowned self] event in
-        switch (event) {
-        case .next:
-            self.controller.reset()
-            self.controller.request(page: 1)
-        default:
-            break
-        }
-    }.addDisposableTo(disposeBag)
+    refreshControl.rx.controlEvent(.valueChanged)
+      .observeOn(SerialDispatchQueueScheduler(qos: .background))
+      .subscribe(onNext: { [unowned self] event in
+        self.controller.reset()
+        self.controller.request(page: 1)
+    }).addDisposableTo(disposeBag)
 
     //loadings
     controller.loadings.bind(to: refreshControl.rx.isRefreshing).addDisposableTo(disposeBag)
@@ -44,20 +40,14 @@ class ExploreViewController: UICollectionViewController {
     controller.loadings.bind(to: UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
     
     //errors
-    controller.errors.subscribe { [unowned self] event in
-        switch (event) {
-        case .next(let value):
-            let alert = UIAlertController(title: "Error", message: value, preferredStyle: .alert)
+    controller.errors.subscribe(onNext: { [unowned self] value in
+      let alert = UIAlertController(title: "Error", message: value, preferredStyle: .alert)
       let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
       alert.addAction(okAction)
       if self.presentedViewController == nil {
         self.present(alert, animated: true, completion: nil)
       }
-        default:
-            break
-        }
-      
-    }.addDisposableTo(disposeBag)
+    }).addDisposableTo(disposeBag)
   }
 
   func bindings() {
@@ -79,20 +69,14 @@ class ExploreViewController: UICollectionViewController {
       cell.viewData.value = element
     }.addDisposableTo(disposeBag)
     
-    
     collectionView!.rx.itemSelected
         .withLatestFrom(viewModel) { indexPath, viewModel in viewModel.items[indexPath.row] }
-        .subscribe { [unowned self] event in
-            switch (event) {
-            case .next(let value):
-                guard let photoViewController = self.storyboard?.instantiateViewController(withIdentifier: "Photo") as? PhotoViewController else { return }
-        photoViewController.id = value.id
-        self.navigationController?.pushViewController(photoViewController, animated: true)
-            default:
-                break
-            }
-        
-    }.addDisposableTo(disposeBag)
+        .subscribe(onNext: { [unowned self] value in
+          guard let photoViewController = self.storyboard?.instantiateViewController(withIdentifier: "Photo") as? PhotoViewController else { return }
+          photoViewController.id = value.id
+          self.navigationController?.pushViewController(photoViewController, animated: true)
+        })
+      .addDisposableTo(disposeBag)
     
     //load more
     collectionView!.rx_loadMore()
@@ -100,20 +84,15 @@ class ExploreViewController: UICollectionViewController {
         .filter { $0 }
         .throttle(0.3, scheduler: MainScheduler.instance)
         .observeOn(scheduler)
-        .subscribe { [unowned self] event in
-            switch (event) {
-            case .next:
-                self.controller.requestNextPage()
-            default:
-                break
-            }
-        }.addDisposableTo(disposeBag)
+        .subscribe(onNext: { [unowned self] event in
+          self.controller.requestNextPage()
+        }).addDisposableTo(disposeBag)
   }
 
   deinit {
     controller.unsubscribe()
   }
-  
+
 }
 
 extension ExploreViewController : UICollectionViewDelegateFlowLayout {

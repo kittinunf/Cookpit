@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import Kingfisher
 
-class ExploreCollectionViewCell: UICollectionViewCell {
+class ExploreCollectionViewCell : UICollectionViewCell {
 
   @IBOutlet weak var backgroundImageView: UIImageView!
   @IBOutlet weak var titleLabel: UILabel!
@@ -21,16 +21,13 @@ class ExploreCollectionViewCell: UICollectionViewCell {
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    
-    viewData.asObservable().filter { $0 != nil }.map { $0! }.subscribe { [unowned self] event in
-        switch (event) {
-        case .next(let value):
-            self.titleLabel.text = value.title
-            self.backgroundImageView.kf.setImage(with: URL(string: value.imageUrl)!)
-        default:
-            break
-        }
-    }.addDisposableTo(disposeBag)
+
+    viewData.asObservable().filter { $0 != nil }
+      .map { $0! }
+      .subscribe(onNext: { [unowned self] value in
+        self.titleLabel.text = value.title
+        self.backgroundImageView.kf.setImage(with: URL(string: value.imageUrl)!)
+      }).addDisposableTo(disposeBag)
   }
   
 }
