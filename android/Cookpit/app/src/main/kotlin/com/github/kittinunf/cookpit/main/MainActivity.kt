@@ -9,7 +9,8 @@ import com.github.kittinunf.reactiveandroid.rx.bindNext
 import com.github.kittinunf.reactiveandroid.support.design.widget.rx_tabSelected
 import com.github.kittinunf.reactiveandroid.support.design.widget.rx_tabUnselected
 import com.github.kittinunf.reactiveandroid.support.v7.widget.rx_fragmentsWith
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.mainTab
+import kotlinx.android.synthetic.main.activity_main.mainViewPager
 import rx.Observable
 
 class MainActivity : BaseActivity() {
@@ -24,7 +25,7 @@ class MainActivity : BaseActivity() {
             rx_fragmentsWith(Observable.just(viewModel.tabData), supportFragmentManager, { position, item ->
                 item.third()
             }, { position, item ->
-                ""
+                getString(item.first)
             })
         }
 

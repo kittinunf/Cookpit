@@ -20,8 +20,10 @@ import com.github.kittinunf.reactiveandroid.support.v7.widget.rx_itemsWith
 import com.github.kittinunf.reactiveandroid.support.v7.widget.rx_queryTextChange
 import com.github.kittinunf.reactiveandroid.view.rx_click
 import com.github.kittinunf.reactiveandroid.view.rx_visibility
-import kotlinx.android.synthetic.main.fragment_search.*
-import kotlinx.android.synthetic.main.recycler_item_search.view.*
+import kotlinx.android.synthetic.main.fragment_search.recentSearchRecyclerView
+import kotlinx.android.synthetic.main.fragment_search.searchResultRecyclerView
+import kotlinx.android.synthetic.main.fragment_search.searchView
+import kotlinx.android.synthetic.main.recycler_item_search.view.searchBackgroundImageView
 import rx.Observable
 import rx.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -105,7 +107,7 @@ class SearchFragment : BaseFragment() {
     }
 
     class RecentSearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val titleTextView by lazy { view.findViewById(android.R.id.text1) as TextView }
+        val titleTextView by lazy { view.findViewById<TextView>(android.R.id.text1) }
 
         var onClick: ((Int) -> Unit)? = null
 

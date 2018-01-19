@@ -14,7 +14,7 @@ fun RecyclerView.rx_staggeredLoadMore(): Observable<Boolean> {
             val totalItemCount = layoutManager.itemCount
             val firstVisibleItem = (layoutManager as StaggeredGridLayoutManager).findFirstVisibleItemPositions(null).first()
 
-            if ((totalItemCount - itemCount) <= firstVisibleItem) true else false
+            (totalItemCount - itemCount) <= firstVisibleItem
         } else {
             false
         }
