@@ -1,5 +1,6 @@
 #include "utility.hpp"
 
+#include <iostream>
 #include <sstream>
 #include <unordered_map>
 #include <vector>
@@ -44,16 +45,22 @@ void curl_get(CURL* curl_handler, const string& url, function<void(const string&
               function<void(const string&, int, const string&)> failure_callback) {
   ostringstream oss;
   int code;
+
   curl_easy_setopt(curl_handler, CURLOPT_URL, url.c_str());
   curl_easy_setopt(curl_handler, CURLOPT_WRITEFUNCTION, write_to_string);
   curl_easy_setopt(curl_handler, CURLOPT_WRITEDATA, &oss);
   curl_easy_setopt(curl_handler, CURLOPT_SSL_VERIFYPEER, false);
+
+  cout << "-->> url: " << url << endl;
   auto res = curl_easy_perform(curl_handler);
-  string response = oss.str();
   curl_easy_getinfo(curl_handler, CURLINFO_RESPONSE_CODE, &code);
+
+  string response = oss.str();
   if (res == CURLE_OK && (code >= 200 && code < 300)) {
+    cout << "<<-- success: " << response << endl;
     success_callback(url, code, response);
   } else {
+    cout << "<<-- failure: " << response << endl;
     failure_callback(url, code, response);
   }
 }
