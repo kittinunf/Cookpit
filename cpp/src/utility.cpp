@@ -59,16 +59,16 @@ void curl_get(CURL* curl_handler, const string& url, const optional<string>& pro
   if (auto _proxy = proxy) {
     curl_easy_setopt(curl_handler, CURLOPT_PROXY, (*_proxy).c_str());
   }
-  cout << "-->> url: " << url << endl;
+  cout << "-->> url: " << url << '\n';
   auto res = curl_easy_perform(curl_handler);
   curl_easy_getinfo(curl_handler, CURLINFO_RESPONSE_CODE, &code);
 
   auto response = oss.str();
   if (res == CURLE_OK && (code >= 200 && code < 300)) {
-    cout << "<<-- success: " << response << endl;
+    cout << "<<-- success: " << response << '\n';
     success_callback(url, code, response);
   } else {
-    cout << "<<-- failure: " << response << endl;
+    cout << "<<-- failure: " << response << '\n';
     failure_callback(url, code, response);
   }
 }
