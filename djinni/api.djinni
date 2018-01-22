@@ -1,3 +1,4 @@
 api = interface +c {
 	static set_path(path: string);
+	static set_proxy(url: string);
 }

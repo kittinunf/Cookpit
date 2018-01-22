@@ -3,6 +3,7 @@
 #include <json11.hpp>
 #include <unordered_map>
 
+#include "api.hpp"
 #include "constants.hpp"
 #include "gen/photo_comment_controller_observer.hpp"
 #include "gen/photo_comment_view_data.hpp"
@@ -37,7 +38,7 @@ void photo_comment_controller_impl::request_comments() {
   auto query_string = convert_to_query_param_string(params);
   auto url = BASE_URL + "?" + query_string;
 
-  curl_get(curl_.get(), url,
+  curl_get(curl_.get(), url, api_impl::instance().proxy(),
            [weak_self](const string& /*url*/, int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_success(response);

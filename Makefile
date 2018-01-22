@@ -24,7 +24,7 @@ clean:
 	rm -f vendors/*.target.mk
 
 ios: _build_ios
-	xcodebuild -project ios/$(NAME).xcodeproj -configuration Release -target $(LIB_IOS) | ${xb-prettifier}
+	xcodebuild -project ios/$(NAME).xcodeproj -configuration Release -target $(LIB_IOS)
 
 _build_ios: _djinni
 	PYTHONPATH=vendors/gyp/pylib vendors/gyp/gyp -DOS=ios --depth=. -f xcode --generator-output ./ios -Icommon.gypi $(NAME).gyp
@@ -36,13 +36,13 @@ _build_android: _djinni
 	ANDROID_BUILD_TOP=dirname PYTHONPATH=vendors/gyp/pylib $(which ndk-build) vendors/gyp/gyp --depth=. -f android -DOS=android --root-target $(LIB_ANDROID) -Icommon.gypi $(NAME).gyp
 
 lib: _build_lib
-	xcodebuild -project cpp/$(NAME).xcodeproj -configuration Release -target $(LIB_IOS) | ${xb-prettifier}
+	xcodebuild -project cpp/$(NAME).xcodeproj -configuration Release -target $(LIB_IOS)
 
 _build_lib: _djinni
 	PYTHONPATH=vendors/gyp/pylib vendors/gyp/gyp -DOS=lib --depth=. -f xcode --generator-output ./cpp -Icommon.gypi $(NAME).gyp
 
 test: _djinni
-	xcodebuild -project cpp/$(NAME).xcodeproj -configuration Debug TEST_MODE=1 -target test  | ${xb-prettifier} && ./build/Debug/test
+	xcodebuild -project cpp/$(NAME).xcodeproj -configuration Debug TEST_MODE=1 -target test
 
 _djinni:
 	./utils/run_djinni

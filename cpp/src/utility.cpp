@@ -43,19 +43,27 @@ string convert_to_query_param_string(const T& queries) {
 
 void curl_get(CURL* curl_handler, const string& url, function<void(const string&, int, const string&)> success_callback,
               function<void(const string&, int, const string&)> failure_callback) {
+  curl_get(curl_handler, url, {}, success_callback, failure_callback);
+}
+
+void curl_get(CURL* curl_handler, const string& url, const optional<string>& proxy,
+              function<void(const string&, int, const string&)> success_callback,
+              function<void(const string&, int, const string&)> failure_callback) {
   ostringstream oss;
-  int code;
+  auto code = 0;
 
   curl_easy_setopt(curl_handler, CURLOPT_URL, url.c_str());
   curl_easy_setopt(curl_handler, CURLOPT_WRITEFUNCTION, write_to_string);
   curl_easy_setopt(curl_handler, CURLOPT_WRITEDATA, &oss);
   curl_easy_setopt(curl_handler, CURLOPT_SSL_VERIFYPEER, false);
-
+  if (auto _proxy = proxy) {
+    curl_easy_setopt(curl_handler, CURLOPT_PROXY, (*_proxy).c_str());
+  }
   cout << "-->> url: " << url << endl;
   auto res = curl_easy_perform(curl_handler);
   curl_easy_getinfo(curl_handler, CURLINFO_RESPONSE_CODE, &code);
 
-  string response = oss.str();
+  auto response = oss.str();
   if (res == CURLE_OK && (code >= 200 && code < 300)) {
     cout << "<<-- success: " << response << endl;
     success_callback(url, code, response);

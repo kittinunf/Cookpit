@@ -42,7 +42,7 @@ void explore_controller_impl::request(int8_t page) {
   observer_->on_update(explore_view_data{false, "cache", items_});
 
   auto url = construct_url(BASE_URL, page);
-  curl_get(curl_.get(), url,
+  curl_get(curl_.get(), url, api_impl::instance().proxy(),
            [weak_self](const string& url, int /*code*/, const string& response) {
              if (auto self = weak_self.lock()) {
                self->on_success(url, response);

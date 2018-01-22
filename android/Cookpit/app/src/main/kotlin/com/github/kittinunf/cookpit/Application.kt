@@ -15,6 +15,9 @@ class Application : android.app.Application() {
         val db = getDatabasePath("CookpitDB")
         db.mkdirs()
         Api.setPath(db.absolutePath)
+
+        //set proxy if needed
+//        Api.setProxy("192.168.11.7:8080")
     }
 
 }
