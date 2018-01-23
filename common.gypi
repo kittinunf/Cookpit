@@ -45,7 +45,8 @@
     'configurations': {
       'Debug': {
         'defines': [
-          'DEBUG=1'
+          'DEBUG=1',
+          'NDEBUG=0',
         ],
         'cflags': [
           '-DDEBUG',
@@ -61,6 +62,7 @@
       'Release': {
         'defines': [
           'NDEBUG=1',
+          'DEBUG=0',
         ],
         'cflags': [
           '-DNDEBUG',
