@@ -12,12 +12,12 @@ import RxCocoa
 
 class SearchViewController : UIViewController {
 
-  @IBOutlet var searchBarButtonItem: UIBarButtonItem!
-  @IBOutlet var cancelBarButtonItem: UIBarButtonItem!
-  @IBOutlet var searchBar: UISearchBar!
-  @IBOutlet var recentSearchTableView: UITableView!
-  @IBOutlet var searchResultTableView: UITableView!
-  @IBOutlet var noSearchResultLabel: UILabel!
+  @IBOutlet weak var searchBarButtonItem: UIBarButtonItem!
+  @IBOutlet weak var cancelBarButtonItem: UIBarButtonItem!
+  @IBOutlet weak var searchBar: UISearchBar!
+  @IBOutlet weak var recentSearchTableView: UITableView!
+  @IBOutlet weak var searchResultTableView: UITableView!
+  @IBOutlet weak var noSearchResultLabel: UILabel!
 
   private let controller = SearchDataController()
   
