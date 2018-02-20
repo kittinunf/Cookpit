@@ -17,7 +17,8 @@ class SearchViewController : UIViewController {
   @IBOutlet var searchBar: UISearchBar!
   @IBOutlet var recentSearchTableView: UITableView!
   @IBOutlet var searchResultTableView: UITableView!
-  
+  @IBOutlet var noSearchResultLabel: UILabel!
+
   private let controller = SearchDataController()
   
   private let disposeBag = DisposeBag()
@@ -34,6 +35,7 @@ class SearchViewController : UIViewController {
     configureSearchBar()
     configureRecentSearchTableView()
     configureSearchResultTableView()
+    configureNoSearchLabelLabel()
     
     //loadings
     controller.loadings.bind(to: UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
@@ -47,6 +49,9 @@ class SearchViewController : UIViewController {
         self.present(alert, animated: true, completion: nil)
       }
     }).addDisposableTo(disposeBag)
+
+    controller.searchCounts.map { !($0 == 0) }.bind(to: noSearchResultLabel.rx.isHidden).addDisposableTo(disposeBag)
+    controller.searchCounts.map { ($0 == 0) }.bind(to: searchResultTableView.rx.isHidden).addDisposableTo(disposeBag)
   }
 
   func configureBarButtonItems() {
@@ -83,6 +88,9 @@ class SearchViewController : UIViewController {
     searchBar.rx.text.map { $0?.isEmpty ?? false }
       .subscribe(onNext: { [unowned self] value in
         self.navigationItem.rightBarButtonItem = value ? self.cancelBarButtonItem : self.searchBarButtonItem
+        if (value) {
+          self.noSearchResultLabel.isHidden = true
+        }
       }).addDisposableTo(disposeBag)
 
     searchBar.rx.searchButtonClicked
@@ -103,7 +111,7 @@ class SearchViewController : UIViewController {
   }
   
   func configureRecentSearchTableView() {
-    recentSearchTableView.frame = self.view.bounds
+    recentSearchTableView.frame = view.bounds
     view.addSubview(recentSearchTableView)
     
     let selectedIndexPaths = recentSearchTableView.rx.itemSelected
@@ -113,8 +121,14 @@ class SearchViewController : UIViewController {
   }
   
   func configureSearchResultTableView() {
-    searchResultTableView.frame = self.view.bounds
+    searchResultTableView.frame = view.bounds
     view.addSubview(searchResultTableView)
+  }
+
+  func configureNoSearchLabelLabel() {
+    noSearchResultLabel.frame = view.bounds
+    noSearchResultLabel.isHidden = true
+    view.addSubview(noSearchResultLabel)
   }
   
   func bindings() {

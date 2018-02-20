@@ -46,6 +46,14 @@ class SearchDataController {
       .map { $0.message }
       .observeOn(MainScheduler.instance)
   }()
+
+  lazy var searchCounts: Observable<Int> = {
+    self._viewData.asObservable()
+      .filter { $0 != nil }
+      .map { $0! as CPSearchViewData }
+      .map { Int($0.total) }
+      .observeOn(MainScheduler.instance)
+  }()
   
   init() {
     controller.subscribe(self)
@@ -66,7 +74,7 @@ class SearchDataController {
   }
   
   private func searchWith(key: String, page: Int) {
-    self.controller.search(key, page: Int8(page))
+    controller.search(key, page: Int8(page))
   }
  
   deinit {
@@ -78,15 +86,15 @@ class SearchDataController {
 extension SearchDataController : CPSearchControllerObserver {
 
   func onBeginUpdate() {
-      _loadings.value = true
+    _loadings.value = true
   }
 
   func onUpdate(_ viewData: CPSearchViewData) {
-      _viewData.value = viewData
+    _viewData.value = viewData
   }
 
   func onEndUpdate() {
-      _loadings.value = false
+    _loadings.value = false
   }
 
 }
