@@ -1,10 +1,12 @@
 #pragma once
 
 #include <curl/curl.h>
+#include <experimental/optional>
 #include <functional>
 #include <string>
 
 using namespace std;
+using namespace std::experimental;
 
 namespace cookpit
 {
@@ -18,5 +20,9 @@ template <typename T>
 string convert_to_query_param_string(const T& queries);
 
 void curl_get(CURL* curl_handler, const string& url, function<void(const string&, int, const string&)> success_callback,
+              function<void(const string&, int, const string&)> failure_callback);
+
+void curl_get(CURL* curl_handler, const string& url, const optional<string>& proxy,
+              function<void(const string&, int, const string&)> success_callback,
               function<void(const string&, int, const string&)> failure_callback);
 }
