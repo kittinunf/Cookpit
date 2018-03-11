@@ -65,7 +65,7 @@ class SearchViewController : UIViewController {
         self.searchBar.resignFirstResponder()
       }).addDisposableTo(disposeBag)
     
-    self.searchBarButtonItem.rx.tap
+    searchBarButtonItem.rx.tap
       .subscribe(onNext: { [unowned self] value in
         self.searchBar.resignFirstResponder()
       }).addDisposableTo(disposeBag)
@@ -171,7 +171,7 @@ class SearchViewController : UIViewController {
                             viewModel.recentItems[indexPath.row]
                          }.share()
     
-    selectedText.bind(to: self.searchBar.rx.text).addDisposableTo(disposeBag)
+    selectedText.bind(to: searchBar.rx.text).addDisposableTo(disposeBag)
     
     selectedText.observeOn(SerialDispatchQueueScheduler(qos: .background))
       .subscribe(onNext: { [unowned self] value in
