@@ -65,7 +65,7 @@ void search_controller_impl::on_failure(const string& reason) {
   auto json = json11::Json::parse(reason, error);
   auto message = error.empty() ? json["message"].string_value() : "";
   if (observer_) {
-    observer_->on_update(search_view_data({true, message, items_}));
+    observer_->on_update(search_view_data({true, message, items_, -1}));
     observer_->on_end_update();
   }
 }
@@ -75,6 +75,7 @@ void search_controller_impl::on_success(const string& data) {
   auto json = json11::Json::parse(data, err);
 
   auto topPhotos = json["photos"];
+  auto total = topPhotos["total"].string_value();
   auto photoArray = topPhotos["photo"];
 
   auto photos = photoArray.array_items();
@@ -91,7 +92,7 @@ void search_controller_impl::on_success(const string& data) {
 
   items_.insert(items_.end(), details.begin(), details.end());
   if (observer_) {
-    observer_->on_update(search_view_data{false, json["stat"].string_value(), items_});
+    observer_->on_update(search_view_data{false, json["stat"].string_value(), items_, stoi(total)});
     observer_->on_end_update();
   }
 }

@@ -8,6 +8,7 @@ search_view_data = record {
   error: bool;
   message: string;
   results: list<search_detail_view_data>;
+  total: i32;
 }
 
 search_controller_observer = interface +o +j {
