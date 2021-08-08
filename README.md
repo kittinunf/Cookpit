@@ -1,4 +1,4 @@
-### It is safe to say that this techique to share code between Android and iOS is deprecated. I would recommend looking at other means to do this technique, e.g. Kotlin Mutliplatform Mobile etc. Some of my repositories also move towards using KMM instead.
+#### [Deprecation] It is safe to say that this techique to share code between Android and iOS is deprecated. I would recommend looking at other means to do this technique, e.g. Kotlin Mutliplatform Mobile etc. Some of my repositories also move towards using KMM instead.
 
 # Cookpit
 Flickr API implementation for Android/iOS with C++ core
